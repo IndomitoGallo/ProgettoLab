@@ -11,38 +11,51 @@ CREATE TABLE user (
 ) Engine=InnoDB;
 
 CREATE TABLE sondaggio (
-	idSondaggio int auto_increment PRIMARY KEY,
-	domanda varchar(100) not null,
+	id int auto_increment PRIMARY KEY,
+	domanda varchar(150) not null,
 	risposta1 varchar(20) not null,
 	risposta2 varchar(20) not null,
 	risposta3 varchar(20),
 	risposta4 varchar(20)
-) Engine = InnoDB;
+) Engine=InnoDB;
 
 CREATE TABLE categoria (
-	nomeCategoria varchar(45) PRIMARY KEY
+	nome varchar(30) PRIMARY KEY
 ) Engine=InnoDB;
 
 CREATE TABLE categorieSondaggio (
-	idSondaggio int,
-	nomeCategoria varchar(45),
-	PRIMARY KEY (idSondaggio, nomeCategoria),
-	FOREIGN KEY (idSondaggio) REFERENCES sondaggio(idSondaggio)
+	id int,
+	nome varchar(30),
+	PRIMARY KEY (id, nome),
+	FOREIGN KEY (id) REFERENCES sondaggio(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE,
-    FOREIGN KEY (nomeCategoria) REFERENCES categoria(nomeCategoria)
+    FOREIGN KEY (nome) REFERENCES categoria(nome)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE
 )Engine=InnoDB;
 
 CREATE TABLE categorieUser (
 	username varchar(30),
-	nomeCategoria varchar(45),
-	PRIMARY KEY (username, nomeCategoria),
+	nome varchar(30),
+	PRIMARY KEY (username, nome),
 	FOREIGN KEY (username) REFERENCES user(username)
 		ON DELETE CASCADE
+    	ON UPDATE CASCADE,
+	FOREIGN KEY (nome) REFERENCES categoria(nome)
+		ON DELETE CASCADE
     	ON UPDATE CASCADE
-	FOREIGN KEY (nomeCategoria) REFERENCES categoria(nomeCategoria)
+) Engine=InnoDB;
+
+CREATE TABLE risposta (
+	username varchar(30),
+	id int,
+	risposta varchar(20),
+	PRIMARY KEY (username, id),
+	FOREIGN KEY (username) REFERENCES user(username)
+		ON DELETE CASCADE
+    	ON UPDATE CASCADE,
+    FOREIGN KEY (id) REFERENCES sondaggio(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE
 ) Engine=InnoDB;
