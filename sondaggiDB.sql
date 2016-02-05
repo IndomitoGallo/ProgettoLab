@@ -1,63 +1,63 @@
-CREATE DATABASE IF NOT EXISTS sondaggi;
+CREATE DATABASE IF NOT EXISTS surveys;
 
-USE sondaggi;
+USE surveys;
 
 CREATE TABLE user (
 	id int auto_increment PRIMARY KEY,
 	username varchar(30) not null,
-	nome varchar(20) not null,
-	cognome varchar(20) not null,
+	name varchar(20) not null,
+	surname varchar(20) not null,
 	password varchar(10) not null, 
 	email varchar(30) not null
 ) Engine=InnoDB;
 
-CREATE TABLE sondaggio (
+CREATE TABLE survey (
 	id int auto_increment PRIMARY KEY,
-	domanda varchar(150) not null,
-	risposta1 varchar(20) not null,
-	risposta2 varchar(20) not null,
-	risposta3 varchar(20),
-	risposta4 varchar(20)
+	question varchar(150) not null,
+	answer1 varchar(20) not null,
+	answer2 varchar(20) not null,
+	answer3 varchar(20),
+	answer4 varchar(20)
 ) Engine=InnoDB;
 
-CREATE TABLE categoria (
+CREATE TABLE category (
 	id int auto_increment PRIMARY KEY,
-	nome varchar(30) not null 
+	name varchar(30) not null 
 ) Engine=InnoDB;
 
-CREATE TABLE categorieSondaggio (
-	idSondaggio int,
-	idCategoria int,
-	PRIMARY KEY (idSondaggio, idCategoria),
-	FOREIGN KEY (idSondaggio) REFERENCES sondaggio(id)
+CREATE TABLE categoriesSurvey (
+	idSurvey int,
+	idCategory int,
+	PRIMARY KEY (idSurvey, idCategory),
+	FOREIGN KEY (idSurvey) REFERENCES survey(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE,
-    FOREIGN KEY (idCategoria) REFERENCES categoria(id)
+    FOREIGN KEY (idCategory) REFERENCES category(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE
 ) Engine=InnoDB;
 
-CREATE TABLE categorieUser (
+CREATE TABLE categoriesUser (
 	idUser int,
-	idCategoria int,
-	PRIMARY KEY (idUser, idCategoria),
+	idCategory int,
+	PRIMARY KEY (idUser, idCategory),
 	FOREIGN KEY (idUser) REFERENCES user(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE,
-	FOREIGN KEY (idCategoria) REFERENCES categoria(id)
+	FOREIGN KEY (idCategory) REFERENCES category(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE
 ) Engine=InnoDB;
 
-CREATE TABLE risposta (
+CREATE TABLE answer (
 	idUser int,
-	idSondaggio int,
-	risposta varchar(20),
-	PRIMARY KEY (idUser, idSondaggio),
+	idSurvey int,
+	answer varchar(20),
+	PRIMARY KEY (idUser, idSurvey),
 	FOREIGN KEY (idUser) REFERENCES user(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE,
-    FOREIGN KEY (idSondaggio) REFERENCES sondaggio(id)
+    FOREIGN KEY (idSurvey) REFERENCES survey(id)
 		ON DELETE CASCADE
     	ON UPDATE CASCADE
 ) Engine=InnoDB;

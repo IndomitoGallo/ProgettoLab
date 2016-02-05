@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN=struts-2.0.dtd"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="sondaggi" extends="struts-default">
+		<action name="UserAction" class="it.sondaggi.action.UserAction">
+			<result name="success">/index.jsp</result>
+			<result name="failure">/fail.jsp</result>
+		</action>
+		<action name="SondaggioAction" class="it.sondaggi.action.SondaggioAction">
+			<result name="success">/index.jsp</result>
+			<result name="failure">/fail.jsp</result>
+		</action>
+	</package>
+</struts>
