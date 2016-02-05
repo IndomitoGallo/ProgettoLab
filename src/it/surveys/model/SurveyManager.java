@@ -1,5 +1,5 @@
 package it.surveys.model;
 
-public class UserManagement {
+public class SurveyManager {
 
 }
