@@ -31,25 +31,25 @@ public class SurveyDAO {
             String[] answers=s.getAnswers();
             String ins;
             if(answers.length==2){
-                ins="insert into Survey values(" +s.getId()+","+
+                ins="insert into Survey(id,question,answer1,answer2) values(null,"+
                                                  "'"+s.getQuestion()+"',"+
-                                                 "'"+answers[1]+"',"+
-                                                 "'"+answers[2]+"')";
+                                                 "'"+answers[0]+"',"+
+                                                 "'"+answers[1]+"')";
             } else
             if(answers.length==3){
-                ins="insert into Survey values(" +s.getId()+","+
+                ins="insert into Survey(id,question,answer1,answer2,answer3) values(null,"+
                                                  "'"+s.getQuestion()+"',"+
+                                                 "'"+answers[0]+"',"+
                                                  "'"+answers[1]+"',"+
-                                                 "'"+answers[2]+"',"+
-                                                 "'"+answers[3]+"')";           
+                                                 "'"+answers[2]+"')";           
             } else
             if(answers.length==4){
-                ins="insert into Survey values(" +s.getId()+","+
+                ins="insert into Survey(id,question,answer1,answer2,answer3,answer4) values(null,"+
                                                  "'"+s.getQuestion()+"',"+
+                                                 "'"+answers[0]+"',"+
                                                  "'"+answers[1]+"',"+
                                                  "'"+answers[2]+"',"+
-                                                 "'"+answers[3]+"',"+
-                                                 "'"+answers[4]+"')";       
+                                                 "'"+answers[3]+"')";       
             } else {
                 System.err.println("Survey answer error!");
                 return "fail";
@@ -103,21 +103,21 @@ public class SurveyDAO {
                s.setQuestion(result.getString(2));
                if(result.getInt(5)==0){
                     answers=new String[2];
-                    answers[1]=result.getString(3);
-                    answers[2]=result.getString(4);
+                    answers[0]=result.getString(3);
+                    answers[1]=result.getString(4);
                }
                else if(result.getInt(5)!=0){
                    if(result.getInt(6)==0){
                         answers=new String[3];
-                        answers[1]=result.getString(3);
-                        answers[2]=result.getString(4);
-                        answers[3]=result.getString(5);
+                        answers[0]=result.getString(3);
+                        answers[1]=result.getString(4);
+                        answers[2]=result.getString(5);
                    }else{
                         answers=new String[4];
-                        answers[1]=result.getString(3);
-                        answers[2]=result.getString(4);
-                        answers[3]=result.getString(5);
-                        answers[4]=result.getString(6);
+                        answers[0]=result.getString(3);
+                        answers[1]=result.getString(4);
+                        answers[2]=result.getString(5);
+                        answers[3]=result.getString(6);
                    }
                }
                s.setAnswers(answers);
@@ -161,23 +161,23 @@ public class SurveyDAO {
             String update;
             if(answers.length==2){
                 update="update survey set question='"+s.getQuestion()+"',"+
-                                      "answer1='"+answers[1]+"',"+
-                                      "answer2='"+answers[2]+"'"+
+                                      "answer1='"+answers[0]+"',"+
+                                      "answer2='"+answers[1]+"'"+
                                       "where id="+s.getId();                                       
             }
-            if(answers.length==3){
+            else if(answers.length==3){
                update="update survey set question='"+s.getQuestion()+"',"+
-                                      "answer1='"+answers[1]+"',"+
-                                      "answer2='"+answers[2]+"',"+
-                                      "answer3='"+answers[3]+"'"+
+                                      "answer1='"+answers[0]+"',"+
+                                      "answer2='"+answers[1]+"',"+
+                                      "answer3='"+answers[2]+"'"+
                                       "where id="+s.getId();
             }
-            if(answers.length==4){
+            else if(answers.length==4){
                 update="update survey set question='"+s.getQuestion()+"',"+
-                                      "answer1='"+answers[1]+"',"+
-                                      "answer2='"+answers[2]+"',"+
-                                      "answer3='"+answers[3]+"',"+
-                                      "answer4='"+answers[4]+"'"+
+                                      "answer1='"+answers[0]+"',"+
+                                      "answer2='"+answers[1]+"',"+
+                                      "answer3='"+answers[2]+"',"+
+                                      "answer4='"+answers[3]+"'"+
                                       "where id="+s.getId();
             }else{
                 System.err.println("Survey answer error!");
