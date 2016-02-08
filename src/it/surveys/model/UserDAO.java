@@ -95,7 +95,7 @@ public class UserDAO {
 	    	if(conn != null) //chiusura della connessione
 	    		utl.closeConnection(conn);
 		}		
-	    return result.get(0); //restituisce l'unica stringa presenta nell'ArrayList		
+	    return result.get(0); //restituisce l'unica stringa presente nell'ArrayList		
 	}	
 	
 	/**

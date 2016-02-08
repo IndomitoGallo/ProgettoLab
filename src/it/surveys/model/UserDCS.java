@@ -24,7 +24,7 @@ public class UserDCS {
 	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public Boolean verifyLoginData(String user, String pwd) throws Exception{
+	public static Boolean verifyLoginData(String user, String pwd) throws Exception{
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -69,7 +69,7 @@ public class UserDCS {
 	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public String insertCategoriesAssociation(int idUser, ArrayList<String> categories) throws Exception {
+	public static String insertCategoriesAssociation(int idUser, ArrayList<String> categories) throws Exception {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;	

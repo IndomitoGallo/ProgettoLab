@@ -21,7 +21,7 @@ public class SurveyDAO {
      * @return String esito dell'inserimento
      * 
      */
-    public String insert( Survey s){
+    public static String insert( Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -88,7 +88,7 @@ public class SurveyDAO {
      * @param s Survey
      * @return String esito del recupero dei dati
      */
-    public String retrive(Survey s){
+    public static String retrive(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn =null;
         Statement stm=null;
@@ -99,7 +99,7 @@ public class SurveyDAO {
             ResultSet result=utl.query(stm, query);
             if(result.next()){
                String[] answers=null; 
-               s.setId(result.getString(1));
+               s.setId(Integer.parseInt(result.getString(1)));
                s.setQuestion(result.getString(2));
                if(result.getInt(5)==0){
                     answers=new String[2];
@@ -150,7 +150,7 @@ public class SurveyDAO {
      * @param s Survey
      * @return String esito dell'aggiornamento 
      */
-    public String update(Survey s){
+    public static String update(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -215,7 +215,7 @@ public class SurveyDAO {
      * @param s Survey
      * @return String esito della cancellazione 
      */
-    public String delete(Survey s){
+    public static String delete(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;

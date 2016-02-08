@@ -6,15 +6,15 @@ package it.surveys.form;
  * @version 1.1,6/02/2016
  */
 public class Survey {
-    private String id;
+    private int id;
     private String question;
     private String[] answers;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
