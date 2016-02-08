@@ -56,8 +56,8 @@ public class SurveyDAO {
         }
             int rows=utl.manipulate(stm, ins);
             if(rows!=1){
-            System.err.println("Insert Database Error!");
-            return "fail";
+                System.err.println("Insert Database Error!");
+                return "fail";
         }
         }catch(ClassNotFoundException e){
             System.err.println("Driver Not Found!");
@@ -99,7 +99,7 @@ public class SurveyDAO {
             ResultSet result=utl.query(stm, query);
             if(result.next()){
                String[] answers=null; 
-               s.setId(Integer.parseInt(result.getString(1)));
+               s.setId(result.getString(1));
                s.setQuestion(result.getString(2));
                if(result.getInt(5)==0){
                     answers=new String[2];

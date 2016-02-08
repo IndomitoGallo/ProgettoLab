@@ -3,19 +3,18 @@ package it.surveys.form;
  * La classe che modella la rispettiva entità del database e rappresenta quinidi
  * una delle classi del dominio dell'applicazione.
  * @author L.Camerlengo
- * @version 1.0,6/02/2016
+ * @version 1.1,6/02/2016
  */
 public class Survey {
-    private int id;
+    private String id;
     private String question;
     private String[] answers;
-    
-   
-    public int getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
