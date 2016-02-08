@@ -1,7 +1,7 @@
 package it.surveys.model;
 
 import java.sql.*;
-
+import java.util.ArrayList;
 import it.surveys.util.UtilDB;
 
 /**
@@ -68,7 +68,7 @@ public class UserDCS {
 	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public String insertCategoriesAssociation(int idUser, String[] categories) throws Exception {
+	public String insertCategoriesAssociation(int idUser, ArrayList<String> categories) throws Exception {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;	
@@ -76,9 +76,11 @@ public class UserDCS {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
-			//SQL insert
-			String sql = "INSERT INTO categoriesUser VALUES(" + idUser + ")";
-			utl.manipulate(stmt, sql);	//esecuzione del comando SQL
+			for(String s : categories){	//per ognuna delle categorie scelte dall'utente
+				//SQL insert
+				String sql = "INSERT INTO categoriesUser VALUES(" + idUser + ", " + Integer.parseInt(s) + ")";
+				utl.manipulate(stmt, sql);	//esecuzione del comando SQL
+			}
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
