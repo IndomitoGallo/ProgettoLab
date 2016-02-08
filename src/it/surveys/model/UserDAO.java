@@ -1,6 +1,8 @@
 package it.surveys.model;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import it.surveys.form.User;
 import it.surveys.util.UtilDB;
 
@@ -66,7 +68,8 @@ public class UserDAO {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
-		String result = "";
+		ArrayList<String> result = new ArrayList<String>();
+		//String result = "";
 		try {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
@@ -76,7 +79,8 @@ public class UserDAO {
 			//memorizzazione del risultato della query in un ResultSet
 			ResultSet rs = utl.query(stmt, sql);
 			//conversione del ResultSet in una stringa
-			result = utl.resultSetToString(rs);
+			result = utl.resultSetToArrayString(rs);
+			//result = utl.resultSetToString(rs);
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
@@ -91,7 +95,7 @@ public class UserDAO {
 	    	if(conn != null) //chiusura della connessione
 	    		utl.closeConnection(conn);
 		}		
-	    return result;		
+	    return result.get(0); //restituisce l'unica stringa presenta nell'ArrayList		
 	}	
 	
 	/**
