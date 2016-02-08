@@ -30,7 +30,7 @@ public class SurveyDAOTest {
     public void testInsert() {
         System.out.println("insert");
         Survey s = new Survey();
-        s.setId("1");
+        s.setId(1);
         s.setQuestion("Che bel giorno");
         String[] answers=new String[4];
         answers[0]="Si";
@@ -38,9 +38,8 @@ public class SurveyDAOTest {
         answers[2]="Okay";
         answers[3]="Certo";
         s.setAnswers(answers);
-        SurveyDAO instance = new SurveyDAO();
         String expResult = "success";
-        String result = instance.insert(s);
+        String result = SurveyDAO.insert(s);
         assertEquals(expResult, result);
        // fail("The test case is a prototype.");
     }
@@ -52,10 +51,9 @@ public class SurveyDAOTest {
     public void testRetrive() {
         System.out.println("retrive");
         Survey s = new Survey();
-        s.setId("1");
-        SurveyDAO instance = new SurveyDAO();
+        s.setId(1);
         String expResult = "success";
-        String result = instance.retrive(s);
+        String result = SurveyDAO.retrive(s);
         assertEquals(expResult, result);
        //fail("The test case is a prototype.");
     }
@@ -67,15 +65,14 @@ public class SurveyDAOTest {
     public void testUpdate() {
         System.out.println("update");
         Survey s = new Survey();
-        s.setId("1");
+        s.setId(1);
         s.setQuestion("ciao beluuuu");
         String[] answers=new String[2];
         answers[0]="forse";
         answers[1]="vorrai";
         s.setAnswers(answers);
-        SurveyDAO instance = new SurveyDAO();
         String expResult = "success";
-        String result = instance.update(s);
+        String result = SurveyDAO.update(s);
         assertEquals(expResult, result);
         //fail("The test case is a prototype.");
     }
@@ -87,10 +84,10 @@ public class SurveyDAOTest {
     public void testDelete() {
         System.out.println("delete");
         Survey s = new Survey();
-        s.setId("1");
+        s.setId(1);
         SurveyDAO instance = new SurveyDAO();
         String expResult = "success";
-        String result = instance.delete(s);
+        String result = SurveyDAO.delete(s);
         assertEquals(expResult, result);
         //fail("The test case is a prototype.");
     }
