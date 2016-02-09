@@ -20,9 +20,10 @@ public class SurveyDAO {
      * Restituisce "success" se l'inserimento e' andato a buon fine, "fail" altrimenti. 
      * @param s Survey
      * @return String esito dell'inserimento
+     * @throws Exception 
      * 
      */
-    public static String insert(Survey s){
+    public static String insert(Survey s) throws Exception{
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -69,15 +70,10 @@ public class SurveyDAO {
 	    e.printStackTrace();
             return "fail";
         } finally{
-            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
-            } catch(SQLException e){
-                System.err.println("Close Resource Error!");
-                e.printStackTrace();
-            }
         }
         return "success";
     }
@@ -88,8 +84,9 @@ public class SurveyDAO {
      * Restituisce "success" se il recupero e il settaggio dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito del recupero dei dati
+     * @throws Exception 
      */
-    public static String retrive(Survey s){
+    public static String retrieve(Survey s) throws Exception{
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn =null;
         Statement stm=null;
@@ -102,45 +99,39 @@ public class SurveyDAO {
                String[] answers=null; 
                s.setId(result.getInt(1));
                s.setQuestion(result.getString(2));
-               if(result.getInt(5)==0){
+               if(result.getString(5) == null){
                     answers=new String[2];
                     answers[0]=result.getString(3);
                     answers[1]=result.getString(4);
                }
-               else if(result.getInt(5)!=0){
-                   if(result.getInt(6)==0){
-                        answers=new String[3];
-                        answers[0]=result.getString(3);
-                        answers[1]=result.getString(4);
-                        answers[2]=result.getString(5);
-                   }else{
-                        answers=new String[4];
-                        answers[0]=result.getString(3);
-                        answers[1]=result.getString(4);
-                        answers[2]=result.getString(5);
-                        answers[3]=result.getString(6);
-                   }
+               else if(result.getString(6) == null) {
+                    answers=new String[3];
+                    answers[0]=result.getString(3);
+                    answers[1]=result.getString(4);
+                    answers[2]=result.getString(5);
+               }
+               else {
+                    answers=new String[4];
+                    answers[0]=result.getString(3);
+                    answers[1]=result.getString(4);
+                    answers[2]=result.getString(5);
+                    answers[3]=result.getString(6);
                }
                s.setAnswers(answers);
             }
         }catch(ClassNotFoundException e){
             System.err.println("Driver Not Found!");
-	    e.printStackTrace();
+            e.printStackTrace();
             return "fail";
         }catch(SQLException e){
             System.err.println("Database Error!");
-	    e.printStackTrace();
+            e.printStackTrace();
             return "fail";
         }finally{
-            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
-            } catch(SQLException e){
-                System.err.println("Close Resource Error!");
-                e.printStackTrace();
-            }
         }
         return "success";
     }
@@ -150,8 +141,9 @@ public class SurveyDAO {
      * Restituisce "success" se l'aggiornamento dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito dell'aggiornamento 
+     * @throws Exception 
      */
-    public static String update(Survey s){
+    public static String update(Survey s) throws Exception{
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -198,15 +190,10 @@ public class SurveyDAO {
 	    e.printStackTrace();
             return "fail";
         } finally{
-            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
-            } catch(SQLException e){
-                System.err.println("Close Resource Error!");
-                e.printStackTrace();
-            }
         }
         return "success";
     }
@@ -215,8 +202,9 @@ public class SurveyDAO {
      * Restituisce "success" se e' stata effettuata ed e' andata a buon fine la cancellazione, fail altrimenti.
      * @param s Survey
      * @return String esito della cancellazione 
+     * @throws Exception 
      */
-    public static String delete(Survey s){
+    public static String delete(Survey s) throws Exception{
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -238,15 +226,10 @@ public class SurveyDAO {
 	    e.printStackTrace();
             return "fail";
         }finally{
-            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
-            } catch(SQLException e){
-                System.err.println("Close Resource Error!");
-                e.printStackTrace();
-            }
         }
         return "success";
     }

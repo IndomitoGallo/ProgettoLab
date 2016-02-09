@@ -1,6 +1,8 @@
 package it.surveys.model;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 import it.surveys.util.UtilDB;
 
 /**
@@ -57,9 +59,53 @@ public class UserDCS {
 	}
 	
 	/**
+	 * Il metodo verifySignupData(String user, String mail) verifica che i dati di registrazione inseriti 
+	 * dall'utente, in particolare username e email, non siano già presenti nel database.
+	 * Il valore di ritorno è un tipo booleano: true se i dati di registrazione sono corretti, false altrimenti.
+	 * @param user String
+	 * @param mail String
+	 * @return Boolean
+	 * @throws Exception
+	 * @author Lorenzo Bernabei
+	 */
+	public static Boolean verifySignupData(String user, String mail) throws Exception{
+		UtilDB utl = null;	
+		Connection conn = null;	
+		Statement stmt = null;
+		try {
+			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
+			conn= utl.createConnection();	//connection to DB
+			stmt=conn.createStatement();	//creazione dello Statement
+			//SQL select
+			String sql1 = "SELECT * FROM user WHERE username=" + user;
+			String sql2 = "SELECT * FROM user WHERE email=" + mail;
+			//memorizzazione del risultato delle query in un ResultSet
+			ResultSet rs1 = utl.query(stmt, sql1);
+			ResultSet rs2 = utl.query(stmt, sql2);
+			if(rs1.next() || rs2.next())
+				return false; //username o mail passati in ingresso al metodo sono già presenti nel database
+			else
+				return true; //username e mail passati in ingresso al metodo non sono presenti nel database
+	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
+	    	System.err.println("Database Error!");
+	    	e.printStackTrace();
+	    	return false;
+	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
+		    System.err.println("Driver Not Found!");
+		    e.printStackTrace();
+		    return false;
+		 } finally {
+	    	if(stmt != null) //chiusura dello statement
+	    		utl.closeStatement(stmt);
+	    	if(conn != null) //chiusura della connessione
+	    		utl.closeConnection(conn);
+		}
+	}
+	
+	/**
 	 * Il metodo insertCategoriesAssociation(int idUser, int[] categories) sfrutta i servizi
-	 * forniti dalla classe UtilDB per inserire nel Database le associazioni tra gli utenti
-	 * e le categorie.
+	 * forniti dalla classe UtilDB per inserire nel Database le associazioni di un utente con
+	 * le categorie.
 	 * @param idUser int
 	 * @param categories int[]
 	 * @return String
@@ -82,18 +128,58 @@ public class UserDCS {
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
-	    	return "ins_failure";
+	    	return "fail";
 	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
-		    return "ins_failure";
+		    return "fail";
 	     } finally {
 	    	if(stmt != null) //chiusura dello statement
 	    		utl.closeStatement(stmt);
 	    	if(conn != null) //chiusura della connessione
 	    		utl.closeConnection(conn);
 		}		
-	    return "ins_success";
+	    return "success";
+	}
+	
+	/**
+	 * Il metodo retrieveCategoriesAssociation(int idUser) sfrutta i servizi
+	 * forniti dalla classe UtilDB per leggere dal Database le associazioni di un utente con
+	 * le categorie.
+	 * @param idUser int
+	 * @return String
+	 * @throws Exception
+	 * @author Lorenzo Bernabei
+	 */
+	public static ArrayList<String> retrieveCategoriesAssociation(int idUser) throws Exception {
+		UtilDB utl = null;
+		Connection conn = null;	
+		Statement stmt = null;
+		ArrayList<String> categories = new ArrayList<>();
+		try {
+			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
+			conn= utl.createConnection();	//connection to DB
+			stmt=conn.createStatement();	//creazione dello Statement
+			String sql = "SELECT idCategory FROM categoriesUser WHERE idUser=" + idUser;
+			ResultSet rs = utl.query(stmt, sql); //selezione di tutte le categorie associate all'utente
+			while(rs.next()){
+				categories.add(rs.getString(1)); //add delle categorie in un array list
+			}
+	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
+	    	System.err.println("Database Error!");
+	    	e.printStackTrace();
+	    	return null;
+	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
+		    System.err.println("Driver Not Found!");
+		    e.printStackTrace();
+		    return null;
+	     } finally {
+	    	if(stmt != null) //chiusura dello statement
+	    		utl.closeStatement(stmt);
+	    	if(conn != null) //chiusura della connessione
+	    		utl.closeConnection(conn);
+		}		
+	    return categories;
 	}
 	
 }
