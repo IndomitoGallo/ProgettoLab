@@ -38,11 +38,11 @@ public class SurveyDAOTest {
     }
 
     /**
-     * Test of retrive method, of class SurveyDAO.
+     * Test of retrieve method, of class SurveyDAO.
      * @throws Exception 
      */
     @Test
-    public void testRetrive() throws Exception {
+    public void testRetrieve() throws Exception {
         System.out.println("retrive");
         Survey s = new Survey();
         s.setId(1);
@@ -94,7 +94,7 @@ public class SurveyDAOTest {
     }
     
 	@After
-    public void tearDown() throws SQLException {
+    public void tearDown() throws Exception {
 		System.out.println("auto_increment to 1");
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn = null;
