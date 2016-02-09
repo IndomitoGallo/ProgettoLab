@@ -20,7 +20,7 @@ public class UserDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testInsert() throws Exception {
+    public void testInsert() {
         System.out.println("insert");
         User u = new User();
         u.setUsername("Username1");
@@ -39,7 +39,7 @@ public class UserDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testRetrieve() throws Exception {
+    public void testRetrieve() {
         System.out.println("retrieve");
         User u = new User();
         u.setId(1);
@@ -58,7 +58,7 @@ public class UserDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         System.out.println("update");
         User u = new User();
         u.setId(1);
@@ -78,7 +78,7 @@ public class UserDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testDelete() throws Exception {
+    public void testDelete() {
         System.out.println("delete");
         User u = new User();
         u.setId(1);
@@ -89,16 +89,16 @@ public class UserDAOTest {
     }
     
 	@After
-    public void tearDown() throws Exception {
+    public void tearDown() {
 		System.out.println("auto_increment to 1");
-        UtilDB utl=UtilDB.getUtilDB();
+        UtilDB utl = UtilDB.getUtilDB();
         Connection conn = null;
-        Statement stm = null;
+        Statement stmt = null;
         try{
             conn=utl.createConnection();
-            stm=utl.createStatement(conn);
-            String query="alter table user auto_increment = 1";
-            utl.manipulate(stm, query);
+            stmt=utl.createStatement(conn);
+            String query = "alter table user auto_increment = 1";
+            utl.manipulate(stmt, query);
 	    }catch(ClassNotFoundException e){
 	        System.err.println("Driver Not Found!");
 	        e.printStackTrace();
@@ -106,10 +106,15 @@ public class UserDAOTest {
 	        System.err.println("Database Error!");
 	        e.printStackTrace();
 	    }finally{
-	        if(stm!=null)
-	            utl.closeStatement(stm);
-	        if(conn!=null)
-	            utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+            }
 	    }
     }
 

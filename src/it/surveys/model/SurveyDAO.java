@@ -9,7 +9,7 @@ import java.sql.*;
  * classe di dominio. 
  * Essa, si fa carico di gestire il codice SQL, mentre tutto cio' e'
  * trasparente rispetto alla corrispondente classe di dominio.
- * In pratica contiene le funzionalita'� di base (CRUD).
+ * In pratica contiene le funzionalita' di base (CRUD).
  * I Data Access Object sono accessibili esclusivamente tramite i Manager.
  * @author L.Camerlengo
  * @version 1.0,6/02/2016
@@ -20,7 +20,6 @@ public class SurveyDAO {
      * Restituisce "success" se l'inserimento e' andato a buon fine, "fail" altrimenti. 
      * @param s Survey
      * @return String esito dell'inserimento
-     * @throws Exception 
      * 
      */
     public static String insert(Survey s){
@@ -71,11 +70,11 @@ public class SurveyDAO {
             return "fail";
         } finally{
             try{
-            if(stm!=null)
-                utl.closeStatement(stm);
-            if(conn!=null)
-                utl.closeConnection(conn);
-        } catch(SQLException e){
+	            if(stm!=null)
+	                utl.closeStatement(stm);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
                 System.err.println("Close Resource Error!");
                 e.printStackTrace();
                 return "fail";
@@ -90,7 +89,6 @@ public class SurveyDAO {
      * Restituisce "success" se il recupero e il settaggio dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito del recupero dei dati
-     * @throws Exception 
      */
     public static String retrieve(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
@@ -135,10 +133,10 @@ public class SurveyDAO {
             return "fail";
         }finally{
             try{
-            if(stm!=null)
-                utl.closeStatement(stm);
-            if(conn!=null)
-                utl.closeConnection(conn);
+	            if(stm!=null)
+	                utl.closeStatement(stm);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
             }catch(SQLException e){
                 System.err.println("Close Resource Error!");
                 e.printStackTrace();
@@ -152,8 +150,7 @@ public class SurveyDAO {
      * Effettua l'operazione di aggiornamento dei dati nel database del Survey passato come argomento.
      * Restituisce "success" se l'aggiornamento dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
-     * @return String esito dell'aggiornamento 
-     * @throws Exception 
+     * @return String esito dell'aggiornamento  
      */
     public static String update(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
@@ -203,10 +200,10 @@ public class SurveyDAO {
             return "fail";
         } finally{
             try{
-            if(stm!=null)
-                utl.closeStatement(stm);
-            if(conn!=null)
-                utl.closeConnection(conn);
+	            if(stm!=null)
+	                utl.closeStatement(stm);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
             }catch(SQLException e){
                 System.err.println("Close Resource Error!");
                 e.printStackTrace();
@@ -219,8 +216,7 @@ public class SurveyDAO {
      * Effettua l'operazione di cancellazione nel database del Survey passato come argomento.
      * Restituisce "success" se e' stata effettuata ed e' andata a buon fine la cancellazione, fail altrimenti.
      * @param s Survey
-     * @return String esito della cancellazione 
-     * @throws Exception 
+     * @return String esito della cancellazione  
      */
     public static String delete(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
@@ -245,10 +241,10 @@ public class SurveyDAO {
             return "fail";
         }finally{
             try{
-            if(stm!=null)
-                utl.closeStatement(stm);
-            if(conn!=null)
-                utl.closeConnection(conn);
+	            if(stm!=null)
+	                utl.closeStatement(stm);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
             }catch(SQLException e){
                 System.err.println("Close Resource Error!");
                 e.printStackTrace();

@@ -20,10 +20,9 @@ public class SurveyDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testInsert() throws Exception {
+    public void testInsert() {
         System.out.println("insert");
         Survey s = new Survey();
-        s.setId(1);
         s.setQuestion("Question1");
         String[] answers=new String[4];
         answers[0]="Answer1";
@@ -42,7 +41,7 @@ public class SurveyDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testRetrieve() throws Exception {
+    public void testRetrieve() {
         System.out.println("retrieve");
         Survey s = new Survey();
         s.setId(1);
@@ -61,7 +60,7 @@ public class SurveyDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         System.out.println("update");
         Survey s = new Survey();
         s.setId(1);
@@ -83,7 +82,7 @@ public class SurveyDAOTest {
      * @throws Exception 
      */
     @Test
-    public void testDelete() throws Exception {
+    public void testDelete() {
         System.out.println("delete");
         Survey s = new Survey();
         s.setId(1);
@@ -94,16 +93,16 @@ public class SurveyDAOTest {
     }
     
 	@After
-    public void tearDown() throws Exception {
+    public void tearDown() {
 		System.out.println("auto_increment to 1");
-        UtilDB utl=UtilDB.getUtilDB();
+        UtilDB utl = UtilDB.getUtilDB();
         Connection conn = null;
-        Statement stm = null;
+        Statement stmt = null;
         try{
             conn=utl.createConnection();
-            stm=utl.createStatement(conn);
-            String query="alter table survey auto_increment = 1";
-            utl.manipulate(stm, query);
+            stmt=utl.createStatement(conn);
+            String query = "alter table survey auto_increment = 1";
+            utl.manipulate(stmt, query);
 	    }catch(ClassNotFoundException e){
 	        System.err.println("Driver Not Found!");
 	        e.printStackTrace();
@@ -111,10 +110,15 @@ public class SurveyDAOTest {
 	        System.err.println("Database Error!");
 	        e.printStackTrace();
 	    }finally{
-	        if(stm!=null)
-	            utl.closeStatement(stm);
-	        if(conn!=null)
-	            utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+            }
 	    }
     }
 

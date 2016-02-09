@@ -18,10 +18,9 @@ public class CategoryDAO {
 	 * categoria nel Database.
 	 * @param c Category
 	 * @return String
-	 * @throws Exception
 	 * @author Lorenzo Bernabei
 	 */
-	public static String insert(Category c) throws Exception {
+	public static String insert(Category c) {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;	
@@ -41,10 +40,16 @@ public class CategoryDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";
 	}
@@ -54,10 +59,9 @@ public class CategoryDAO {
 	 * specifica categoria dal Database.
 	 * @param c Category
 	 * @return String
-	 * @throws Exception
 	 * @author Lorenzo Bernabei
 	 */
-	public static String retrieve(Category c) throws Exception {
+	public static String retrieve(Category c) {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -83,10 +87,16 @@ public class CategoryDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";		
 	}	
@@ -96,10 +106,9 @@ public class CategoryDAO {
 	 * una specifica categoria nel Database.
 	 * @param u User
 	 * @return String
-	 * @throws Exception
 	 * @author Lorenzo Bernabei
 	 */
-	public static String update(Category c) throws Exception {
+	public static String update(Category c) {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -120,10 +129,16 @@ public class CategoryDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";
 	}
@@ -133,10 +148,9 @@ public class CategoryDAO {
 	 * specifica categoria dal Database.
 	 * @param c Category
 	 * @return String
-	 * @throws Exception
 	 * @author Lorenzo Bernabei
 	 */
-	public static String delete(Category c) throws Exception {	    
+	public static String delete(Category c) {	    
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -157,10 +171,16 @@ public class CategoryDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";    
 	}

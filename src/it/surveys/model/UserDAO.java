@@ -20,10 +20,9 @@ public class UserDAO {
 	 * per inserire i dati di un utente nel Database.
 	 * @param u User
 	 * @return String
-	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public static String insert(User u) throws Exception {
+	public static String insert(User u) {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;	
@@ -47,10 +46,16 @@ public class UserDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";
 	}
@@ -60,10 +65,9 @@ public class UserDAO {
 	 * per leggere i dati di un utente specifico memorizzato nel Database.
 	 * @param u User
 	 * @return String
-	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public static String retrieve(User u) throws Exception {
+	public static String retrieve(User u) {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -92,10 +96,16 @@ public class UserDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";		
 	}	
@@ -105,10 +115,9 @@ public class UserDAO {
 	 * per modificare i dati di un utente specifico nel Database.
 	 * @param u User
 	 * @return String
-	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public static String update(User u) throws Exception {
+	public static String update(User u) {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -133,10 +142,16 @@ public class UserDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";
 	}
@@ -146,10 +161,9 @@ public class UserDAO {
 	 * per eliminare i dati di un utente specifico nel Database.
 	 * @param u User
 	 * @return String
-	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public static String delete(User u) throws Exception {	    
+	public static String delete(User u) {	    
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -173,10 +187,16 @@ public class UserDAO {
 		    e.printStackTrace();
 		    return "fail";
 	     } finally {
-	    	if(stmt != null) //chiusura dello statement
-	    		utl.closeStatement(stmt);
-	    	if(conn != null) //chiusura della connessione
-	    		utl.closeConnection(conn);
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
 		}		
 	    return "success";    
 	}
