@@ -9,7 +9,7 @@ import java.sql.*;
  * classe di dominio. 
  * Essa, si fa carico di gestire il codice SQL, mentre tutto cio' e'
  * trasparente rispetto alla corrispondente classe di dominio.
- * In pratica contiene le funzionalita'  di base (CRUD).
+ * In pratica contiene le funzionalita'ï¿½ di base (CRUD).
  * I Data Access Object sono accessibili esclusivamente tramite i Manager.
  * @author L.Camerlengo
  * @version 1.0,6/02/2016
@@ -23,7 +23,7 @@ public class SurveyDAO {
      * @throws Exception 
      * 
      */
-    public static String insert(Survey s) throws Exception{
+    public static String insert(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -70,10 +70,16 @@ public class SurveyDAO {
 	    e.printStackTrace();
             return "fail";
         } finally{
+            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
+        } catch(SQLException e){
+                System.err.println("Close Resource Error!");
+                e.printStackTrace();
+                return "fail";
+            }
         }
         return "success";
     }
@@ -86,7 +92,7 @@ public class SurveyDAO {
      * @return String esito del recupero dei dati
      * @throws Exception 
      */
-    public static String retrieve(Survey s) throws Exception{
+    public static String retrieve(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn =null;
         Statement stm=null;
@@ -128,10 +134,16 @@ public class SurveyDAO {
             e.printStackTrace();
             return "fail";
         }finally{
+            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
+            }catch(SQLException e){
+                System.err.println("Close Resource Error!");
+                e.printStackTrace();
+                return "fail";
+            }
         }
         return "success";
     }
@@ -143,7 +155,7 @@ public class SurveyDAO {
      * @return String esito dell'aggiornamento 
      * @throws Exception 
      */
-    public static String update(Survey s) throws Exception{
+    public static String update(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -190,10 +202,16 @@ public class SurveyDAO {
 	    e.printStackTrace();
             return "fail";
         } finally{
+            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
+            }catch(SQLException e){
+                System.err.println("Close Resource Error!");
+                e.printStackTrace();
+                return "fail";
+            }
         }
         return "success";
     }
@@ -204,7 +222,7 @@ public class SurveyDAO {
      * @return String esito della cancellazione 
      * @throws Exception 
      */
-    public static String delete(Survey s) throws Exception{
+    public static String delete(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -226,10 +244,16 @@ public class SurveyDAO {
 	    e.printStackTrace();
             return "fail";
         }finally{
+            try{
             if(stm!=null)
                 utl.closeStatement(stm);
             if(conn!=null)
                 utl.closeConnection(conn);
+            }catch(SQLException e){
+                System.err.println("Close Resource Error!");
+                e.printStackTrace();
+                return "fail";
+            }
         }
         return "success";
     }
