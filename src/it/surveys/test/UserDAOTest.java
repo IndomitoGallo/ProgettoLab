@@ -9,11 +9,11 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import it.surveys.domain.Survey;
-import it.surveys.model.SurveyDAO;
+import it.surveys.domain.User;
+import it.surveys.model.UserDAO;
 import it.surveys.util.UtilDB;
 
-public class SurveyDAOTest {
+public class UserDAOTest {
 
     /**
      * Test of insert method, of class SurveyDAO.
@@ -22,17 +22,14 @@ public class SurveyDAOTest {
     @Test
     public void testInsert() throws Exception {
         System.out.println("insert");
-        Survey s = new Survey();
-        s.setId(1);
-        s.setQuestion("Question1");
-        String[] answers=new String[4];
-        answers[0]="Answer1";
-        answers[1]="Answer2";
-        answers[2]="Answer3";
-        answers[3]="Answer4";
-        s.setAnswers(answers);
+        User u = new User();
+        u.setUsername("Username1");
+        u.setName("Name1");
+        u.setSurname("Surname1");
+        u.setPassword("Password");
+        u.setEmail("example@gmail.com");
         String expResult = "success";
-        String result = SurveyDAO.insert(s);
+        String result = UserDAO.insert(u);
         assertEquals(expResult, result);
        // fail("The test case is a prototype.");
     }
@@ -44,15 +41,15 @@ public class SurveyDAOTest {
     @Test
     public void testRetrieve() throws Exception {
         System.out.println("retrieve");
-        Survey s = new Survey();
-        s.setId(1);
+        User u = new User();
+        u.setId(1);
         String expResult = "success";
-        String result = SurveyDAO.retrieve(s);
+        String result = UserDAO.retrieve(u);
         assertEquals(expResult, result);
-        System.out.println(s.getQuestion() + " " + s.getAnswers()[0] + " "
-        										 + s.getAnswers()[1] + " "
-        										 + s.getAnswers()[2] + " "
-        										 + s.getAnswers()[3]);        
+        System.out.println(u.getUsername() + " " + u.getName() + " "
+        									 	 + u.getSurname() + " "
+        										 + u.getPassword() + " "
+        										 + u.getEmail());        
        //fail("The test case is a prototype.");
     }
 
@@ -63,17 +60,15 @@ public class SurveyDAOTest {
     @Test
     public void testUpdate() throws Exception {
         System.out.println("update");
-        Survey s = new Survey();
-        s.setId(1);
-        s.setQuestion("New_Question1");
-        String[] answers=new String[4];
-        answers[0]="New_Answer1";
-        answers[1]="New_Answer2";
-        answers[2]="Answer3";
-        answers[3]="Answer4";
-        s.setAnswers(answers);
+        User u = new User();
+        u.setId(1);
+        u.setUsername("New_Username");
+        u.setName("New_Name1");
+        u.setSurname("New_Surname1");
+        u.setPassword("New_Pwd1");
+        u.setEmail("example@new.it");
         String expResult = "success";
-        String result = SurveyDAO.update(s);
+        String result = UserDAO.update(u);
         assertEquals(expResult, result);
         //fail("The test case is a prototype.");
     }
@@ -85,10 +80,10 @@ public class SurveyDAOTest {
     @Test
     public void testDelete() throws Exception {
         System.out.println("delete");
-        Survey s = new Survey();
-        s.setId(1);
+        User u = new User();
+        u.setId(1);
         String expResult = "success";
-        String result = SurveyDAO.delete(s);
+        String result = UserDAO.delete(u);
         assertEquals(expResult, result);
         //fail("The test case is a prototype.");
     }
@@ -102,7 +97,7 @@ public class SurveyDAOTest {
         try{
             conn=utl.createConnection();
             stm=utl.createStatement(conn);
-            String query="alter table survey auto_increment = 1";
+            String query="alter table user auto_increment = 1";
             utl.manipulate(stm, query);
 	    }catch(ClassNotFoundException e){
 	        System.err.println("Driver Not Found!");
