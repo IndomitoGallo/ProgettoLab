@@ -40,7 +40,7 @@ public class UtilDB {
     public Connection createConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = null;
-        conn = createConnection("surveys", "luca", "");
+        conn = createConnection("surveys", "root", "");
         return conn;
     }
 
@@ -65,7 +65,7 @@ public class UtilDB {
 	/**
 	 * Il metodo createStatement permette di creare
 	 * uno Statement associato alla connessione passata in ingresso.
-         * Lo Statement è un oggetto necessario per poter eseguire query
+         * Lo Statement e' un oggetto necessario per poter eseguire query
          * mysql.
 	 * @param conn Connection to DB
 	 * @return Statement associato alla connessione in ingresso
@@ -115,7 +115,7 @@ public class UtilDB {
 	
 	/**
 	 * Il metodo closeConnection ha il compito di chiudere la connession al DB.
-	 * Chiudere la connessione può essere necessario poiche' un DBMS puo' gestire soltanto un pool
+	 * Chiudere la connessione puo' essere necessario poiche' un DBMS puo' gestire soltanto un pool
 	 * predefinito di connessioni in parallelo.
 	 * @param conn Connessione al DataBase
 	 * @throws SQLException 
@@ -149,11 +149,11 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo resultSetToString prende in ingreso un oggetto di tipo ResultSet
-         * e restituisce un ArrayList di oggetti di tipo String, dove ogni Stringa è un record del ResultSet
-	 * L'esistenza del metodo è finalizzata a rendere la gestione dei risultato delle query
-         * sul DB più semplici da parte dell'applicazione
-         * Il metodo ottiene in primo luogo un oggetto di tipo ResultSetMetaData a partire dal ResultSet rs in ingress
+	 * Il metodo resultSetToArrayString prende in ingresso un oggetto di tipo ResultSet
+         * e restituisce un ArrayList di oggetti di tipo String, dove ogni Stringa e' un record del ResultSet
+	 * L'esistenza del metodo e' finalizzata a rendere la gestione dei risultati delle query
+         * sul DB piu' semplici da parte dell'applicazione
+         * Il metodo ottiene in primo luogo un oggetto di tipo ResultSetMetaData a partire dal ResultSet rs in ingresso
          * Esso permette di conoscere il numero di colonne del ResultSet rs, in modo da separare
          * ,per ogni stringa nell'ArrayList di ritorno, i campi del record (tramite '*')
 	 * @param rs oggetto di tipo ResultSet 

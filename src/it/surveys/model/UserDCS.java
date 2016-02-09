@@ -1,14 +1,13 @@
 package it.surveys.model;
 
 import java.sql.*;
-import java.util.ArrayList;
 import it.surveys.util.UtilDB;
 
 /**
  * La classe UserDCS (Domain Control Service) realizza delle feature addizionali che non riguardano un
- * particolare oggetto del dominio.
+ * particolare oggetto del dominio User. L'uso di DCS è una variante all'approccio DAO "puro".
  * @author Luca Talocci, Lorenzo Bernabei
- * @version 1.0 06/02/2016
+ * @version 1.1 08/02/2016
  */
 
 public class UserDCS {
@@ -28,19 +27,19 @@ public class UserDCS {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
-		ArrayList<String> result = new ArrayList<String>();
-		//String result = "";
 		try {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
 			//SQL select
-			String sql = "SELECT password FROM user WHERE username=" + user;
+			String sql = "SELECT * FROM user WHERE username=" + user +
+											  "AND password=" + pwd;
 			//memorizzazione del risultato della query in un ResultSet
 			ResultSet rs = utl.query(stmt, sql);
-			//conversione del ResultSet in una stringa
-			result = utl.resultSetToArrayString(rs);
-			//result = utl.resultSetToString(rs);
+			if(rs.next())
+				return true; //username e password passati in ingresso al metodo corrispondono ad un utente nel database
+			else
+				return false; //username e password passati in ingresso al metodo non corrispondono ad alcun utente nel database
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
@@ -54,32 +53,30 @@ public class UserDCS {
 	    		utl.closeStatement(stmt);
 	    	if(conn != null) //chiusura della connessione
 	    		utl.closeConnection(conn);
-		}		
-	    if(result.contains(pwd)) //la password passata in ingresso al metodo è uguale a quella registrata nel database
-	    	return true;
-	    else return false; //la password passata in ingresso al metodo è diversa da quella registrata nel database
+		}
 	}
 	
 	/**
-	 * Il metodo insertCategoriesAssociation(int idUser, String[] categories) sfrutta i metodi forniti dalla classe UtilDB
-	 * per inserire nel Database le associazioni tra gli utenti e le categorie.
+	 * Il metodo insertCategoriesAssociation(int idUser, int[] categories) sfrutta i servizi
+	 * forniti dalla classe UtilDB per inserire nel Database le associazioni tra gli utenti
+	 * e le categorie.
 	 * @param idUser int
-	 * @param categories String[]
+	 * @param categories int[]
 	 * @return String
 	 * @throws Exception
 	 * @author Luca Talocci
 	 */
-	public static String insertCategoriesAssociation(int idUser, ArrayList<String> categories) throws Exception {
-		UtilDB utl = null;	
+	public static String insertCategoriesAssociation(int idUser, int[] categories) throws Exception {
+		UtilDB utl = null;
 		Connection conn = null;	
 		Statement stmt = null;	
 		try {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
-			for(String s : categories){	//per ognuna delle categorie scelte dall'utente
+			for(int idCat : categories){	//per ognuna delle categorie scelte dall'utente
 				//SQL insert
-				String sql = "INSERT INTO categoriesUser VALUES(" + idUser + ", " + Integer.parseInt(s) + ")";
+				String sql = "INSERT INTO categoriesUser VALUES(" + idUser + ", " + idCat + ")";
 				utl.manipulate(stmt, sql);	//esecuzione del comando SQL
 			}
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 

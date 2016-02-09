@@ -1,12 +1,11 @@
-package it.surveys.form;
+package it.surveys.domain;
 
 /**
- * La classe User modella la rispettiva entità del Database e rappresenta
+ * La classe User modella la rispettiva entita' del Database e rappresenta
  * quindi una delle classi del dominio dell'applicazione.
  * @author Luca Talocci
  * @version 1.0 06/02/2016
  */
-
 public class User {
 	private int id;
 	private String username;

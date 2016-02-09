@@ -1,5 +1,3 @@
-package it.surveys.util;
-
 import java.sql.*;
 import java.util.ArrayList;
 

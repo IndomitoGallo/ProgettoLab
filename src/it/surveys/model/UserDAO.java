@@ -1,9 +1,8 @@
 package it.surveys.model;
 
 import java.sql.*;
-import java.util.ArrayList;
 
-import it.surveys.form.User;
+import it.surveys.domain.User;
 import it.surveys.util.UtilDB;
 
 /**
@@ -11,7 +10,7 @@ import it.surveys.util.UtilDB;
  * classe di dominio User e quindi, si fa carico di gestire le operazioni con il database.
  * In pratica contiene le funzionalità di base (CRUD).
  * @author Luca Talocci, Lorenzo Bernabei
- * @version 1.0 06/02/2016
+ * @version 1.1 08/02/2016
  */
 
 public class UserDAO {
@@ -42,18 +41,18 @@ public class UserDAO {
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
-	    	return "ins_failure";
+	    	return "fail";
 	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
-		    return "ins_failure";
+		    return "fail";
 	     } finally {
 	    	if(stmt != null) //chiusura dello statement
 	    		utl.closeStatement(stmt);
 	    	if(conn != null) //chiusura della connessione
 	    		utl.closeConnection(conn);
 		}		
-	    return "ins_success";
+	    return "success";
 	}
 	
 	/**
@@ -68,8 +67,6 @@ public class UserDAO {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
-		ArrayList<String> result = new ArrayList<String>();
-		//String result = "";
 		try {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
@@ -78,9 +75,14 @@ public class UserDAO {
 			String sql = "SELECT * FROM user WHERE id=" + u.getId();
 			//memorizzazione del risultato della query in un ResultSet
 			ResultSet rs = utl.query(stmt, sql);
-			//conversione del ResultSet in una stringa
-			result = utl.resultSetToArrayString(rs);
-			//result = utl.resultSetToString(rs);
+            if(rs.next()){
+                u.setId(rs.getInt(1));
+                u.setUsername(rs.getString(2));
+                u.setName(rs.getString(3));
+                u.setSurname(rs.getString(4));
+                u.setPassword(rs.getString(5));
+                u.setEmail(rs.getString(6));
+            }  
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
@@ -95,7 +97,7 @@ public class UserDAO {
 	    	if(conn != null) //chiusura della connessione
 	    		utl.closeConnection(conn);
 		}		
-	    return result.get(0); //restituisce l'unica stringa presente nell'ArrayList		
+	    return "success";		
 	}	
 	
 	/**
@@ -120,7 +122,7 @@ public class UserDAO {
 										  "', surname='" + u.getSurname() +
 				 	 					  "', password='" + u.getPassword() +
 				 	 					  "', email='" + u.getEmail() + 
-				 	 					  "' WHERE id='" + u.getId();
+				 	 					  "' WHERE id=" + u.getId();
 			utl.manipulate(stmt, sql);	//esecuzione del comando SQL
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB
 	    	System.err.println("Database Error!");
@@ -160,22 +162,22 @@ public class UserDAO {
 			//esecuzione del comando SQL
 			if(utl.manipulate(stmt, sql) == 0){ 
 				//se la query non ha interessato alcun record del DB, viene restituita una stringa di errore
-				return "del_failure";
+				return "fail";
 			}
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
-	    	return "del_failure";
+	    	return "fail";
 	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
-		    return "del_failure";
+		    return "fail";
 	     } finally {
 	    	if(stmt != null) //chiusura dello statement
 	    		utl.closeStatement(stmt);
 	    	if(conn != null) //chiusura della connessione
 	    		utl.closeConnection(conn);
 		}		
-	    return "del_success";	    
+	    return "success";    
 	}
 }

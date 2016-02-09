@@ -1,14 +1,15 @@
 package it.surveys.model;
 
-import it.surveys.form.Survey;
+import it.surveys.domain.Survey;
 import it.surveys.util.UtilDB;
 import java.sql.*;
+
 /**
  * La classe SurveyDAO contiene i metodi di interrogazione e manipolazione della corrispondente
  * classe di dominio. 
- * Essa, si fa carico di gestire il codice SQL, mentre tutto ciò è
+ * Essa, si fa carico di gestire il codice SQL, mentre tutto cio' e'
  * trasparente rispetto alla corrispondente classe di dominio.
- * In pratica contiene le funzionalità di base (CRUD).
+ * In pratica contiene le funzionalita'� di base (CRUD).
  * I Data Access Object sono accessibili esclusivamente tramite i Manager.
  * @author L.Camerlengo
  * @version 1.0,6/02/2016
@@ -16,12 +17,12 @@ import java.sql.*;
 public class SurveyDAO {
     /**
      * Effettua l'operazione di inserimento nel database del sondaggio passato come argomento.
-     * Restituisce "success" se l'inserimento è andato a buon fine, "fail" altrimenti. 
+     * Restituisce "success" se l'inserimento e' andato a buon fine, "fail" altrimenti. 
      * @param s Survey
      * @return String esito dell'inserimento
      * 
      */
-    public static String insert( Survey s){
+    public static String insert(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -53,12 +54,12 @@ public class SurveyDAO {
             } else {
                 System.err.println("Survey answer error!");
                 return "fail";
-        }
+            }
             int rows=utl.manipulate(stm, ins);
             if(rows!=1){
                 System.err.println("Insert Database Error!");
                 return "fail";
-        }
+            }
         }catch(ClassNotFoundException e){
             System.err.println("Driver Not Found!");
 	    e.printStackTrace();
@@ -84,7 +85,7 @@ public class SurveyDAO {
     /**
      * Effettua l'operazione di retrive ovvero il recupero dei dati nel database del Survey passato come argomento
      * settando tutti i parametri di esso.
-     * Restituisce "success" se il recupero e il settaggio dei dati è andato a buon fine, "fail" altrimenti.
+     * Restituisce "success" se il recupero e il settaggio dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito del recupero dei dati
      */
@@ -99,7 +100,7 @@ public class SurveyDAO {
             ResultSet result=utl.query(stm, query);
             if(result.next()){
                String[] answers=null; 
-               s.setId(Integer.parseInt(result.getString(1)));
+               s.setId(result.getInt(1));
                s.setQuestion(result.getString(2));
                if(result.getInt(5)==0){
                     answers=new String[2];
@@ -146,7 +147,7 @@ public class SurveyDAO {
 
     /**
      * Effettua l'operazione di aggiornamento dei dati nel database del Survey passato come argomento.
-     * Restituisce "success" se l'aggiornamento dei dati è andato a buon fine, "fail" altrimenti.
+     * Restituisce "success" se l'aggiornamento dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito dell'aggiornamento 
      */
@@ -211,7 +212,7 @@ public class SurveyDAO {
     }
     /**
      * Effettua l'operazione di cancellazione nel database del Survey passato come argomento.
-     * Restituisce "success" se è stata effettuata ed è andata a buon fine la cancellazione, fail altrimenti.
+     * Restituisce "success" se e' stata effettuata ed e' andata a buon fine la cancellazione, fail altrimenti.
      * @param s Survey
      * @return String esito della cancellazione 
      */

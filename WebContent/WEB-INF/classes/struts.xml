@@ -4,14 +4,14 @@
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 
 <struts>
-	<package name="sondaggi" extends="struts-default">
-		<action name="UserAction" class="it.sondaggi.action.UserAction">
-			<result name="success">/index.jsp</result>
-			<result name="failure">/fail.jsp</result>
+	<package name="user" extends="struts-default">
+		<action name="login" class="it.surveys.action.UserAction" method="login">
+			<result name="success"></result>
+			<result name="failure"></result>
 		</action>
-		<action name="SondaggioAction" class="it.sondaggi.action.SondaggioAction">
-			<result name="success">/index.jsp</result>
-			<result name="failure">/fail.jsp</result>
+		<action name="register" class="it.surveys.action.UserAction" method="register">
+			<result name="success"></result>
+			<result name="failure"></result>
 		</action>
 	</package>
 </struts>

@@ -1,15 +1,30 @@
-package it.surveys.form;
+package it.surveys.domain;
+
 /**
- * La classe che modella la rispettiva entit√† del database e rappresenta quinidi
+ * La classe che modella la rispettiva entita'†del database e rappresenta quindi
  * una delle classi del dominio dell'applicazione.
- * @author L.Camerlengo
- * @version 1.1,6/02/2016
+ * @author L.Camerlengo, Lorenzo Bernabei
+ * @version 1.1 08/02/2016
  */
 public class Survey {
     private int id;
     private String question;
     private String[] answers;
-
+    
+	//Costruttore
+	public Survey(){
+		this.id = 0;
+		this.question = "";
+		this.answers = null;
+	}
+	
+	//Costruttore con parametri
+	public Survey(int id, String question, String[] answers){
+		this.id = id;
+		this.question = question;
+		this.answers = answers;
+	}
+	
     public int getId() {
         return id;
     }
@@ -32,8 +47,5 @@ public class Survey {
 
     public void setAnswers(String[] answers) {
         this.answers = answers;
-    }
-    
-    
-    
+    }    
 }
