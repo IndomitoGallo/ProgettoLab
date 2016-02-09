@@ -17,10 +17,10 @@ public class SurveyDAOTest {
 
     /**
      * Test of insert method, of class SurveyDAO.
-     * @throws SQLException 
+     * @throws Exception 
      */
     @Test
-    public void testInsert() throws SQLException {
+    public void testInsert() throws Exception {
         System.out.println("insert");
         Survey s = new Survey();
         s.setId(1);
@@ -39,10 +39,10 @@ public class SurveyDAOTest {
 
     /**
      * Test of retrive method, of class SurveyDAO.
-     * @throws SQLException 
+     * @throws Exception 
      */
     @Test
-    public void testRetrive() throws SQLException {
+    public void testRetrive() throws Exception {
         System.out.println("retrive");
         Survey s = new Survey();
         s.setId(1);
@@ -58,10 +58,10 @@ public class SurveyDAOTest {
 
     /**
      * Test of update method, of class SurveyDAO.
-     * @throws SQLException 
+     * @throws Exception 
      */
     @Test
-    public void testUpdate() throws SQLException {
+    public void testUpdate() throws Exception {
         System.out.println("update");
         Survey s = new Survey();
         s.setId(1);
@@ -80,10 +80,10 @@ public class SurveyDAOTest {
 
     /**
      * Test of delete method, of class SurveyDAO.
-     * @throws SQLException 
+     * @throws Exception 
      */
     @Test
-    public void testDelete() throws SQLException {
+    public void testDelete() throws Exception {
         System.out.println("delete");
         Survey s = new Survey();
         s.setId(1);
