@@ -16,7 +16,7 @@ public class UtilDB {
 	
 	/**
 	 * Il metodo e' l'implementazione del pattern singleton per avere una sola
-	 * istanza dell'utility. Quando viene chiamato per la prima volta istanzia
+	 * istanza dell'utility. Quando viene chiamato per la prima volta, istanzia
 	 * e ritorna un nuovo oggetto di tipo UtilDB, mentre le volte successive,
 	 * ritorna l'oggetto che e' stato istanziato la prima volta e che e' stato
 	 * salvato nell'attributo, privato e statico, {@link #utl}
@@ -114,7 +114,7 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo closeConnection ha il compito di chiudere la connession al DB.
+	 * Il metodo closeConnection ha il compito di chiudere la connessione al DB.
 	 * Chiudere la connessione puo' essere necessario poiche' un DBMS puo' gestire soltanto un pool
 	 * predefinito di connessioni in parallelo.
 	 * @param conn Connessione al DataBase
