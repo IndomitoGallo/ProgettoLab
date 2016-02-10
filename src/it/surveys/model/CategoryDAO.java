@@ -161,7 +161,10 @@ public class CategoryDAO {
 			//SQL delete
 			String sql = "DELETE FROM user WHERE id=" + c.getId();
 			//esecuzione del comando SQL
-			utl.manipulate(stmt, sql);
+			if(utl.manipulate(stmt, sql) == 0){ 
+				//se la query non ha interessato alcun record del DB, viene restituita una stringa di errore
+				return "fail";
+			}
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();

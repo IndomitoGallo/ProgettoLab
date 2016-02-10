@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * singleton. Questa utility viene istanziata ed utilizzata dal model.
  * Nell'architettura dell'applicazione si pone tra il model e il JDBC.
  * @author Team Talocci
- * @version 3.0 13/12/2015
+ * @version 4.0 10/02/2016
  */
 public class UtilDB {
 	

@@ -6,11 +6,10 @@ import it.surveys.domain.User;
 import it.surveys.util.UtilDB;
 
 /**
- * La classe UserDAO contiene i metodi di interrogazione e manipolazione della corrispondente
- * classe di dominio User e quindi, si fa carico di gestire le operazioni con il database.
- * In pratica contiene le funzionalità di base (CRUD).
+ * Questa classe contiene i metodi che eseguono le operazioni CRUD riguardanti la corrispondente
+ * classe di dominio User e implementa il pattern DAO (Data Access Object).
  * @author Luca Talocci, Lorenzo Bernabei
- * @version 1.1 08/02/2016
+ * @version 1.0 08/02/2016
  */
 
 public class UserDAO {

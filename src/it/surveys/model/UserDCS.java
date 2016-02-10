@@ -9,7 +9,7 @@ import it.surveys.util.UtilDB;
  * La classe UserDCS (Domain Control Service) realizza delle feature addizionali che non riguardano un
  * particolare oggetto del dominio User. L'uso di DCS è una variante all'approccio DAO "puro".
  * @author Luca Talocci, Lorenzo Bernabei
- * @version 1.1 08/02/2016
+ * @version 1.0 10/02/2016
  */
 
 public class UserDCS {
@@ -134,6 +134,53 @@ public class UserDCS {
 			for(int idCat : categories){	//per ognuna delle categorie scelte dall'utente
 				//SQL insert
 				String sql = "INSERT INTO categoriesUser VALUES(" + idUser + ", " + idCat + ")";
+				utl.manipulate(stmt, sql);	//esecuzione del comando SQL
+			}
+	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
+	    	System.err.println("Database Error!");
+	    	e.printStackTrace();
+	    	return "fail";
+	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
+		    System.err.println("Driver Not Found!");
+		    e.printStackTrace();
+		    return "fail";
+	     } finally {
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
+		}		
+	    return "success";
+	}
+
+	/**
+	 * Il metodo updateCategoriesAssociation(int idUser, int[] categories) sfrutta i servizi
+	 * forniti dalla classe UtilDB per aggiornare nel Database le associazioni di un utente con
+	 * le categorie. In particolare cancella tutte quelle presenti e inserisce le nuove scelte.
+	 * @param idUser int
+	 * @param categories int[]
+	 * @return String
+	 * @author Lorenzo Bernabei
+	 */
+	public static String updateCategoriesAssociation(int idUser, int[] categories) {
+		UtilDB utl = null;
+		Connection conn = null;	
+		Statement stmt = null;	
+		try {
+			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
+			conn= utl.createConnection();	//connection to DB
+			stmt=conn.createStatement();	//creazione dello Statement
+			String sql = "DELETE FROM categoriesUser WHERE id=" + idUser;
+			utl.manipulate(stmt, sql); //eliminazione delle categorie presenti in precedenza
+			for(int idCat : categories){	//per ognuna delle nuove categorie scelte dall'utente
+				//SQL insert per inserire le nuove categorie scelte
+				sql = "INSERT INTO categoriesUser VALUES(" + idUser + ", " + idCat + ")";
 				utl.manipulate(stmt, sql);	//esecuzione del comando SQL
 			}
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
