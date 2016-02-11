@@ -10,20 +10,20 @@
 </head>
 
 <body>
-	<h1>Registrazione</h1>
-	<s:form id="reg_form" name="reg_form" action="UserAction" method="POST">
-		<s:textfield name="nome" label="Nome"/>
-        <br>
-        <s:textfield name="cognome" label="Cognome"/>
-        <br>
-		<s:textfield name="username" label="Username"/>
-        <br>
-        <s:textfield name="email" label="e-mail"/>
-        <br>
-        <s:password key="Password" maxlength="10"/>
-        <br>	
-		<s:submit value="Registrati"/>
-	</s:form>
+	<div class="container">
+        <div class="card card-container">
+			<h1>Registrazione</h1>
+			<img id="profile-img" class="reg-profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+			<s:form id="reg_form" name="reg_form" action="UserAction" method="POST">
+				<s:textfield class="form-control" type="text" id="name" name="name" label="name" placeholder="name"/>
+		        <s:textfield class="form-control" type="text" id="surname" name="surname" label="surname" placeholder="surname"/>
+				<s:textfield class="form-control" type="text" id="username" name="username" label="username" placeholder="username"/>
+		        <s:textfield class="form-control" type="email" id="email" name="email" label="e-mail" placeholder="example@lab.it"/>
+		        <s:password class="form-control" key="password" id="password" name="password" placeholder="*****" maxlength="10"/>
+				<s:submit class="btn btn-rg" value="Registrati"/>
+			</s:form>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -1,12 +1,123 @@
 body {
+	height: 100%;
 	margin: 0 auto;
 	width: 970px;
+	background-color: #E6E6FA;
+	font-size: 100%;
+    font-family: sans-serif;
 }
 
 h1 {
 	color: red;
+	text-align: center;
 }
 
-form {
-	margin: 0 auto;
+.card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+}
+
+/*
+ * Card component
+ */
+.card {
+    background-color: #F7F7F7;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    border-radius: 2px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    height: 320px;
+}
+
+.login-profile-img-card {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 10px;
+    display: block;
+    border-radius: 50%;
+}
+
+.reg-profile-img-card {
+    width: 110px;
+    height: 110px;
+    margin: -15px auto 10px;
+    display: block;
+    border-radius: 50%;
+}
+
+/*
+ * Form styles
+ */
+
+.login_form,
+.reg_form {
+    margin-top: 30px;
+}
+
+.login_form #username,
+.login_form #password,
+.reg_form #username,
+.reg_form #password {
+    height: 25px;
+    font-size: 16px;
+    width: 190px;
+    margin-bottom: 5px;
+}
+
+
+.login_form textfields,
+.login_form password,
+.login_form submit {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+}
+
+.reg_form textfields,
+.reg_form password,
+.reg_form submit {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+}
+
+.login_form .form-control:focus,
+.reg_form .form-control:focus {
+    border-color: rgb(104, 145, 162);
+}
+
+/*BUTTON*/
+.btn {
+    background-color: #1E90FF;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    border-radius: 6px;
+    border: none;
+    transition: all 0.218s;
+    cursor: pointer;
+    position: absolute;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+    background-color: #4169E1;
+}
+
+.btn-lg {
+	margin-left: -194px;
+	width: 195px;
+}
+
+.btn-rg {
+	margin-left: -174px;
+	width: 175px;
 }

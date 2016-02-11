@@ -1,5 +1,7 @@
 package it.surveys.model;
 
+import java.util.ArrayList;
+
 import it.surveys.domain.User;
 
 /**
@@ -80,20 +82,19 @@ public class UserManager {
 	 */
 	public String update(User u, int[] categories) {
 		String result;
-		
-		result = "metodo non implementato";//UserDCS.verifyUpdateData(u.getUsername(), u.getEmail());
+		result = UserDCS.verifyUpdateData(u.getId(), u.getUsername(), u.getEmail());
 		if(result == "false")
-			return "signup_fail";
+			return "update_fail";
 		else if(result == "fail")
-			return "signup_db_fail";
+			return "update_db_fail";
 		else {
 			result = UserDAO.update(u);
 			if(result == "fail")
-				return "signup_db_fail";
+				return "update_db_fail";
 			else {
 				result = UserDCS.updateCategoriesAssociation(u.getId(), categories);
 				if(result == "fail") {
-					return "signup_db_fail";
+					return "update_db_fail";
 				}	
 				else
 					return "success";
@@ -117,5 +118,29 @@ public class UserManager {
 			return "login_db_fail";
 		else
 			return "success";
+	}
+	
+	/**
+	 * Il metodo displayProfile(User u) chiama vari metodi del livello inferiore per visionare tutti i dati associati
+	 * al profilo di un utente e restituirli alla classe UserAction. In particolare, prima seleziona dal DB i dati
+	 * dell'utente, poi seleziona le categorie di interesse dell'utente ed infine seleziona tutte le 
+	 * categorie esistenti e le restituisce già formattate per essere visualizzate dall'utente.
+	 * @param u User
+	 * @return String
+	 * @author Luca Talocci
+	 */
+	public String displayProfile(User u) {
+		String result;
+		result = UserDAO.retrieve(u);
+		if(result == "fail") {
+			return "display_fail";
+		}
+		else {
+			ArrayList<String> userCategories;
+			userCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
+			String categories;
+			categories = CategoryDCS.displayCategories();
+			return categories;
+		}
 	}
 }

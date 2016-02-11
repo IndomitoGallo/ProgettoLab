@@ -115,6 +115,56 @@ public class UserDCS {
 	}
 	
 	/**
+	 * Il metodo verifyUpdateData(String user, String mail) verifica che i dati di aggiornamento del
+	 * profilo inseriti dall'utente, in particolare username e email, non siano già presenti nel database.
+	 * Il valore di ritorno è true se i dati inseriti sono corretti, false altrimenti.
+	 * In caso di eccezioni viene restituito fail.
+	 * @param user String
+	 * @param mail String
+	 * @return String
+	 * @author Luca Talocci
+	 */
+	public static String verifyUpdateData(int idUser, String user, String mail) {
+		UtilDB utl = null;	
+		Connection conn = null;	
+		Statement stmt = null;
+		try {
+			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
+			conn= utl.createConnection();	//connection to DB
+			stmt=conn.createStatement();	//creazione dello Statement
+			//SQL select
+			String sql1 = "SELECT * FROM user WHERE username=" + user + " AND id<>" + idUser;
+			String sql2 = "SELECT * FROM user WHERE email=" + mail + " AND id<>" + idUser;
+			//memorizzazione del risultato delle query in un ResultSet
+			ResultSet rs1 = utl.query(stmt, sql1);
+			ResultSet rs2 = utl.query(stmt, sql2);
+			if(rs1.next() || rs2.next())
+				return "false"; //username o mail passati in ingresso al metodo sono già presenti nel database
+			else
+				return "true"; //username e mail passati in ingresso al metodo non sono presenti nel database
+	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
+	    	System.err.println("Database Error!");
+	    	e.printStackTrace();
+	    	return "fail";
+	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
+		    System.err.println("Driver Not Found!");
+		    e.printStackTrace();
+		    return "fail";
+		 } finally {
+            try{
+	            if(stmt!=null)
+	                utl.closeStatement(stmt);
+	            if(conn!=null)
+	                utl.closeConnection(conn);
+            } catch(SQLException e){
+                System.err.println("Closing Resources Error!");
+                e.printStackTrace();
+                return "fail";
+            }
+		}
+	}
+	
+	/**
 	 * Il metodo insertCategoriesAssociation(int idUser, int[] categories) sfrutta i servizi
 	 * forniti dalla classe UtilDB per inserire nel Database le associazioni di un utente con
 	 * le categorie.
