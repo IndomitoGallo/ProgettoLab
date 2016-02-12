@@ -18,14 +18,14 @@ public class UserDCS {
 	 * Il metodo verifyLoginData(String user, String pwd) verifica che i dati di Login inseriti 
 	 * dall'utente corrispondano ai dati immessi in fase di registrazione dall'utente che 
 	 * deve effettuare l'accesso.
-	 * Il valore di ritorno è true se i dati di Login sono corretti, false altrimenti.
-	 * In caso di eccezioni viene restituito fail.
+	 * Il valore di ritorno è l'id dell'utente se i dati di Login sono corretti, 0 altrimenti.
+	 * In caso di eccezioni viene restituito -1.
 	 * @param user String
 	 * @param pwd String
 	 * @return String
 	 * @author Luca Talocci
 	 */
-	public static String verifyLoginData(String user, String pwd) {
+	public static int verifyLoginData(String user, String pwd) {
 		UtilDB utl = null;	
 		Connection conn = null;	
 		Statement stmt = null;
@@ -34,22 +34,22 @@ public class UserDCS {
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
 			//SQL select
-			String sql = "SELECT * FROM user WHERE username=" + user +
+			String sql = "SELECT id FROM user WHERE username=" + user +
 											  "AND password=" + pwd;
 			//memorizzazione del risultato della query in un ResultSet
 			ResultSet rs = utl.query(stmt, sql);
 			if(rs.next())
-				return "true"; //username e password passati in ingresso al metodo corrispondono ad un utente nel database
+				return rs.getInt(1); //username e password passati in ingresso al metodo corrispondono ad un utente nel database
 			else
-				return "false"; //username e password passati in ingresso al metodo non corrispondono ad alcun utente nel database
+				return 0; //username e password passati in ingresso al metodo non corrispondono ad alcun utente nel database
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
-	    	return "fail";
+	    	return -1;
 	     } catch (ClassNotFoundException e) { //il metodo intercetta un'eccezione proveniente dal driver del DB	    	 
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
-		    return "fail";
+		    return -1;
 		 } finally {
             try{
 	            if(stmt!=null)
@@ -59,7 +59,7 @@ public class UserDCS {
             } catch(SQLException e){
                 System.err.println("Closing Resources Error!");
                 e.printStackTrace();
-                return "fail";
+                return -1;
             }
 		}
 	}
@@ -261,14 +261,14 @@ public class UserDCS {
 	 * forniti dalla classe UtilDB per leggere dal Database le associazioni di un utente con
 	 * le categorie.
 	 * @param idUser int
-	 * @return ArrayList<String>
+	 * @return ArrayList<Integer>
 	 * @author Lorenzo Bernabei
 	 */
-	public static ArrayList<String> retrieveCategoriesAssociation(int idUser) {
+	public static ArrayList<Integer> retrieveCategoriesAssociation(int idUser) {
 		UtilDB utl = null;
 		Connection conn = null;	
 		Statement stmt = null;
-		ArrayList<String> categories = new ArrayList<>();
+		ArrayList<Integer> categories = new ArrayList<>();
 		try {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
@@ -276,7 +276,7 @@ public class UserDCS {
 			String sql = "SELECT idCategory FROM categoriesUser WHERE idUser=" + idUser;
 			ResultSet rs = utl.query(stmt, sql); //selezione di tutte le categorie associate all'utente
 			while(rs.next()){
-				categories.add(rs.getString(1)); //add delle categorie in un array list
+				categories.add(Integer.parseInt(rs.getString(1))); //add delle categorie in un array list
 			}
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
