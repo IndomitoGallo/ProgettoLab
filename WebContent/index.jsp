@@ -10,10 +10,18 @@
 </head>
 
 <body>
-	<h1>Benvenuto sul sito web ufficiale di AziendaLab!</h1>
-	<a href="registrazione.jsp">Registrati!</a>
-	<br>
-	<a href="login.jsp">Login</a>
+
+	<div class="card card-container">
+		<h1>Login</h1>
+	    <img id="login-profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
+	    <s:form id="login_form" name="login" action="UserAction" method="POST">
+	        <s:textfield class="form-control" type="text" id="username" name="username" placeholder="Username" label="username"/>
+	        <s:password class="form-control" key="password" id="password" name="password" placeholder="*****"/>
+	        <s:submit class="btn" value="Login"/>
+	    </s:form>
+	    <a href="register.jsp">Registrati adesso!</a>
+	</div>
+	  
 </body>
 
 </html>

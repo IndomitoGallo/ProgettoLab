@@ -6,12 +6,12 @@
 <struts>
 	<package name="user" extends="struts-default">
 		<action name="login" class="it.surveys.action.UserAction" method="login">
-			<result name="success"></result>
-			<result name="failure"></result>
+			<result name="success">/user.jsp</result>
+			<result name="failure">/index.jsp</result>
 		</action>
 		<action name="register" class="it.surveys.action.UserAction" method="register">
-			<result name="success"></result>
-			<result name="failure"></result>
+			<result name="success">/index.jsp</result>
+			<result name="failure">/register.jsp</result>
 		</action>
 	</package>
 </struts>

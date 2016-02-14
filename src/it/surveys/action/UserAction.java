@@ -176,29 +176,41 @@ public class UserAction extends ActionSupport{
 	}
 	
 	/**
-	 * 
-	 * @return
-	 * @author
+	 * Il metodo validateRegister() effettua un controllo sui campi inseriti dall'utente 
+	 * in fase di registrazione. Se soltanto uno di essi non è stato inserito dall'utente
+	 * il controllo ha esito negativo, positivo altrimenti.
+	 * @return Boolean
+	 * @author Luca Talocci
 	 */
 	private Boolean validateRegister() {
+		if(username == "" || password =="" || email == "" || name == "" || surname == "")
+			return false;
 		return true;
 	}
 	
 	/**
-	 * 
-	 * @return
-	 * @author
+	 * Il metodo validateLogin() effettua un controllo sui campi inseriti dall'utente 
+	 * nel form di Login. Se soltanto uno di essi non è stato inserito dall'utente
+	 * il controllo ha esito negativo, positivo altrimenti.
+	 * @return Boolean
+	 * @author Luca Talocci
 	 */
 	private Boolean validateLogin() {
+		if(username == "" || password =="")
+			return false;
 		return true;
 	}
 	
 	/**
-	 * 
-	 * @return
-	 * @author
+	 * Il metodo validateUpdateProfile() effettua un controllo sui campi inseriti dall'utente 
+	 * nella pagina di modifica del profilo. Se soltanto uno di essi non è stato inserito dall'utente
+	 * il controllo ha esito negativo, positivo altrimenti.
+	 * @return Boolean
+	 * @author Luca Talocci
 	 */
 	private Boolean validateUpdateProfile() {
+		if(username == "" || password =="" || email == "" || name == "" || surname == "")
+			return false;
 		return true;
 	}
 

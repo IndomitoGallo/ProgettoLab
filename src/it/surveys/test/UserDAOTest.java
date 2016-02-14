@@ -16,7 +16,7 @@ import it.surveys.util.UtilDB;
 public class UserDAOTest {
 
     /**
-     * Test of insert method, of class SurveyDAO.
+     * Test of insert method, of class UserDAO.
      * @throws Exception 
      */
     @Test
@@ -26,7 +26,7 @@ public class UserDAOTest {
         u.setUsername("Username1");
         u.setName("Name1");
         u.setSurname("Surname1");
-        u.setPassword("Password");
+        u.setPassword("Password1");
         u.setEmail("example@gmail.com");
         String expResult = "success";
         String result = UserDAO.insert(u);
@@ -35,7 +35,7 @@ public class UserDAOTest {
     }
 
     /**
-     * Test of retrieve method, of class SurveyDAO.
+     * Test of retrieve method, of class UserDAO.
      * @throws Exception 
      */
     @Test
@@ -54,7 +54,7 @@ public class UserDAOTest {
     }
 
     /**
-     * Test of update method, of class SurveyDAO.
+     * Test of update method, of class UserDAO.
      * @throws Exception 
      */
     @Test
@@ -74,7 +74,7 @@ public class UserDAOTest {
     }
 
     /**
-     * Test of delete method, of class SurveyDAO.
+     * Test of delete method, of class UserDAO.
      * @throws Exception 
      */
     @Test
