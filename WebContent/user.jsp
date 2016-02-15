@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>AziendaLab</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
@@ -12,6 +12,7 @@
 <body>
 
 	<h1>Benvenuto nella tua pagina personale!</h1>
+	<button id="logout">Logout</button>
 	<p>
 		Qui puoi vedere alcuni sondaggi che possono interessarti.<br>
 		Clicca sul tasto "view" per visionare un sondaggio e per poter rispondere.
@@ -42,7 +43,7 @@
     <!-- I link <a> sono solo di prova -->
 	  
 	<p>Clicca sul tasto "Modifica Profilo" per visionare i tuoi dati e modificarli.</p>  
-	<a href="updateProfile.jsp">Modifica profilo!</a>
+	<a href="manage_profile.jsp">Modifica profilo!</a>
 	
 </body>
 

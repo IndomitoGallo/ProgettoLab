@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>AziendaLab</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
@@ -12,6 +12,7 @@
 <body>
 
 	<h1>Benvenuto nella tua pagina personale!</h1>
+	<button id="logout">Logout</button>
 	<p>	Qui puoi: </p>
 	<ul>
 		<li>Inserire e/o rimuovere sondaggi.</li>
@@ -19,9 +20,9 @@
 		<li>Inserire e/o rimuovere categorie</li>
 	</ul>
 	
-	<button>Crea nuovo sondaggio</button>
-	<button>Crea nuova categoria</button>
-	<button>Elimina categoria esistente</button>
+	<a href="new_survey.jsp">Crea nuovo sondaggio</a>
+	<a href="new_category.jsp">Crea nuova categoria</a>
+	<a href="delete_category.jsp">Elimina categoria esistente</a>
 	
 	<br><br>
 	

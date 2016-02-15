@@ -7,11 +7,23 @@
 	<package name="user" extends="struts-default">
 		<action name="login" class="it.surveys.action.UserAction" method="login">
 			<result name="success">/user.jsp</result>
-			<result name="failure">/index.jsp</result>
+			<result name="admin_success">/admin.jsp</result>
+			<result name="fail">/index.jsp</result>
+		</action>
+		<action name="logout" class="it.surveys.action.UserAction" method="logout">
+			<result name="success">/index.jsp</result>
 		</action>
 		<action name="register" class="it.surveys.action.UserAction" method="register">
 			<result name="success">/index.jsp</result>
-			<result name="failure">/register.jsp</result>
+			<result name="fail">/register.jsp</result>
+		</action>
+		<action name="displayProfile" class="it.surveys.action.UserAction" method="displayProfile">
+			<result name="success">/manage_profile.jsp</result>
+			<result name="fail">/manage_profile.jsp</result>
+		</action>
+		<action name="updateProfile" class="it.surveys.action.UserAction" method="updateProfile">
+			<result name="success">/user.jsp</result>
+			<result name="fail">/manage_profile.jsp</result>
 		</action>
 	</package>
 </struts>

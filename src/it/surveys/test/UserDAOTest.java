@@ -17,7 +17,6 @@ public class UserDAOTest {
 
     /**
      * Test of insert method, of class UserDAO.
-     * @throws Exception 
      */
     @Test
     public void testInsert() {
@@ -36,7 +35,6 @@ public class UserDAOTest {
 
     /**
      * Test of retrieve method, of class UserDAO.
-     * @throws Exception 
      */
     @Test
     public void testRetrieve() {
@@ -55,7 +53,6 @@ public class UserDAOTest {
 
     /**
      * Test of update method, of class UserDAO.
-     * @throws Exception 
      */
     @Test
     public void testUpdate() {
@@ -75,7 +72,6 @@ public class UserDAOTest {
 
     /**
      * Test of delete method, of class UserDAO.
-     * @throws Exception 
      */
     @Test
     public void testDelete() {

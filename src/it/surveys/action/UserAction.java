@@ -82,6 +82,8 @@ public class UserAction extends ActionSupport{
 				return "fail";
 			}
 			createSession(outcome);
+			if (getUsername() == "Admin")
+				return "admin_success"; //per reindirizzare l'admin alla sua pagina personale
 			return "success";
 		}
 	}
@@ -104,7 +106,7 @@ public class UserAction extends ActionSupport{
 	 */
 	public String displayProfile() {
 		UserManager usm = UserManager.getUserManager();
-		User u = new User(getUsername(), getPassword(), getEmail(), getName(), getSurname());
+		User u = new User();
 
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		u.setId((int)session.get("idUser")); //viene preso l'id dell'utente dalla sessione e settato l'oggetto
@@ -183,7 +185,8 @@ public class UserAction extends ActionSupport{
 	 * @author Luca Talocci
 	 */
 	private Boolean validateRegister() {
-		if(username == "" || password =="" || email == "" || name == "" || surname == "")
+		if(getUsername().isEmpty() || getPassword().isEmpty() || getEmail().isEmpty() ||
+				getName().isEmpty() || getSurname().isEmpty())
 			return false;
 		return true;
 	}
@@ -196,7 +199,7 @@ public class UserAction extends ActionSupport{
 	 * @author Luca Talocci
 	 */
 	private Boolean validateLogin() {
-		if(username == "" || password =="")
+		if(getUsername().isEmpty() || getPassword().isEmpty())
 			return false;
 		return true;
 	}
@@ -209,7 +212,8 @@ public class UserAction extends ActionSupport{
 	 * @author Luca Talocci
 	 */
 	private Boolean validateUpdateProfile() {
-		if(username == "" || password =="" || email == "" || name == "" || surname == "")
+		if(getUsername().isEmpty() || getPassword().isEmpty() || getEmail().isEmpty() ||
+				getName().isEmpty() || getSurname().isEmpty())
 			return false;
 		return true;
 	}

@@ -16,23 +16,28 @@ import it.surveys.model.UserDCS;
 public class UserDCSTest {
 
     /**
-     * Test of verifyLoginData method, of class UserDCS.
-     * @throws Exception 
+     * Test of verifyLoginData method, of class UserDCS. 
      */
     @Test
     public void testVerifyLoginData() {
         System.out.println("verifyLoginData");
-        String user = "Username1";
-        String pwd = "password1";
-        int expResult = 1;
-        int result = UserDCS.verifyLoginData(user, pwd);
-        assertEquals(expResult, result);
-       // fail("The test case is a prototype.");
+        String userOK = "Username1";
+        String pwdOK = "password1";
+        String userError = "Username2";
+        String pwdError = "password2";
+        int expNegativeResult = 0;
+        int expPositiveResult = 1;
+        //test user e pwd corretti
+        int result1 = UserDCS.verifyLoginData(userOK, pwdOK);
+        assertEquals(expPositiveResult, result1);
+        //test user e pwd errati
+        int result2 = UserDCS.verifyLoginData(userError, pwdError);
+        assertEquals(expNegativeResult, result2);
+        // fail("The test case is a prototype.");
     }
     
     /**
-     * Test of verifySignupData method, of class UserDCS.
-     * @throws Exception 
+     * Test of verifySignupData method, of class UserDCS. 
      */
     @Test
     public void testVerifySignupData() {
@@ -52,12 +57,11 @@ public class UserDCSTest {
         //test campi validi
         String positiveResult = UserDCS.verifySignupData(unexistingUser, unexistingMail);
         assertEquals(expPositiveResult, positiveResult);
-       // fail("The test case is a prototype.");
+        // fail("The test case is a prototype.");
     }
     
     /**
      * Test of verifyUpdateData method, of class UserDCS.
-     * @throws Exception 
      */
     @Test
     public void testVerifyUpdateData() {
@@ -78,12 +82,11 @@ public class UserDCSTest {
         //test campi validi
         String positiveResult = UserDCS.verifyUpdateData(id, unexistingUser, unexistingMail);
         assertEquals(expPositiveResult, positiveResult);
-       // fail("The test case is a prototype.");
+        // fail("The test case is a prototype.");
     }
 
     /**
-     * Test of insertCategoriesAssociation method, of class UserDCS.
-     * @throws Exception 
+     * Test of insertCategoriesAssociation method, of class UserDCS. 
      */
     @Test
     public void testInsertCategoriesAssociation() {
@@ -97,8 +100,7 @@ public class UserDCSTest {
     }
     
     /**
-     * Test of updateCategoriesAssociation method, of class UserDCS.
-     * @throws Exception 
+     * Test of updateCategoriesAssociation method, of class UserDCS. 
      */
     @Test
     public void testUpdateCategoriesAssociation() {
@@ -112,8 +114,7 @@ public class UserDCSTest {
     }
     
     /**
-     * Test of retrieveCategoriesAssociation method, of class UserDCS.
-     * @throws Exception 
+     * Test of retrieveCategoriesAssociation method, of class UserDCS. 
      */
     @Test
     public void testRetrieveCategoriesAssociation() {
