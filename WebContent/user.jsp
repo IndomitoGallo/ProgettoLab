@@ -20,30 +20,30 @@
 	
 	<table>
 		<tr>
-			<th>NomeSondaggio</th>
-			<th>Azione</th>
+			<th>Sondaggio</th>
+			<th>Rispondi</th>
 		</tr>
         <tr>
-        	<td>Sondaggio1</td>          
-        	<td><a href="survey.jsp">view</a></td> 
+        	<td>Sondaggio1</td> <!-- bisognerà passare l'id del sondaggio come parametro -->          
+        	<td><a href="survey.jsp">Visualizza</a></td> <!-- in questo caso dovrei chiamare displaySurvey() -->
         </tr>
 		<tr>
         	<td>Sondaggio2</td>          
-        	<td><a href="survey.jsp">view</a></td> 
+        	<td><a href="survey.jsp">Visualizza</a></td> 
         </tr>
         <tr>
         	<td>Sondaggio3</td>          
-        	<td><a href="survey.jsp">view</a></td> 
+        	<td><a href="survey.jsp">Visualizza</a></td> 
         </tr>
 		<tr>
         	<td>Sondaggio4</td>          
-        	<td><a href="survey.jsp">view</a></td> 
+        	<td><a href="survey.jsp">Visualizza</a></td> 
         </tr>
     </table>  
     <!-- I link <a> sono solo di prova -->
 	  
 	<p>Clicca sul tasto "Modifica Profilo" per visionare i tuoi dati e modificarli.</p>  
-	<a href="manage_profile.jsp">Modifica profilo!</a>
+	<a href="manage_profile.jsp">Modifica profilo!</a> <!-- bisognerà chiamare displayCheckBoxCategories() -->
 	
 </body>
 

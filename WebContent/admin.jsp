@@ -7,6 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>AziendaLab</title>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script type="text/javascript" src="js/confirm.js"></script>
 </head>
 
 <body>
@@ -14,43 +15,43 @@
 	<h1>Benvenuto nella tua pagina personale!</h1>
 	<button id="logout">Logout</button>
 	<p>	Qui puoi: </p>
-	<ul>
-		<li>Inserire e/o rimuovere sondaggi.</li>
+	<ul style="list-style-type:circle;">
+		<li>Inserire e/o rimuovere sondaggi</li>
 		<li>Vedere i risultati di un sondaggio</li>
 		<li>Inserire e/o rimuovere categorie</li>
 	</ul>
 	
 	<a href="new_survey.jsp">Crea nuovo sondaggio</a>
-	<a href="new_category.jsp">Crea nuova categoria</a>
-	<a href="delete_category.jsp">Elimina categoria esistente</a>
+	<a href="new_category.jsp">Crea nuova categoria</a> <!-- bisognerà chiamare displayListCategories() -->
+	<a href="delete_category.jsp">Elimina categoria esistente</a> <!-- bisognerà chiamare displayRadioCategories() -->
 	
 	<br><br>
 	
 	<table>
 		<tr>
-			<th>NomeSondaggio</th>
-			<th>Azione1</th>
-			<th>Azione2</th>
+			<th>Sondaggio</th>
+			<th>Risultati</th>
+			<th>Cancellazione</th>
 		</tr>
         <tr>
-        	<td>Sondaggio1</td>          
-        	<td><a href="results.jsp">view results</a></td> 
-        	<td><a href="delete.jsp">delete</a></td>
+        	<td>Sondaggio1</td> <!-- bisognerà passare l'id del sondaggio come parametro sia in visualizza che in cancella -->         
+        	<td><a href="results.jsp">Visualizza</a></td> <!-- in questo caso dovrei chiamare displayResults() --> 
+        	<td><a onclick="confirmation()">Cancella</a></td>
         </tr>
 		<tr>
         	<td>Sondaggio2</td>          
-        	<td><a href="results.jsp">view results</a></td> 
-        	<td><a href="delete.jsp">delete</a></td>
+        	<td><a href="results.jsp">Visualizza</a></td> 
+        	<td><a onclick="confirmation()">Cancella</a></td>
         </tr>
         <tr>
         	<td>Sondaggio3</td>          
-        	<td><a href="results.jsp">view results</a></td> 
-        	<td><a href="delete.jsp">delete</a></td>
+        	<td><a href="results.jsp">Visualizza</a></td> 
+        	<td><a onclick="confirmation()">Cancella</a></td>
         </tr>
 		<tr>
         	<td>Sondaggio4</td>          
-        	<td><a href="results.jsp">view results</a></td>
-        	<td><a href="delete.jsp">delete</a></td> 
+        	<td><a href="results.jsp">Visualizza</a></td> 
+        	<td><a onclick="confirmation()">Cancella</a></td>
         </tr>
     </table>  
     <!-- I link <a> sono solo di prova -->

@@ -14,7 +14,7 @@
 	<h1>Benvenuto nella tua pagina personale!</h1>
 	<p>Qui di seguito puoi cancellare una categoria esistente.</p>
 	<s:form id="category_form" name="deleteCategory" action="deleteCategory" method="POST">
-		<s:radio label="Categorie" name="categories" id="categories" list="# {'1':'Categoria1','2':'Categoria2','3':'Categoria3','4':'Categoria4'}" value="1"/>
+		<s:radio class="form-control" id="categories" name="id" label="Categorie" list="# {'1':'Categoria1','2':'Categoria2','3':'Categoria3','4':'Categoria4'}" value="1"/>
 		<s:submit class="btn" value="Elimina"/>
 	</s:form>
 	<br><br>

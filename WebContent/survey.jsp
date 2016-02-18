@@ -25,8 +25,8 @@
         </tr>
 		<tr>
         	<td>	
-        		<s:form id="answer_form" name="answer" action="answer" method="POST">					
-                    <s:radio label="Risposte" name="answer" id="answer" list="# {'1':'Risposta1','2':'Risposta2','3':'Risposta3','4':'Risposta4'}" value="1"/>                    
+        		<s:form id="answer_form" name="answerSurvey" action="answerSurvey" method="POST">					
+                    <s:radio class="form-control" id="answer" name="answer" label="Risposte" list="# {'risposta1':'Risposta1','risposta2':'Risposta2','risposta3':'Risposta3','risposta4':'Risposta4'}" value="'risposta1'"/>                    
 					<s:submit class="btn" value="Rispondi"/>
 				</s:form>
 			</td>          

@@ -19,7 +19,7 @@
         </tr>
      </table>
 	<s:form id="category_form" name="createCategory" action="createCategory" method="POST">
-		<s:textfield class="form-control" type="text" id="category" name="category" label="category" size="30"/>
+		<s:textfield class="form-control" type="text" id="category" name="name" label="Categoria" size="30"/>
 		<s:submit class="btn" value="Inserisci"/>
 	</s:form>	
 	<br><br>

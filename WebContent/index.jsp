@@ -15,12 +15,12 @@
 		<h1>Login</h1>
 	    <img id="login-profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 	    <s:form id="login_form" name="login" action="login" method="POST">
-	        <s:textfield class="form-control" type="text" id="username" name="username" placeholder="Username" label="username"/>
-	        <s:password class="form-control" key="password" id="password" name="password" placeholder="*****"/>
+	        <s:textfield class="form-control" type="text" id="username" name="username" label="Username" placeholder="username"/>
+	        <s:password class="form-control" id="password" name="password" label="Password" placeholder="*****"/>
 	        <s:submit class="btn" value="Login"/>
 	    </s:form>
 	    <br><br>
-	    <a href="register.jsp">Registrati adesso!</a>
+	    <a href="register.jsp">Registrati adesso!</a> <!-- bisognerà chiamare displayCheckBoxCategories() -->
 	</div>
 	  
 </body>
