@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.surveys.model;
+package it.surveys.test;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import it.surveys.model.SurveyDCS;
+
 import static org.junit.Assert.*;
 
 /**
@@ -31,9 +34,8 @@ public class SurveyDCSTest {
         int idSurvey = 5;
         int idUser = 1;
         String answer = "BuonciornoAmico";
-        SurveyDCS instance = new SurveyDCS();
         String expResult = "success";
-        String result = instance.insertAnswer(idSurvey, idUser, answer);
+        String result = SurveyDCS.insertAnswer(idSurvey, idUser, answer);
         assertEquals(expResult, result);
         //fail("The test case is a prototype.");
     }
@@ -44,9 +46,8 @@ public class SurveyDCSTest {
     //@Test
     public void testDeleteSurveysWithoutCategories() {
         System.out.println("deleteSurveysWithoutCategories");
-        SurveyDCS instance = new SurveyDCS();
         String expResult = "success";
-        String result = instance.deleteSurveysWithoutCategories();
+        String result = SurveyDCS.deleteSurveysWithoutCategories();
         assertEquals(expResult, result);
         //fail("The test case is a prototype.");
     }
