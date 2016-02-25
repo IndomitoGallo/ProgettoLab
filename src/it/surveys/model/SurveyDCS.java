@@ -2,7 +2,6 @@ package it.surveys.model;
 
 import it.surveys.util.UtilDB;
 import java.sql.*;
-import java.util.ArrayList;
 
 /**
  * La funzionalità della classe DCS (Domain Control Service) è simile a quella della classe
@@ -36,7 +35,7 @@ public class SurveyDCS {
             String query1="select answer1,answer2,answer3,answer4 from survey "+ 
                           "where id="+idSurvey;
             String query2="select answer,count(answer) numAnswer"+
-                           "from answer where idUser="+idSurvey+" group by answer";
+                           "from answer where idSurvey="+idSurvey+" group by answer";
             ResultSet result1=utl.query(stm, query1);
             ResultSet result2=utl.query(stm2, query2);
             int numAnswer=0;
@@ -53,39 +52,26 @@ public class SurveyDCS {
             }
             result2.beforeFirst();
             while(result2.next()){
-                numAnswer=numAnswer+Integer.parseInt(result2.getString(2));
+                numAnswer=numAnswer+result2.getInt(2);
             }
             result2.beforeFirst();
-            int percentage=(Integer.parseInt(result2.getString(2))*100)/numAnswer;
+            int percentage;
             while(result2.next()){
                 results=results+"<tr>";
-                percentage=(Integer.parseInt(result2.getString(2))*100)/numAnswer;
+                percentage=Math.round((result2.getInt(2)*100)/numAnswer);
                 results=results+"<td>"+result2.getString(1)+"</td>"+"<td>"+percentage+"%</td>";
                 results=results+"</tr>";
             }
-            result2.beforeFirst();
-            //verifico se ci sono delle risposte che non sono mai state selezionate dagli utenti
-            //se esistono la loro percentuale è 0%.
-            ArrayList<String> res2=utl.resultSetToArrayString(result2);          
-            int i=1;
-            String answer=null;
-            while(i<=4){
-                int j=2;
-                while(j<=res2.size()){
-                    String record=res2.get(j-1);
-                    String[]values=record.split("\\*");
-                    if(values[0].equals(result1.getString(i))){
-                        answer=values[0];
-                        break;
-                    }
-                    j=j+1;
-                }
-                if(j<=res2.size()){
+            result1.next();
+            for(int i=1; i<=4; i++) {	//ricerca di risposte mai selezionate dagli utenti
+            	String answer = result1.getString(i);
+            	if(answer == null)
+            		break;
+            	if(!results.contains(answer)) {
                     results=results+"<tr>";
                     results=results+"<td>"+answer+"</td>"+"<td>0%</td>";
                     results=results+"</tr>";
-                }
-                i=i+1;
+            	}
             }
             results=results+"</table>";
         }catch(ClassNotFoundException e){
@@ -132,7 +118,7 @@ public class SurveyDCS {
             String query="select question,id from survey";
             ResultSet result=utl.query(stm, query);
              if(!result.next()){
-                return "<br>Non sono presenti sondaggi.</br>";
+                return "<p>Non sono presenti sondaggi.</p>";
             }
             surveys="<table><tr>"+
                         "<th>Sondaggio</th>"+
@@ -144,8 +130,8 @@ public class SurveyDCS {
             while(result.next()){
                 surveys=surveys+"<tr>";
                 surveys=surveys+"<td>"+result.getString(1)+"</td>"+
-                        "<td><a href='displayResults.action?id="+result.getString(2)+"'>Visualizza</a></td>"+
-                        "<td><a onclick='confirmation("+result.getString(2)+")'>Cancella</a></td>";                      
+                        "<td><a href=\"displayResults.action?id="+result.getString(2)+"\">Visualizza</a></td>"+
+                        "<td><a onclick=\"confirmation("+result.getString(2)+")\">Cancella</a></td>";                      
                 surveys=surveys+"</tr>";
             }
             surveys=surveys+"</table>";
@@ -194,7 +180,8 @@ public class SurveyDCS {
                          "where c.idUser="+idUser+"and c.idCategory=c1.idCategory and c1.idSurvey=s.id";
             ResultSet res=utl.query(stm, query);
             if(!res.next()){
-                return "<br>Per visualizzare i sondaggi devi inserire una nuova categoria come preferita nella gestione del profilo.</br>";
+                return "<p>Attenzione: o non sono presenti sondaggi per le categorie scelte oppure sono state "+
+                		"cancellate tutte le categorie scelte, in questo caso vai su 'Modifica profilo' per sceglierne altre.</p>";
             }
             surveys="<table><tr>"+
                         "<th>Sondaggio</th>"+
@@ -204,7 +191,7 @@ public class SurveyDCS {
             while(res.next()){
                 surveys=surveys+"<tr>";
                 surveys=surveys+"<td>"+res.getString(1)+"</td>"+
-                        "<td><a href='displaySurvey.action?id="+res.getString(2)+"'>Visualizza</a></td>";
+                        "<td><a href=\"displaySurvey.action?id="+res.getString(2)+"\">Visualizza</a></td>";
                 surveys=surveys+"</tr>";
             }
             surveys=surveys+"</table>";                   
@@ -300,7 +287,7 @@ public class SurveyDCS {
                 delete="delete from survey where id="+result.getString(1);
                 int rows=utl.manipulate(stm2, delete);
                 if(rows!=1){
-                    System.err.println("Insert Database Error!");
+                    System.err.println("Delete Database Error!");
                     return "fail";
                 }
             }
