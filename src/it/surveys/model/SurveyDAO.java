@@ -60,13 +60,17 @@ public class SurveyDAO {
                 System.err.println("Insert Database Error!");
                 return "fail";
             }
+			String sql = "SELECT id FROM survey WHERE question='" + s.getQuestion() + "'";
+			ResultSet rs = utl.query(stm, sql);
+			rs.next();
+			s.setId(rs.getInt(1)); //set del campo id del sondaggio per poi usarlo nell'inserimento delle categorie scelte
         }catch(ClassNotFoundException e){
             System.err.println("Driver Not Found!");
-	    e.printStackTrace();
+            e.printStackTrace();
             return "fail";
         }catch(SQLException e){
             System.err.println("Database Error!");
-	    e.printStackTrace();
+            e.printStackTrace();
             return "fail";
         } finally{
             try{

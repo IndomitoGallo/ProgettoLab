@@ -36,6 +36,10 @@ public class UserDAO {
 				 	 							    		  u.getPassword() + "', '" + 
 				 	 							    		  u.getEmail() + "')";
 			utl.manipulate(stmt, sql);	//esecuzione del comando SQL
+			sql = "SELECT id FROM user WHERE username='" + u.getUsername() + "'";
+			ResultSet rs = utl.query(stmt, sql);
+			rs.next();
+			u.setId(rs.getInt(1)); //set del campo id dell'utente per poi usarlo nell'inserimento delle categorie scelte
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
