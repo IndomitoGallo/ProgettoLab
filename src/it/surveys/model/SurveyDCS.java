@@ -9,7 +9,7 @@ import java.sql.*;
  * particolare oggetto del dominio.
  * La classe DCS è accessibile esclusivamente tramite i manager.
  * @author L.Camerlengo
- * @version 1.0,11/02/2016
+ * @version 1.1,26/02/2016
  */
 public class SurveyDCS {
     
@@ -159,7 +159,7 @@ public class SurveyDCS {
     }
     
     /**
-     * Effettua una formattazione in una tabella dei sondaggi appartenenti alle categorie di interesse per l'utente passato in ingresso;
+     * Effettua una formattazione in una tabella dei sondaggi appartenenti alle categorie di interesse per l'utente passato in ingresso a cui ancora non ha risposto;
      * la tabella contiene per ogni riga la domanda del sondaggio e un pulsante visualizza che permette all'utente di
      * visualizzare le risposte alla domanda e di selezionarne una tra quelle possibili.
      * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle categoire di interesse per l'utente presenti nel 
@@ -176,8 +176,9 @@ public class SurveyDCS {
         try{
             conn=utl.createConnection();
             stm=utl.createStatement(conn);
-            String query="select s.question,s.id from categoriesSurvey c1,survey s,categoriesUser c"+
-                         "where c.idUser="+idUser+"and c.idCategory=c1.idCategory and c1.idSurvey=s.id";
+            String query="select s.question,s.id from categoriesUser c, categoriesSurvey c1,survey s"+
+                         "where c.idUser="+idUser+"c.idCategory=c1.idCategory and c1.idSurvey=s.id and (s.id,c.idUser) not in"+
+                         "(select a.idSurvey,a.idUser from answer a)";
             ResultSet res=utl.query(stm, query);
             if(!res.next()){
                 return "<p>Attenzione: o non sono presenti sondaggi per le categorie scelte oppure sono state "+
