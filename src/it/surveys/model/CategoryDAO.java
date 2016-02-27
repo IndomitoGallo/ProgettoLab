@@ -6,8 +6,8 @@ import it.surveys.domain.Category;
 import it.surveys.util.UtilDB;
 
 /**
- * Questa classe contiene i metodi che eseguono le operazioni CRUD riguardanti la corrispondente
- * classe di dominio Category e implementa il pattern DAO (Data Access Object).
+ * La classe CategoryDAO (Data Access Object) contiene i metodi che eseguono le operazioni 
+ * CRUD riguardanti la corrispondente classe di dominio Category.
  * @author Luca Talocci, Lorenzo Bernabei
  * @version 1.0 08/02/2016
  */
@@ -17,7 +17,7 @@ public class CategoryDAO {
 	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per inserire una
 	 * categoria nel Database.
 	 * @param c Category
-	 * @return String
+	 * @return String esito dell'inserimento
 	 * @author Lorenzo Bernabei
 	 */
 	public static String insert(Category c) {
@@ -58,7 +58,7 @@ public class CategoryDAO {
 	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per leggere i dati di una
 	 * specifica categoria dal Database.
 	 * @param c Category
-	 * @return String
+	 * @return String esito della SELECT SQL
 	 * @author Lorenzo Bernabei
 	 */
 	public static String retrieve(Category c) {
@@ -105,7 +105,7 @@ public class CategoryDAO {
 	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per modificare i dati di
 	 * una specifica categoria nel Database.
 	 * @param u User
-	 * @return String
+	 * @return String esito dell'aggiornamento
 	 * @author Lorenzo Bernabei
 	 */
 	public static String update(Category c) {
@@ -147,7 +147,7 @@ public class CategoryDAO {
 	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per eliminare una
 	 * specifica categoria dal Database.
 	 * @param c Category
-	 * @return String
+	 * @return String esito della cancellazione
 	 * @author Lorenzo Bernabei
 	 */
 	public static String delete(Category c) {	    

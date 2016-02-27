@@ -1,13 +1,15 @@
 package it.surveys.model;
 
+import java.util.ArrayList;
+
 import it.surveys.domain.User;
 
 /**
- * Questa classe è il cuore del model e gestisce tutte le azioni che riguardano l'utente,
+ * La classe UserManager è il cuore del model e gestisce tutte le azioni che riguardano l'utente,
  * difatti offre i suoi servizi alla UserAction.
  * Il manager, poi, utilizza i servizi del secondo livello del model: le classi DAO e DCS.
  * Saranno queste ultime a dialogare con il Database.
- * Infine il manager è stato implementato come una factory con pattern singleton.
+ * Il manager è stato implementato come una factory con pattern singleton.
  * @author Lorenzo Bernabei, Luca Talocci
  * @version 1.0 10/02/2016
  */
@@ -61,6 +63,35 @@ public class UserManager {
 		}	
 		return "success";	
 	}
+	
+	/**
+	 * Il metodo displayProfile(User u) chiama vari metodi del livello inferiore per selezionare
+	 * tutti i dati associati al profilo di un utente e restituirli alla classe UserAction per
+	 * essere visualizzati.
+	 * In particolare, prima seleziona dal DB i dati dell'utente (settando lo stato dell'oggetto
+	 * User), poi seleziona le categorie di interesse scelte dall'utente e le utilizza per
+	 * selezionare tutte le categorie esistenti e restituire una stringa formattata in HTML con
+	 * dei check box precompilati delle categorie.
+	 * @param u User
+	 * @return String
+	 * @author Luca Talocci
+	 */
+	public String displayProfile(User u) {
+		String result;
+		result = UserDAO.retrieve(u);
+		if(result == "fail")
+			return "fail";
+		ArrayList<Integer> userCategories;
+		userCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
+		if(userCategories == null)
+			return "fail";
+		String categories;
+		categories = CategoryDCS.displayCheckBoxCategories(userCategories);
+		if(categories == "fail")
+			return "fail";
+		return categories;
+		return "metodo commentato per evitare errori e warning";
+	}
 
 	/**
 	 * Questo metodo chiama vari metodi del livello inferiore per effettuare l'update del
@@ -105,32 +136,4 @@ public class UserManager {
 		return result;
 	}
 	
-	/**
-	 * Il metodo displayProfile(User u) chiama vari metodi del livello inferiore per selezionare
-	 * tutti i dati associati al profilo di un utente e restituirli alla classe UserAction per
-	 * essere visualizzati.
-	 * In particolare, prima seleziona dal DB i dati dell'utente (settando lo stato dell'oggetto
-	 * User), poi seleziona le categorie di interesse scelte dall'utente e le utilizza per
-	 * selezionare tutte le categorie esistenti e restituire una stringa formattata in HTML con
-	 * dei check box precompilati delle categorie.
-	 * @param u User
-	 * @return String
-	 * @author Luca Talocci
-	 */
-	public String displayProfile(User u) {
-		/*String result;
-		result = UserDAO.retrieve(u);
-		if(result == "fail")
-			return "fail";
-		ArrayList<Integer> userCategories;
-		userCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
-		if(userCategories == null)
-			return "fail";
-		String categories;
-		categories = CategoryDCS.displayCheckBoxCategories(userCategories);
-		if(categories == "fail")
-			return "fail";
-		return categories;*/
-		return "metodo commentato per evitare errori e warning";
-	}
 }

@@ -6,8 +6,8 @@ import it.surveys.domain.User;
 import it.surveys.util.UtilDB;
 
 /**
- * Questa classe contiene i metodi che eseguono le operazioni CRUD riguardanti la corrispondente
- * classe di dominio User e implementa il pattern DAO (Data Access Object).
+ * La classe UserDAO (Data Access Object) contiene i metodi che eseguono le operazioni 
+ * CRUD riguardanti la corrispondente classe di dominio User.
  * @author Luca Talocci, Lorenzo Bernabei
  * @version 1.0 08/02/2016
  */
@@ -18,7 +18,7 @@ public class UserDAO {
 	 * Il metodo insert(User u) sfrutta i metodi forniti dalla classe UtilDB
 	 * per inserire i dati di un utente nel Database.
 	 * @param u User
-	 * @return String
+	 * @return String esito dell'inserimento
 	 * @author Luca Talocci
 	 */
 	public static String insert(User u) {
@@ -67,7 +67,7 @@ public class UserDAO {
 	 * Il metodo retrieve(User u) sfrutta i metodi forniti dalla classe UtilDB
 	 * per leggere i dati di un utente specifico memorizzato nel Database.
 	 * @param u User
-	 * @return String
+	 * @return String esito della SELECT SQL
 	 * @author Luca Talocci
 	 */
 	public static String retrieve(User u) {
@@ -117,7 +117,7 @@ public class UserDAO {
 	 * Il metodo update(User u) sfrutta i metodi forniti dalla classe UtilDB
 	 * per modificare i dati di un utente specifico nel Database.
 	 * @param u User
-	 * @return String
+	 * @return String esito dell'aggiornamento
 	 * @author Luca Talocci
 	 */
 	public static String update(User u) {
@@ -163,7 +163,7 @@ public class UserDAO {
 	 * Il metodo delete(User u) sfrutta i metodi forniti dalla classe UtilDB
 	 * per eliminare i dati di un utente specifico nel Database.
 	 * @param u User
-	 * @return String
+	 * @return String esito della cancellazione
 	 * @author Luca Talocci
 	 */
 	public static String delete(User u) {	    

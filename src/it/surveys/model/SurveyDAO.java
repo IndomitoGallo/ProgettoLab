@@ -5,9 +5,9 @@ import it.surveys.util.UtilDB;
 import java.sql.*;
 
 /**
- * La classe SurveyDAO contiene i metodi di interrogazione e manipolazione della corrispondente
- * classe di dominio. 
- * Essa, si fa carico di gestire il codice SQL, mentre tutto cio' e'
+ * La classe SurveyDAO (Data Access Object) contiene i metodi di interrogazione e manipolazione 
+ * della corrispondente classe di dominio. 
+ * Essa si fa carico di gestire il codice SQL, mentre tutto cio' e'
  * trasparente rispetto alla corrispondente classe di dominio.
  * In pratica contiene le funzionalita' di base (CRUD).
  * I Data Access Object sono accessibili esclusivamente tramite i Manager.
@@ -15,12 +15,13 @@ import java.sql.*;
  * @version 1.0,6/02/2016
  */
 public class SurveyDAO {
-    /**
+    
+	/**
      * Effettua l'operazione di inserimento nel database del sondaggio passato come argomento.
      * Restituisce "success" se l'inserimento e' andato a buon fine, "fail" altrimenti. 
      * @param s Survey
      * @return String esito dell'inserimento
-     * 
+     * @author L.Camerlengo
      */
     public static String insert(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
@@ -88,11 +89,12 @@ public class SurveyDAO {
     }
 
     /**
-     * Effettua l'operazione di retrive ovvero il recupero dei dati nel database del Survey passato come argomento
-     * settando tutti i parametri di esso.
+     * Effettua l'operazione di retrieve, ovvero il recupero dei dati nel database del Survey 
+     * passato come argomento settando tutti i parametri di esso.
      * Restituisce "success" se il recupero e il settaggio dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito del recupero dei dati
+     * @author L.Camerlengo
      */
     public static String retrieve(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
@@ -155,6 +157,7 @@ public class SurveyDAO {
      * Restituisce "success" se l'aggiornamento dei dati e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito dell'aggiornamento  
+     * @author L.Camerlengo
      */
     public static String update(Survey s){
         UtilDB utl=UtilDB.getUtilDB();
@@ -221,6 +224,7 @@ public class SurveyDAO {
      * Restituisce "success" se e' stata effettuata ed e' andata a buon fine la cancellazione, fail altrimenti.
      * @param s Survey
      * @return String esito della cancellazione  
+     * @author L.Camerlengo
      */
     public static String delete(Survey s){
         UtilDB utl=UtilDB.getUtilDB();

@@ -22,7 +22,7 @@ public class UserDCS {
 	 * In caso di eccezioni viene restituito -1.
 	 * @param user String
 	 * @param pwd String
-	 * @return String
+	 * @return int esito della verifica
 	 * @author Luca Talocci
 	 */
 	public static int verifyLoginData(String user, String pwd) {
@@ -71,7 +71,7 @@ public class UserDCS {
 	 * In caso di eccezioni viene restituito fail.
 	 * @param user String
 	 * @param mail String
-	 * @return String
+	 * @return String esito della verifica
 	 * @author Lorenzo Bernabei
 	 */
 	public static String verifySignupData(String user, String mail) {
@@ -121,7 +121,7 @@ public class UserDCS {
 	 * In caso di eccezioni viene restituito fail.
 	 * @param user String
 	 * @param mail String
-	 * @return String
+	 * @return String esito della verifica
 	 * @author Luca Talocci
 	 */
 	public static String verifyUpdateData(int idUser, String user, String mail) {
@@ -170,7 +170,7 @@ public class UserDCS {
 	 * le categorie.
 	 * @param idUser int
 	 * @param categories int[]
-	 * @return String
+	 * @return String esito degli inserimenti
 	 * @author Luca Talocci
 	 */
 	public static String insertCategoriesAssociation(int idUser, int[] categories) {
@@ -215,7 +215,7 @@ public class UserDCS {
 	 * le categorie. In particolare cancella tutte quelle presenti e inserisce le nuove scelte.
 	 * @param idUser int
 	 * @param categories int[]
-	 * @return String
+	 * @return String esito degli aggiornamenti
 	 * @author Lorenzo Bernabei
 	 */
 	public static String updateCategoriesAssociation(int idUser, int[] categories) {
@@ -261,7 +261,7 @@ public class UserDCS {
 	 * forniti dalla classe UtilDB per leggere dal Database le associazioni di un utente con
 	 * le categorie.
 	 * @param idUser int
-	 * @return ArrayList<Integer>
+	 * @return ArrayList<Integer> collezione contenente gli id delle categorie
 	 * @author Lorenzo Bernabei
 	 */
 	public static ArrayList<Integer> retrieveCategoriesAssociation(int idUser) {
