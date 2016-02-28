@@ -7,8 +7,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CategoryDCS {
+/**
+ * La funzionalità della classe DCS (Domain Control Service) è simile a quella della classe
+ * DAO; a differenza di essa realizza delle feature addizionali che non riguardano un
+ * particolare oggetto del dominio.
+ * La classe DCS è accessibile esclusivamente tramite i manager.
+ * @author Davide Vitiello
+ * @version 1.1,28/02/2016
+ */
 
+public class CategoryDCS {
+/**
+	 * Il metodo verifyCategory(String name) verifica che la stringa in ingresso 
+	 * corrisponda al nome di una categoria presente nel DataBase.	 * deve effettuare l'accesso.
+	 * Il valore di ritorno e': 'true' in caso di esito positivo
+	 * 'false' in caso di esito negativo
+         * 'fail' in caso di problemi di accesso al DataBase per la verifica
+	 * @param name String
+	 * @return String esito della verifica
+	 */
     public static String verifyCategory(String name) {
         it.surveys.util.UtilDB utl = it.surveys.util.UtilDB.getUtilDB();
         Connection conn = null;
@@ -99,7 +116,14 @@ public class CategoryDCS {
         }
         return categories;
     }
-
+    /**
+     * Il metodo displayRadioCategories() restituisce una formattazione di tutte
+     * le categorie presenti nel DataBase
+     * La formattazione in questione consiste in una lista di  elementi '<s:radio>' 
+     * secondo la sintassi di Struts2
+     * dove ogni elemento è una coppia numero:nomedellacategoria
+     * @return String tutte le categorie dei sondaggi formattate opportunamente
+     */
     public static String displayRadioCategories() {
         it.surveys.util.UtilDB utl = it.surveys.util.UtilDB.getUtilDB();
         Connection conn = null;
@@ -115,15 +139,17 @@ public class CategoryDCS {
             if (!rs.next()) {
                 return "<p>Non sono presenti categorie.</p>";
             }
-            radioCategories = "<form action=\"..\\CategoryAction\">";
-
-            rs.beforeFirst();
+            int i = 1;
+            radioCategories = "<s:radio class=\"form-control\" id=\"categories\" name=\"id\" label=\"Categorie\" list=\"# {'"+i+"':'"+rs.getString(1)+"'";
+            
+            
             String categories;
             while (rs.next()) {
+                i++;
                 categories = rs.getString(1);
-                radioCategories = radioCategories + "<input type=\"radio\" name=\"" + categories + "\" value=\"" + categories + "\">" + categories + "<br>";
+                radioCategories = radioCategories + ",'"+i+"':'"+rs.getString(1)+"'";
             }
-            radioCategories = radioCategories + "<input type=\"submit\" value=\"Submit\"></form>";;
+            radioCategories = radioCategories + "'}\" value=\"1\"/>";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
@@ -148,7 +174,15 @@ public class CategoryDCS {
         }
         return radioCategories;
     }
-
+/**
+     * Il metodo displayCheckBoxCategories() restituisce una formattazione dei nomi
+     * di tutte le categorie presenti nel DataBase
+     * La formattazione in questione consiste in una lista di elementi checkbox,
+     * ovvero '<s:checkboxlist>' secondo la sintassi di Struts2,
+     * dove ogni elemento è una coppia numero:nomedellacategoria ed 
+     * il numero in question è un valore intero incrementale che parte da 1
+     * @return String tutte le categorie dei sondaggi formattate opportunamente
+     */
     public static String displayCheckBoxCategories() {
         it.surveys.util.UtilDB utl = it.surveys.util.UtilDB.getUtilDB();
         Connection conn = null;
@@ -164,15 +198,17 @@ public class CategoryDCS {
             if (!rs.next()) {
                 return "<p>Non sono presenti categorie.</p>";
             }
-            checkBoxCategories = "<form action=\"..\\CategoryAction\">";
+            int i = 1;
+            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+i+"':'"+rs.getString(1)+"'";
 
-            rs.beforeFirst();
+            
             String categories;
             while (rs.next()) {
+                i++;
                 categories = rs.getString(1);
-                checkBoxCategories = checkBoxCategories + "<input type=\"checkbox\" name=\"" + categories + "\" value=\"" + categories + "\">" + categories + "<br>";
+                checkBoxCategories = checkBoxCategories + ",'"+i+"':'"+rs.getString(1)+"'";
             }
-            checkBoxCategories = checkBoxCategories + "<input type=\"submit\" value=\"Submit\"></form>";
+            checkBoxCategories = checkBoxCategories + "'}\" value=\"1\"/>";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
@@ -197,7 +233,18 @@ public class CategoryDCS {
         }
         return checkBoxCategories;
     }
-
+/**
+     * Il metodo displayCheckBoxCategories() restituisce una formattazione dei nomi delle
+     * categorie presenti nel DataBase che hanno come ID (chiave primaria) uno dei
+     * numeri presenti nell'ArrayList in ingresso
+     * La formattazione in questione consiste in una lista di elementi checkbox,
+     * ovvero '<s:checkboxlist>' 
+     * secondo la sintassi di Struts2,
+     * dove ogni elemento è una coppia numero:nomedellacategoria. Il numero è un valore
+     * intero incrementale che parte da 1.
+     * @param userCategories ArrayList<Integer> Una collezione di numeri corrispondenti agli ID delle categorie nel DB
+     * @return String i nomi di tutte le categorie dei sondaggi formattate opportunamente
+     */
     public static String displayCheckBoxCategories(ArrayList<Integer> userCategories) {
         it.surveys.util.UtilDB utl = it.surveys.util.UtilDB.getUtilDB();
         Connection conn = null;
@@ -218,15 +265,17 @@ public class CategoryDCS {
             if (!rs.next()) {
                 return "<p>Non sono presenti categorie.</p>";
             }
-            checkBoxCategories = "<form action=\"..\\CategoryAction\">";
+           int j = 1;
+            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+j+"':'"+rs.getString(1)+"'";
 
-            rs.beforeFirst();
+            
             String categories;
             while (rs.next()) {
+                i++;
                 categories = rs.getString(1);
-                checkBoxCategories = checkBoxCategories + "<input type=\"checkbox\" name=\"" + categories + "\" value=\"" + categories + "\">" + categories + "<br>";
+                checkBoxCategories = checkBoxCategories + ",'"+j+"':'"+rs.getString(1)+"'";
             }
-            checkBoxCategories = checkBoxCategories + "<input type=\"submit\" value=\"Submit\"></form>";
+            checkBoxCategories = checkBoxCategories + "'}\" value=\"1\"/>";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
