@@ -3,6 +3,7 @@ package it.surveys.model;
 import it.surveys.util.UtilDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
  * particolare oggetto del dominio.
  * La classe DCS e' accessibile esclusivamente tramite i manager.
  * @author Davide Vitiello
- * @version 1.1,28/02/2016
+ * @version 1.2,28/02/2016
  */
 
 public class CategoryDCS {
@@ -24,7 +25,7 @@ public class CategoryDCS {
 	 * corrisponda al nome di una categoria presente nel DataBase.	 
 	 * Il valore di ritorno e': 'true' in caso di esito positivo,
 	 * 'false' in caso di esito negativo,
-     * 'fail' in caso di problemi di accesso al DataBase per la verifica
+         * 'fail' in caso di problemi di accesso al DataBase per la verifica
 	 * @param name String nome della categoria
 	 * @return String esito della verifica
 	 */
@@ -67,7 +68,11 @@ public class CategoryDCS {
             }
         }
     }
-
+/**
+ * Il metodo displayListCategories() restituisce la  stringa formattata al tipo
+ * lista in HTML nella quale ogni elemento è una coppia idcategoria:nomecategoria
+ * @return String la lista formattata in HTML delle categorie presenti nel DB
+ */
     public static String displayListCategories() {
 
         UtilDB utl = UtilDB.getUtilDB();
@@ -78,7 +83,7 @@ public class CategoryDCS {
             conn = utl.createConnection();
             stmt = utl.createStatement(conn);
 
-            String sql = "SELECT name FROM category";
+            String sql = "SELECT id,name FROM category ORDER BY id ASC;";
             //memorizzazione del risultato della query in un ResultSet
             ResultSet rs = utl.query(stmt, sql);
             if (!rs.next()) {
@@ -89,7 +94,7 @@ public class CategoryDCS {
             rs.beforeFirst();
             while (rs.next()) {
                 categories = categories + "<li>";
-                categories = categories + rs.getString(1);
+                categories = categories + rs.getString(1) + " : " + rs.getString(2);
                 categories = categories + "</li>";
             }
             categories = categories + "</ul>";
@@ -135,22 +140,18 @@ public class CategoryDCS {
             conn = utl.createConnection();
             stmt = utl.createStatement(conn);
 
-            String sql = "SELECT name FROM category";
+            String sql = "SELECT id,name FROM category ORDER BY id ASC";
             //memorizzazione del risultato della query in un ResultSet
             ResultSet rs = utl.query(stmt, sql);
             if (!rs.next()) {
                 return "<p>Non sono presenti categorie.</p>";
             }
-            int i = 1;
-            radioCategories = "<s:radio class=\"form-control\" id=\"categories\" name=\"id\" label=\"Categorie\" list=\"# {'"+i+"':'"+rs.getString(1)+"'";
-        
-            //String categories;   A CHE SERVE?
-            while (rs.next()) {
-                i++;
-                //categories = rs.getString(1); A CHE SERVE?
-                radioCategories = radioCategories + ",'"+i+"':'"+rs.getString(1)+"'";
-            }
-            radioCategories = radioCategories + "'}\" value=\"1\"/>";
+            radioCategories = "<s:radio class=\"form-control\" id=\"categories\" name=\"id\" label=\"Categorie\" list=\"# {'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
+
+            while (rs.next()) 
+                radioCategories = radioCategories + ",'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
+            
+            radioCategories = radioCategories + "'}\"";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
@@ -194,23 +195,20 @@ public class CategoryDCS {
             conn = utl.createConnection();
             stmt = utl.createStatement(conn);
 
-            String sql = "SELECT name FROM category";
+            String sql = "SELECT id,name FROM category ORDER BY id ASC";
             //memorizzazione del risultato della query in un ResultSet
             ResultSet rs = utl.query(stmt, sql);
             if (!rs.next()) {
                 return "<p>Non sono presenti categorie.</p>";
             }
-            int i = 1;
-            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+i+"':'"+rs.getString(1)+"'";
+            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
 
             
             //String categories;   A CHE SERVE?
             while (rs.next()) {
-                i++;
-                //categories = rs.getString(1);   A CHE SERVE?
-                checkBoxCategories = checkBoxCategories + ",'"+i+"':'"+rs.getString(1)+"'";
+                checkBoxCategories = checkBoxCategories + ",'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
             }
-            checkBoxCategories = checkBoxCategories + "'}\" value=\"1\"/>";
+            checkBoxCategories = checkBoxCategories + "'}\"";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
@@ -255,29 +253,30 @@ public class CategoryDCS {
         try {
             conn = utl.createConnection();
             stmt = utl.createStatement(conn);
-
-            String sql = "SELECT name FROM category WHERE id IN (";
+            String selectAllCategories = "SELECT id,name FROM category ORDER BY id ASC";
+            String selectUserCategories = "SELECT id,name FROM category WHERE id IN (";
             int i = 0;
             for (; i < userCategories.size() - 1; i++) {
-                sql = sql + userCategories.get(i) + ",";
+                selectUserCategories = selectUserCategories + userCategories.get(i) + ",";
             }
-            sql = sql + userCategories.get(i) + ");";
+            selectUserCategories = selectUserCategories + userCategories.get(i) + ") ORDER BY id ASC;";
             //memorizzazione del risultato della query in un ResultSet
-            ResultSet rs = utl.query(stmt, sql);
-            if (!rs.next()) {
+            ResultSet allCategoriesRs = utl.query(stmt, selectAllCategories);
+            ResultSet userCategoriesRs = utl.query(stmt, selectUserCategories);
+            if (!allCategoriesRs.next()) {
                 return "<p>Non sono presenti categorie.</p>";
             }
-            int j = 1;
-            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+j+"':'"+rs.getString(1)+"'";
+            ArrayList<String> userCategoriesArray=new ArrayList<>();
+            while(userCategoriesRs.next())
+			userCategoriesArray.add(userCategoriesRs.getString(1)+"':'"+userCategoriesRs.getString(2)+"'");
+	
+            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+allCategoriesRs.getString(1)+"':'"+allCategoriesRs.getString(2)+"'";
 
             
-            //String categories;     A CHE SERVE?
-            while (rs.next()) {
-                i++;
-                //categories = rs.getString(1);    A CHE SERVE?
-                checkBoxCategories = checkBoxCategories + ",'"+j+"':'"+rs.getString(1)+"'";
-            }
-            checkBoxCategories = checkBoxCategories + "'}\" value=\"1\"/>";
+            while (allCategoriesRs.next()) 
+                checkBoxCategories = checkBoxCategories + ",'"+allCategoriesRs.getString(1)+"':'"+allCategoriesRs.getString(2)+"'";
+            
+            checkBoxCategories = checkBoxCategories + "'}\" value=\""/*qui la lista arraystring dell'utente */"\"/>";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
