@@ -52,6 +52,29 @@
                         <result name="success">/user.jsp</result>
                         <result name="fail">/survey.jsp</result>
                 </action>
+                <action name="createCategory" class="it.surveys.action.CategoryAction" method="createCategory">
+                        <result name="success">/admin.jsp</result>
+                        <result name="fail">/new_category.jsp</result>
+                </action>
+                <action name="deleteCategory" class="it.surveys.action.CategoryAction" method="deleteCategory">
+                        <result name="success">/admin.jsp</result>
+                        <result name="fail">/delete_category.jsp</result>
+                </action>
+                <action name="displayListCategories" class="it.surveys.action.CategoryAction" method="displayListCategories">
+                        <result name="success">/new_category.jsp</result>
+                        <result name="fail">/new_category.jsp</result>
+                </action>
+                <action name="displayRadioCategories" class="it.surveys.action.CategoryAction" method="displayRadioCategories">
+                        <result name="success">/delete_category.jsp</result>
+                        <result name="fail">/delete_category.jsp</result>
+                </action>
+                <action name="displayCheckBoxCategories" class="it.surveys.action.CategoryAction" method="displayCheckBoxCategories">
+                        <result name="success">/manage_profile.jsp</result>
+                        <result name="fail">/manage_profile.jsp</result>
+                </action>
+                
+                
+                
                 
 	</package>
 </struts>
