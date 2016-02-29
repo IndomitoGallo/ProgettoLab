@@ -20,7 +20,7 @@
 	        <s:submit class="btn" value="Login"/>
 	    </s:form>
 	    <br><br>
-	    <a href="register.jsp">Registrati adesso!</a> <!-- bisognerà chiamare displayCheckBoxCategories() -->
+	    <a href="displayCheckBoxCategories.action?flag=reg">Registrati adesso!</a> 
 	</div>
 	  
 </body>

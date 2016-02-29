@@ -40,15 +40,21 @@ public class SurveyManager {
      * @return String esito dell'inserimento
      */
     public String insert(Survey s,int[] categories){
-        String result=SurveyDAO.insert(s);
-        if(result.equals("fail")){
-            return "db_fail";
-        }
-        result=SurveyDCS.insertCategoryAssociation(s.getId(), categories);
-        if(result.equals("fail")){
-            return "db_fail";
-        }
-        return "success";
+	    String result=SurveyDAO.insert(s);
+	    if(result.equals("fail")){
+	        return "db_fail";
+	    }
+	    result=SurveyDCS.insertCategoriesAssociation(s.getId(), categories);
+	    if(result.equals("fail")){
+	    	/*Se viene inserito con successo il sondaggio ma non le categorie
+			bisogna abortire l'intera procedura. Si elimina il sondaggio inserito
+			con successo precedentemente, il che si traduce nell'eliminazione
+			del record ma anche delle categorie associate e inserite fino a quel
+			momento (prima dell'eccezione).*/
+			SurveyDAO.delete(s);
+	        return "db_fail";
+	    }
+	    return "success";
     }
     
     /**
@@ -63,32 +69,32 @@ public class SurveyManager {
     public String retrieve(Survey s){
         String result=SurveyDAO.retrieve(s);
         String[] answers=s.getAnswers();
-        if(result.equals("fail")||answers.length<2){
+        if(result.equals("fail")){
             return "db_fail";
         } 
-        result="<table class=\"withform\">"+
-                "<tr>"+
-                    "<th>Sondaggio</th>"+
+        
+        result="<table class=\"withform\">" +
+                "<tr>" +
+                    "<th>Sondaggio</th>" +
                 "</tr>";
-        result=result+"<tr>"+
-                          "<td>"+s.getQuestion()+"</td>"+
-               "</tr>";
+        result=result+"<tr>" + "<td>"+s.getQuestion()+"</td></tr>";
+        
         if(answers.length==2){
-            result=result+"<tr><td><s:form id=\"answer_form\" name=\"answer\" action=\"answerSurvey\" method=\"POST\">"+
-                   "<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\"list=\"# {'risposta1':'"+answers[0]+"',"+
-                   "'risposta2':'"+answers[1]+"'}\"value=\"'risposta1'\"/>";
+            result=result+"<tr><td><s:form id=\"answer_form\" name=\"answer\" action=\"answerSurvey\" method=\"POST\">" +
+                   "<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\" list=\"# {'" + answers[0] + "':'" + answers[0] + "','" +
+                   answers[1] + "':'" + answers[1] + "'}\" value=\"'" + answers[0] + "'\"/>";
         }else if(answers.length==3){
             result=result+"<tr><td><s:form id=\"answer_form\" name=\"answer\" action=\"answerSurvey\" method=\"POST\">"+
-                   "<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\"list=\"# {'risposta1':'"+answers[0]+"',"+
-                   "'risposta2':'"+answers[1]+"','risposta3':'"+answers[2]+"'}\"value=\"'risposta1'\"/>";
+            		"<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\"list=\"# {'" + answers[0] + "':'" + answers[0] + "','" +
+                    answers[1] + "':'" + answers[1] + "','" + answers[2] + "':'" + answers[2] + "'}\" value=\"'" + answers[0] + "'\"/>";
         }else{
             result=result+"<tr><td><s:form id=\"answer_form\" name=\"answer\" action=\"answerSurvey\" method=\"POST\">"+
-                   "<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\"list=\"# {'risposta1':'"+answers[0]+"',"+
-                   "'risposta2':'"+answers[1]+"','risposta3':'"+answers[2]+"','risposta4':'"+answers[3]+"'}\"value=\"'risposta1'\"/>";
+                   "<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\"list=\"# {'" + answers[0] + "':'" + answers[0] + "','" +
+                   answers[1] + "':'" + answers[1] + "','" + answers[2] + "':'" + answers[2] + "','" + answers[3] + "':'" + answers[3] + "'}\" value=\"'" + answers[0] + "'\"/>";
         }
-        result=result+"<s:submit class=\"btn\" value=\"Rispondi\"/>"+
-               "</s:form></td></tr>";
-        return result+"</table>";
+        result=result + "<s:submit class=\"btn\" value=\"Rispondi\"/></s:form></td></tr></table>";
+        
+        return result;
     }
     
     /**
@@ -98,22 +104,7 @@ public class SurveyManager {
      * @return String esito della cancellazione del sondaggio
      */
     public String delete(Survey s){
-        String result=SurveyDAO.delete(s);
-        if(result.equals("fail")){
-            return "db_fail";
-        }
-        return "success";
-    }
-    
-    /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SUrveyDCS.
-     * Restituisce una tabella sotto forma di stringa contenente i risultati di un determinato sondaggio,
-     * altrimenti se qualcosa è andato storto restituisce "db_fail".
-     * @param idSurvey int
-     * @return Risultati di un determinato sondaggio
-     */
-    public String displayResults(int idSurvey){
-        String result=SurveyDCS.displayResults(idSurvey);
+        String result = SurveyDAO.delete(s);
         if(result.equals("fail")){
             return "db_fail";
         }
@@ -121,10 +112,26 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SUrveyDCS.
+     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
+     * Restituisce una tabella sotto forma di stringa contenente i risultati di un determinato sondaggio,
+     * altrimenti se qualcosa e' andato storto restituisce "db_fail".
+     * @param idSurvey int
+     * @return String Risultati di un determinato sondaggio
+     */
+    public String displayResults(int idSurvey){
+        String result = SurveyDCS.displayResults(idSurvey);
+        if(result.equals("fail")){
+            return "db_fail";
+        }
+        return result;
+    }
+    
+    /**
+     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
      * Restituisce una tabella sotto forma di stringa contenente i sondaggi presenti nel database, altrimenti
-     * se non è presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa
-     * che notifica al responsabile che non sono presenti sondaggi, altrimenti se qualcosa è andato storto restituisce "db_fail".
+     * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa
+     * che notifica al responsabile che non sono presenti sondaggi, altrimenti 
+     * se qualcosa e' andato storto restituisce "db_fail".
      * @return String sondaggi presenti nel database.
      */
     public String displayCreatedSurveys(){
@@ -136,10 +143,10 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SUrveyDCS.
+     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
      * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle categoire di interesse per l'utente presenti nel 
-     * database, altrimenti se non è presente alcun sondaggio associato alle categorie di interesse dell'utente restiuisce un
-     * messaggio sotto forma di stringa, che invita l'utente ad aggiungere nuove categorie di interesse, altrimenti se qualcosa è
+     * database, altrimenti se non e' presente alcun sondaggio associato alle categorie di interesse dell'utente restiuisce un
+     * messaggio sotto forma di stringa, che invita l'utente ad aggiungere nuove categorie di interesse, altrimenti se qualcosa e'
      * andato storto restituisce "db_fail".
      * @param idUser int
      * @return String Sondaggi delle relative categorie preferite dell'utente. 
@@ -153,15 +160,15 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SUrveyDCS.
-     * Restituisce "success" se l'inserimento della risposta è andato a buon fine, "db_fail" altrimenti.
+     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
+     * Restituisce "success" se l'inserimento della risposta e' andato a buon fine, "db_fail" altrimenti.
      * @param idSurvey int
      * @param idUser int
      * @param answer String
      * @return String esito dell'inserimento della risposta
      */
-    public String insertAnswer(int idSurvey,int idUser,String answer){
-        String result=SurveyDCS.insertAnswer(idSurvey, idUser, answer);
+    public String insertAnswer(int idSurvey, int idUser, String answer){
+        String result = SurveyDCS.insertAnswer(idSurvey, idUser, answer);
         if(result.equals("fail")){
             return "db_fail";
         }

@@ -21,7 +21,7 @@
 		<li>Inserire e/o rimuovere categorie</li>
 	</ul>
 	
-	<a href="new_survey.jsp">Crea nuovo sondaggio</a>
+	<a href="displayCheckBoxCategories.action?flag=survey">Crea nuovo sondaggio</a>
 	<a href="new_category.jsp">Crea nuova categoria</a> <!-- bisognerà chiamare displayListCategories() -->
 	<a href="delete_category.jsp">Elimina categoria esistente</a> <!-- bisognerà chiamare displayRadioCategories() -->
 	

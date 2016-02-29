@@ -43,7 +43,7 @@
     <!-- I link <a> sono solo di prova -->
 	  
 	<p>Clicca sul tasto "Modifica Profilo" per visionare i tuoi dati e modificarli.</p>  
-	<a href="manage_profile.jsp">Modifica profilo!</a> <!-- bisognerà chiamare displayCheckBoxCategories() -->
+	<a href="displayProfile.action">Modifica profilo!</a>
 	
 </body>
 

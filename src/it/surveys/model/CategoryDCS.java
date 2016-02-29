@@ -3,7 +3,6 @@ package it.surveys.model;
 import it.surveys.util.UtilDB;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class CategoryDCS {
 	 * corrisponda al nome di una categoria presente nel DataBase.	 
 	 * Il valore di ritorno e': 'true' in caso di esito positivo,
 	 * 'false' in caso di esito negativo,
-         * 'fail' in caso di problemi di accesso al DataBase per la verifica
+     * 'fail' in caso di problemi di accesso al DataBase per la verifica
 	 * @param name String nome della categoria
 	 * @return String esito della verifica
 	 */
@@ -41,9 +40,9 @@ public class CategoryDCS {
             //memorizzazione del risultato della query in un ResultSet
             ResultSet rs = utl.query(stmt, sql);
             if (rs.next()) {
-                return "true";
-            } else {
                 return "false";
+            } else {
+                return "true";
             }
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
@@ -68,11 +67,12 @@ public class CategoryDCS {
             }
         }
     }
-/**
- * Il metodo displayListCategories() restituisce la  stringa formattata al tipo
- * lista in HTML nella quale ogni elemento è una coppia idcategoria:nomecategoria
- * @return String la lista formattata in HTML delle categorie presenti nel DB
- */
+    
+	/**
+	 * Il metodo displayListCategories() restituisce la  stringa formattata al tipo
+	 * lista in HTML nella quale ogni elemento e' una coppia idcategoria:nomecategoria
+	 * @return String la lista formattata in HTML delle categorie presenti nel DB
+	 */
     public static String displayListCategories() {
 
         UtilDB utl = UtilDB.getUtilDB();
@@ -83,18 +83,19 @@ public class CategoryDCS {
             conn = utl.createConnection();
             stmt = utl.createStatement(conn);
 
-            String sql = "SELECT id,name FROM category ORDER BY id ASC;";
+            String sql = "SELECT id,name FROM category ORDER BY id ASC";
             //memorizzazione del risultato della query in un ResultSet
             ResultSet rs = utl.query(stmt, sql);
             if (!rs.next()) {
                 return "<p>Non sono presenti categorie.</p>";
             }
+            
             categories = "<ul>";
 
             rs.beforeFirst();
             while (rs.next()) {
                 categories = categories + "<li>";
-                categories = categories + rs.getString(1) + " : " + rs.getString(2);
+                categories = categories + rs.getString(2);
                 categories = categories + "</li>";
             }
             categories = categories + "</ul>";
@@ -125,10 +126,10 @@ public class CategoryDCS {
     
     /**
      * Il metodo displayRadioCategories() restituisce una formattazione di tutte
-     * le categorie presenti nel DataBase
+     * le categorie presenti nel DataBase.
      * La formattazione in questione consiste in una lista di elementi '<s:radio>' 
-     * secondo la sintassi di Struts2
-     * dove ogni elemento e' una coppia numero:nomedellacategoria
+     * secondo la sintassi di Struts2 dove ogni elemento e' una coppia 
+     * numero:nomedellacategoria
      * @return String tutte le categorie dei sondaggi formattate opportunamente
      */
     public static String displayRadioCategories() {
@@ -144,14 +145,14 @@ public class CategoryDCS {
             //memorizzazione del risultato della query in un ResultSet
             ResultSet rs = utl.query(stmt, sql);
             if (!rs.next()) {
-                return "<p>Non sono presenti categorie.</p>";
+                return "Categorie:<br>";
             }
-            radioCategories = "<s:radio class=\"form-control\" id=\"categories\" name=\"id\" label=\"Categorie\" list=\"# {'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
+            radioCategories = "<s:radio class=\"form-control\" id=\"categories\" name=\"id\" label=\"Categorie\" value=\"" + rs.getString(1) + "\" list=\"# {'" + rs.getString(1) + "':'" + rs.getString(2) + "'";
 
             while (rs.next()) 
                 radioCategories = radioCategories + ",'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
             
-            radioCategories = radioCategories + "'}\"";
+            radioCategories = radioCategories + "}\" />";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
@@ -187,7 +188,7 @@ public class CategoryDCS {
      * @return String tutte le categorie dei sondaggi formattate opportunamente
      */
     public static String displayCheckBoxCategories() {
-        it.surveys.util.UtilDB utl = it.surveys.util.UtilDB.getUtilDB();
+        UtilDB utl = UtilDB.getUtilDB();
         Connection conn = null;
         Statement stmt = null;
         String checkBoxCategories = null;
@@ -199,16 +200,14 @@ public class CategoryDCS {
             //memorizzazione del risultato della query in un ResultSet
             ResultSet rs = utl.query(stmt, sql);
             if (!rs.next()) {
-                return "<p>Non sono presenti categorie.</p>";
+                return "Categorie:<br>";
             }
             checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
 
-            
-            //String categories;   A CHE SERVE?
             while (rs.next()) {
                 checkBoxCategories = checkBoxCategories + ",'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
             }
-            checkBoxCategories = checkBoxCategories + "'}\"";
+            checkBoxCategories = checkBoxCategories + "}\" />";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();
@@ -253,30 +252,32 @@ public class CategoryDCS {
         try {
             conn = utl.createConnection();
             stmt = utl.createStatement(conn);
-            String selectAllCategories = "SELECT id,name FROM category ORDER BY id ASC";
-            String selectUserCategories = "SELECT id,name FROM category WHERE id IN (";
-            int i = 0;
-            for (; i < userCategories.size() - 1; i++) {
-                selectUserCategories = selectUserCategories + userCategories.get(i) + ",";
-            }
-            selectUserCategories = selectUserCategories + userCategories.get(i) + ") ORDER BY id ASC;";
-            //memorizzazione del risultato della query in un ResultSet
-            ResultSet allCategoriesRs = utl.query(stmt, selectAllCategories);
-            ResultSet userCategoriesRs = utl.query(stmt, selectUserCategories);
-            if (!allCategoriesRs.next()) {
-                return "<p>Non sono presenti categorie.</p>";
-            }
-            ArrayList<String> userCategoriesArray=new ArrayList<>();
-            while(userCategoriesRs.next())
-			userCategoriesArray.add(userCategoriesRs.getString(1)+"':'"+userCategoriesRs.getString(2)+"'");
-	
-            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" list=\"# {'"+allCategoriesRs.getString(1)+"':'"+allCategoriesRs.getString(2)+"'";
+            String sql = "SELECT id,name FROM category ORDER BY id ASC";
 
+            //memorizzazione del risultato della query in un ResultSet
+            ResultSet rs = utl.query(stmt, sql);
+            if (!rs.next()) {
+                return "Categorie:<br>";
+            }
             
-            while (allCategoriesRs.next()) 
-                checkBoxCategories = checkBoxCategories + ",'"+allCategoriesRs.getString(1)+"':'"+allCategoriesRs.getString(2)+"'";
+            //memorizzo in una stringa i valori di default della checkboxlist
+            String defaultCategories = "value=\"{";
+            int count = 1;
+            for(Integer id : userCategories) {
+            	if(count == userCategories.size())
+            		defaultCategories = defaultCategories + "'" + id + "'";
+            	else
+            		defaultCategories = defaultCategories + "'" + id + "',";
+            	count++;
+            }
+            defaultCategories = defaultCategories + "}\"";
             
-            checkBoxCategories = checkBoxCategories + "'}\" value=\""/*qui la lista arraystring dell'utente */"\"/>";
+            checkBoxCategories = "<s:checkboxlist class=\"form-control\" id=\"categories\" name=\"categories\" label=\"Categorie\" " + defaultCategories + " list=\"# {'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
+
+            while (rs.next()) 
+                checkBoxCategories = checkBoxCategories + ",'"+rs.getString(1)+"':'"+rs.getString(2)+"'";
+            
+            checkBoxCategories = checkBoxCategories + "}\" />";
         } catch (ClassNotFoundException e) {
             System.err.println("Driver Not Found!");
             e.printStackTrace();

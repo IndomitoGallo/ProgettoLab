@@ -65,7 +65,7 @@ public class SurveyDCSTest {
         categories[2]=3;
         categories[3]=4;
         String expResult = "success";
-        String result = SurveyDCS.insertCategoryAssociation(idSurvey, categories);
+        String result = SurveyDCS.insertCategoriesAssociation(idSurvey, categories);
         assertEquals(expResult, result);
         //fail("The test case is a prototype.");
     }

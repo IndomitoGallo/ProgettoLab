@@ -1,10 +1,12 @@
 package it.surveys.action;
 
 import com.opensymphony.xwork2.ActionContext;
+
 import com.opensymphony.xwork2.ActionSupport;
 import it.surveys.domain.Survey;
 import it.surveys.model.SurveyManager;
 import java.util.Map;
+
 /**
  * Questa classe e' la "action" che gestisce tutte le attivita' che riguardano i sondaggi.
  * Essa e' un'estensione del Controller e fa da ponte tra le azioni client-side dell'utente
@@ -18,7 +20,7 @@ public class SurveyAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
     private int id;
     private String question;
-    private String[] answers=new String[4];
+    private String[] answers = new String[4];
     private int[] categories;
     private String answer;
     private String message;
@@ -31,20 +33,23 @@ public class SurveyAction extends ActionSupport{
      */
     public String createSurvey(){
         if(validateSurvey()==false){
-            setMessage("Non sono stati inseriti correttamente tutti i campi obligatori.");
+            setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori.<br>" + 
+            			"Oppure non � stata selezionata alcuna categoria.<br>" +
+            			"Oppure ricorda che se le risposte sono due, devono essere Si/No.");
             return "fail";
         }
-        SurveyManager sm=SurveyManager.getSurveyManager();
-        Survey s=new Survey();
+        SurveyManager sm = SurveyManager.getSurveyManager();
+        Survey s = new Survey();
         s.setQuestion(question);
         s.setAnswers(answers);
-        String result=sm.insert(s, categories);
+        String result = sm.insert(s, categories);
         if(result.equals("db_fail")){
-            setMessage("Non è stato possibile creare il sondaggio.");
+            setMessage("Non e' stato possibile creare il sondaggio.");
             return "fail";
         }
         return "success";
     }
+    
     /**
      * Il metodo deleteSurvey() viene attivato se dopo che il responsabile ha effettuato l'accesso
      * nella sua pagina personale e dopo che ha effettuato un click sul pulsante "Cancella" di un determinato
@@ -52,12 +57,12 @@ public class SurveyAction extends ActionSupport{
      * @return String esito della cancellazione del sondaggio nel database.
      */
     public String deleteSurvey(){
-        SurveyManager sm=SurveyManager.getSurveyManager();
-        Survey s=new Survey();
+        SurveyManager sm = SurveyManager.getSurveyManager();
+        Survey s = new Survey();
         s.setId(id);
-        String result=sm.delete(s);
+        String result = sm.delete(s);
         if(result.equals("db_fail")){
-            setMessage("Non è stato possibile effettuare la cancellazione del sondaggio.");
+            setMessage("Non e' stato possibile effettuare la cancellazione del sondaggio.");
             return "fail";
         }
         return "success";
@@ -69,10 +74,10 @@ public class SurveyAction extends ActionSupport{
      * @return String esito del prelevamento dei risultati di un determinato sondaggio.
      */
     public String displayResults(){
-        SurveyManager sm=SurveyManager.getSurveyManager();
-        String result=sm.displayResults(id);
+        SurveyManager sm = SurveyManager.getSurveyManager();
+        String result = sm.displayResults(id);
         if(result.equals("db_fail")){
-            setMessage("Non è stato possibile prelevare i risultati del sondaggio.");
+            setMessage("Non e' stato possibile prelevare i risultati del sondaggio.");
             return "fail";
         }
         setOutput(result);
@@ -85,10 +90,10 @@ public class SurveyAction extends ActionSupport{
      * @return String esito del prelevamento dei sondaggi creati. 
      */
     public String displayCreatedSurveys(){
-        SurveyManager sm=SurveyManager.getSurveyManager();
-        String result=sm.displayCreatedSurveys();
+        SurveyManager sm = SurveyManager.getSurveyManager();
+        String result = sm.displayCreatedSurveys();
         if(result.equals("db_fail")){
-            setMessage("Non è stato possibile prelevare i sondaggi creati.");
+            setMessage("Non e' stato possibile caricare i sondaggi creati.");
             return "fail";
         }
         setOutput(result);
@@ -96,35 +101,37 @@ public class SurveyAction extends ActionSupport{
     }
     
     /**
-     * il metodo displayAllowedSurveys() viene attivato quando il cliente ha effettuato l'accesso nella sua
+     * Il metodo displayAllowedSurveys() viene attivato quando il cliente ha effettuato l'accesso nella sua
      * pagina personale.
      * @return String esito del prelevamento dei sondaggi preferiti del cliente. 
      */
     public String displayAllowedSurveys(){
-        SurveyManager sm=SurveyManager.getSurveyManager();
+        SurveyManager sm = SurveyManager.getSurveyManager();
         Map<String, Object> session = ActionContext.getContext().getSession();
-        String result=sm.displayAllowedSurveys((int)session.get("idUser"));
+        String result = sm.displayAllowedSurveys((int)session.get("idUser"));
         if(result.equals("db_fail")){
-            setMessage("Non è stato possibile prelevare i tuoi sondaggi di interesse.");
+            setMessage("Non e' stato possibile caricare i sondaggi di tuo interesse.");
             return "fail";
         }
         setOutput(result);
         return "success";
     }
+    
     /**
      * Il metodo displaySurvey() viene attivato dopo che il cliente ha effettuato l'accesso nella sua pagina
      * personale ed ha effettuato un click sul pulsante "Visualizza" di un determinato sondaggio.
      * @return String esito del prelevamento dei dati di un determinato sondaggio. 
      */
     public String displaySurvey(){
-        SurveyManager sm=SurveyManager.getSurveyManager();
-        Survey s=new Survey();
+        SurveyManager sm = SurveyManager.getSurveyManager();
+        Survey s = new Survey();
         s.setId(id);
-        String result=sm.retrieve(s);
+        String result = sm.retrieve(s);
         if(result.equals("db_fail")){
-            setMessage("Non è stato possibile visualizzare il sondaggio selezionato.");
+            setMessage("Non e' stato possibile visualizzare il sondaggio selezionato.");
             return "fail";
         }
+        setOutput(result);
         return "success";
     }
     
@@ -134,11 +141,11 @@ public class SurveyAction extends ActionSupport{
      * @return String esito dell'inserimento della risposta.
      */
     public String answerSurvey(){
-        SurveyManager sm=SurveyManager.getSurveyManager();
+        SurveyManager sm = SurveyManager.getSurveyManager();
         Map<String, Object> session = ActionContext.getContext().getSession();
-        String result=sm.insertAnswer(id,(int)session.get("idUser"), answer);
+        String result = sm.insertAnswer(id,(int)session.get("idUser"), answer);
         if(result.equals("db_fail")){
-            setMessage("Non è stato possibile inserire la tua risposta.");
+            setMessage("Non e' stato possibile inserire la risposta.");
             return "fail";
         }
         return "success";
@@ -151,8 +158,16 @@ public class SurveyAction extends ActionSupport{
      * @return boolean esito della validazione 
      */
     private boolean validateSurvey(){
-        if(question.isEmpty()||(answers[0].isEmpty()||answers[1].isEmpty())||categories.length<1)
+    	//controllo che i campi required sono inseriti correttamente
+        if(question.isEmpty() || answers[0].isEmpty() || answers[1].isEmpty())
             return false;
+        //se le risposte sono solo due, devono essere Si o No
+        if(answers.length == 2) 
+        	if((answers[0] != "Si" && answers[1] != "No") || (answers[0] != "No" && answers[1] != "Si"))
+        		return false;
+        //controllo che almeno una categoria � associata al sondaggio inserito
+        if(categories.length < 1)
+        	return false;
         return true;
     }
     

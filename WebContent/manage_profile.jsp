@@ -19,7 +19,7 @@
 		<s:textfield class="form-control" type="text" id="username" name="username" label="Username" placeholder="username" size="30"/>
         <s:textfield class="form-control" type="email" id="email" name="email" label="E-mail" placeholder="example@lab.it" size="30"/>
         <s:password class="form-control" id="password" name="password" label="Password" placeholder="*****" maxlength="10" size="30"/>
-		<s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" list="# {'1':'Categoria1','2':'Categoria2','3':'Categoria3','4':'Categoria4'}"/>
+		<s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" value="{'1','2'}" list="# {'1':'Categoria1','2':'Categoria2','3':'Categoria3','4':'Categoria4'}"/>
 		<s:submit class="btn" value="Aggiorna"/>
 	</s:form>
 	<br><br>

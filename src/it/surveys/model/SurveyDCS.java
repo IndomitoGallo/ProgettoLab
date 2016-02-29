@@ -4,10 +4,10 @@ import it.surveys.util.UtilDB;
 import java.sql.*;
 
 /**
- * La funzionalità della classe DCS (Domain Control Service) è simile a quella della classe
+ * La funzionalita'� della classe DCS (Domain Control Service) e' simile a quella della classe
  * DAO; a differenza di essa realizza delle feature addizionali che non riguardano un
  * particolare oggetto del dominio.
- * La classe DCS è accessibile esclusivamente tramite i manager.
+ * La classe DCS e' accessibile esclusivamente tramite i manager.
  * @author L.Camerlengo
  * @version 1.1,26/02/2016
  */
@@ -223,7 +223,7 @@ public class SurveyDCS {
     /**
      * Effettua l'operazione di inserimento nel database di una risposta ad un determinato sondaggio 
      * da parte di un determinato utente.
-     * Restituisce "success" se l'inserimento è andato a buon fine, "fail" altrimenti.
+     * Restituisce "success" se l'inserimento e' andato a buon fine, "fail" altrimenti.
      * @param idSurvey int
      * @param idUser int
      * @param answer String
@@ -323,7 +323,7 @@ public class SurveyDCS {
      * @param categories int[]
      * @return String esito dell'inserimento
      */
-    public static String insertCategoryAssociation(int idSurvey,int[] categories){
+    public static String insertCategoriesAssociation(int idSurvey,int[] categories){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;

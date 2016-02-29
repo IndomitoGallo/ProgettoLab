@@ -19,25 +19,27 @@ public class CategoryAction extends ActionSupport{
     private String name;
     private String message;
     private String output;
+    private String flag;
+    
     /**
      * Il metodo createCategory() viene attivato dopo che il responsabile ha effettuato l'accesso
      * nella sua pagina personale ed ha effettuato un click su "Crea nuova categoria".
      * @return String esito della creazione della categoria. 
      */
     public String createCategory(){
-        if(validateCategory()==false){
+        if(validateCategory() == false){
             setMessage("Non sono stati inseriti correttamente tutti i campi obligatori.");
             return "fail";
         }
-        CategoryManager cm=CategoryManager.getCategoryManager();
-        Category c=new Category();
+        CategoryManager cm = CategoryManager.getCategoryManager();
+        Category c = new Category();
         c.setName(name);
-        String result=cm.insert(c);
+        String result = cm.insert(c);
         if(result.equals("verification_fail")){
-            setMessage("Spiaciente la categoria"+name+" e' gia esistente.");
+            setMessage("Spiaciente, la categoria " + name + " e' gia esistente.");
             return "fail";
-        }else if(result.equals("db_fail")){
-            setMessage("Non è stato posssibile creare la categoria.");
+        } else if(result.equals("db_fail")){
+            setMessage("Non e' stato posssibile creare la categoria.");
         }
         return "success";
     }
@@ -49,12 +51,12 @@ public class CategoryAction extends ActionSupport{
      * @return String esito della cancellazione della categoria. 
      */
     public String deleteCategory(){
-        CategoryManager cm=CategoryManager.getCategoryManager();
-        Category c=new Category();
+        CategoryManager cm = CategoryManager.getCategoryManager();
+        Category c = new Category();
         c.setId(id);
-        String result=cm.delete(c);
+        String result = cm.delete(c);
         if(result.equals("fail")){
-            setMessage("Non è stato possibile cancellare la categoria.");
+            setMessage("Non e' stato possibile cancellare la categoria.");
             return "fail";
         }
         return "success";
@@ -66,10 +68,10 @@ public class CategoryAction extends ActionSupport{
      * @return String esito del prelevamento delle categorie esistenti.
      */
     public String displayListCategories(){
-        CategoryManager cm=CategoryManager.getCategoryManager();
-        String result=cm.displayListCategories();
+        CategoryManager cm = CategoryManager.getCategoryManager();
+        String result = cm.displayListCategories();
         if(result.equals("fail")){
-            setMessage("Non è stato possibile prelevare le categorie esistenti.");
+            setMessage("Non e' stato possibile caricare le categorie esistenti.");
             return "fail";
         }
         return "success";
@@ -81,10 +83,10 @@ public class CategoryAction extends ActionSupport{
      * @return String esito del prelevamento delle categorie esistenti. 
      */
     public String displayRadioCategories(){
-        CategoryManager cm=CategoryManager.getCategoryManager();
-        String result=cm.displayRadioCategories();
+        CategoryManager cm = CategoryManager.getCategoryManager();
+        String result = cm.displayRadioCategories();
         if(result.equals("fail")){
-            setMessage("Non è stato possibile prelevare le categorie esistenti.");
+            setMessage("Non e' stato possibile caricare le categorie esistenti.");
             return "fail";     
         }
         return "success";
@@ -96,13 +98,13 @@ public class CategoryAction extends ActionSupport{
      * @return esito del prelevamento delle categorie. 
      */
     public String displayCheckBoxCategories(){
-        CategoryManager cm=CategoryManager.getCategoryManager();
-        String result=cm.displayCheckBoxCategories();
+        CategoryManager cm = CategoryManager.getCategoryManager();
+        String result = cm.displayCheckBoxCategories();
         if(result.equals("fail")){
-            setMessage("Non è stato possibile prelevare le categorie.");
-            return "fail";
+            setMessage("Non e' stato possibile caricare le categorie.");
+            return flag + "_fail";
         }
-        return "success";
+        return flag + "_success";
     }
     
     /**
@@ -118,6 +120,7 @@ public class CategoryAction extends ActionSupport{
         }
         return true;
     }
+    
     public int getId() {
         return id;
     }
@@ -149,6 +152,14 @@ public class CategoryAction extends ActionSupport{
     public void setOutput(String output) {
         this.output = output;
     }
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
     
     
 }

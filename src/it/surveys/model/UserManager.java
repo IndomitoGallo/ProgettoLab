@@ -90,7 +90,6 @@ public class UserManager {
 		if(categories == "fail")
 			return "fail";
 		return categories;
-		return "metodo commentato per evitare errori e warning";
 	}
 
 	/**

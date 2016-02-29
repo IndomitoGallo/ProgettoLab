@@ -38,7 +38,8 @@ public class UserAction extends ActionSupport{
 	 */
 	public String register() {
 		if(validateRegister() == false) {
-			setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori!");
+			setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori.<br>" + 
+						"Oppure non è stata selezionata alcuna categoria.");
 			return "fail";
 		}
 		else {
@@ -188,6 +189,9 @@ public class UserAction extends ActionSupport{
 		if(getUsername().isEmpty() || getPassword().isEmpty() || getEmail().isEmpty() ||
 				getName().isEmpty() || getSurname().isEmpty())
 			return false;
+		//controllo che almeno una categoria è associata all'utente
+        if(getCategories().length < 1)
+        	return false;
 		return true;
 	}
 	

@@ -3,10 +3,11 @@
 	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN=struts-2.0.dtd"
 	"http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
+
 	<package name="user" extends="struts-default">
 		<action name="login" class="it.surveys.action.UserAction" method="login">
-			<result name="success">/user.jsp</result>
-			<result name="admin_success">/admin.jsp</result>
+			<result name="success" type="redirectAction">/displayAllowedSurveys</result>
+			<result name="admin_success" type="redirectAction">/displayCreatedSurveys</result>
 			<result name="fail">/index.jsp</result>
 		</action>
 		<action name="logout" class="it.surveys.action.UserAction" method="logout">
@@ -21,60 +22,65 @@
 			<result name="fail">/manage_profile.jsp</result>
 		</action>
 		<action name="updateProfile" class="it.surveys.action.UserAction" method="updateProfile">
-			<result name="success">/user.jsp</result>
-			<result name="fail">/manage_profile.jsp</result>
+			<result name="success" type="redirectAction">/displayAllowedSurveys</result>
+			<result name="fail" type="redirectAction">/displayProfile?message=${message}</result>
 		</action>
-                <action name="createSurvey" class="it.surveys.action.SurveyAction" method="createSurvey">
-                        <result name="success">/admin.jsp</result>
-                        <result name="fail">/new_survey.jsp</result>
-                </action>
-                <action name="deleteSurvey" class="it.surveys.action.SurveyAction" method="deleteSurvey">
-                        <result name="success">/admin.jsp</result>
-                        <result name="fail">/admin.jsp</result>
-                </action>
-                <action name="displayResults" class="it.surveys.action.SurveyAction" method="displayResults">
-                        <result name="success">/results.jsp</result>
-                        <result name="fail">/results.jsp</result>
-                </action>
-                <action name="displayCreatedSurveys" class="it.surveys.action.SurveyAction" method="displayCreatedSurveys">
-                        <result name="success">/admin.jsp</result>
-                        <result name="fail">/admin.jsp</result>
-                </action>
-                <action name="displayAllowedSurveys" class="it.surveys.action.SurveyAction" method="displayAllowedSurveys">
-                        <result name="success">/user.jsp</result>
-                        <result name="fail">/user.jsp</result>
-                </action>
-                <action name="displaySurvey" class="it.surveys.action.SurveyAction" method="displaySurvey">
-                        <result name="success">/survey.jsp</result>
-                        <result name="fail">/survey.jsp</result>
-                </action>
-                <action name="AnswerSurvey" class="it.surveys.action.SurveyAction" method="AnswerSurvey">
-                        <result name="success">/user.jsp</result>
-                        <result name="fail">/survey.jsp</result>
-                </action>
-                <action name="createCategory" class="it.surveys.action.CategoryAction" method="createCategory">
-                        <result name="success">/admin.jsp</result>
-                        <result name="fail">/new_category.jsp</result>
-                </action>
-                <action name="deleteCategory" class="it.surveys.action.CategoryAction" method="deleteCategory">
-                        <result name="success">/admin.jsp</result>
-                        <result name="fail">/delete_category.jsp</result>
-                </action>
-                <action name="displayListCategories" class="it.surveys.action.CategoryAction" method="displayListCategories">
-                        <result name="success">/new_category.jsp</result>
-                        <result name="fail">/new_category.jsp</result>
-                </action>
-                <action name="displayRadioCategories" class="it.surveys.action.CategoryAction" method="displayRadioCategories">
-                        <result name="success">/delete_category.jsp</result>
-                        <result name="fail">/delete_category.jsp</result>
-                </action>
-                <action name="displayCheckBoxCategories" class="it.surveys.action.CategoryAction" method="displayCheckBoxCategories">
-                        <result name="success">/manage_profile.jsp</result>
-                        <result name="fail">/manage_profile.jsp</result>
-                </action>
-                
-                
-                
-                
 	</package>
+	
+	<package name="survey" extends="struts-default">
+        <action name="createSurvey" class="it.surveys.action.SurveyAction" method="createSurvey">
+            <result name="success" type="redirectAction">/displayCreatedSurveys</result>
+            <result name="fail">/new_survey.jsp</result>
+        </action>
+        <action name="deleteSurvey" class="it.surveys.action.SurveyAction" method="deleteSurvey">
+            <result name="success" type="redirectAction">/displayCreatedSurveys</result>
+            <result name="fail" type="redirectAction">/displayCreatedSurveys?message=${message}</result>
+        </action>
+        <action name="displayResults" class="it.surveys.action.SurveyAction" method="displayResults">
+            <result name="success">/results.jsp</result>
+            <result name="fail">/results.jsp</result>
+        </action>
+        <action name="displayCreatedSurveys" class="it.surveys.action.SurveyAction" method="displayCreatedSurveys">
+            <result name="success">/admin.jsp</result>
+            <result name="fail">/admin.jsp</result>
+        </action>
+        <action name="displayAllowedSurveys" class="it.surveys.action.SurveyAction" method="displayAllowedSurveys">
+            <result name="success">/user.jsp</result>
+            <result name="fail">/user.jsp</result>
+        </action>
+        <action name="displaySurvey" class="it.surveys.action.SurveyAction" method="displaySurvey">
+            <result name="success">/survey.jsp</result>
+            <result name="fail">/survey.jsp</result>
+        </action>
+        <action name="AnswerSurvey" class="it.surveys.action.SurveyAction" method="AnswerSurvey">
+            <result name="success" type="redirectAction">/displayAllowedSurveys</result>
+            <result name="fail" type="redirectAction">/displaySurvey?message=${message}</result>
+        </action>
+    </package>
+    
+    <package name="category" extends="struts-default">
+        <action name="createCategory" class="it.surveys.action.CategoryAction" method="createCategory">
+            <result name="success" type="redirectAction">/displayCreatedSurveys</result>
+            <result name="fail" type="redirectAction">/displayListCategories?message=${message}</result>
+        </action>
+        <action name="deleteCategory" class="it.surveys.action.CategoryAction" method="deleteCategory">
+            <result name="success" type="redirectAction">/displayCreatedSurveys</result>
+            <result name="fail" type="redirectAction">/displayRadioCategories?message=${message}</result>
+        </action>
+        <action name="displayListCategories" class="it.surveys.action.CategoryAction" method="displayListCategories">
+            <result name="success">/new_category.jsp</result>
+            <result name="fail">/new_category.jsp</result>
+        </action>
+        <action name="displayRadioCategories" class="it.surveys.action.CategoryAction" method="displayRadioCategories">
+            <result name="success">/delete_category.jsp</result>
+            <result name="fail">/delete_category.jsp</result>
+        </action>
+        <action name="displayCheckBoxCategories" class="it.surveys.action.CategoryAction" method="displayCheckBoxCategories">
+            <result name="reg_success">/register.jsp</result>
+            <result name="reg_fail">/register.jsp</result>
+            <result name="survey_success">/new_survey.jsp</result>
+            <result name="survey_fail">/new_survey.jsp</result>
+        </action>  
+	</package>
+	
 </struts>
