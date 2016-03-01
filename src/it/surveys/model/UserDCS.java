@@ -11,7 +11,6 @@ import it.surveys.util.UtilDB;
  * @author Luca Talocci, Lorenzo Bernabei
  * @version 1.0 10/02/2016
  */
-
 public class UserDCS {
 	
 	/**
@@ -20,8 +19,8 @@ public class UserDCS {
 	 * deve effettuare l'accesso.
 	 * Il valore di ritorno è l'id dell'utente se i dati di Login sono corretti, 0 altrimenti.
 	 * In caso di eccezioni viene restituito -1.
-	 * @param user String
-	 * @param pwd String
+	 * @param user String lo username dell'utente
+	 * @param pwd String la password dell'utente
 	 * @return int esito della verifica
 	 * @author Luca Talocci
 	 */
@@ -69,8 +68,8 @@ public class UserDCS {
 	 * dall'utente, in particolare username e email, non siano già presenti nel database.
 	 * Il valore di ritorno è true se i dati di registrazione sono corretti, false altrimenti.
 	 * In caso di eccezioni viene restituito fail.
-	 * @param user String
-	 * @param mail String
+	 * @param user String lo username dell'utente
+	 * @param mail String l'e-mail dell'utente
 	 * @return String esito della verifica
 	 * @author Lorenzo Bernabei
 	 */
@@ -115,12 +114,13 @@ public class UserDCS {
 	}
 	
 	/**
-	 * Il metodo verifyUpdateData(String user, String mail) verifica che i dati di aggiornamento del
+	 * Il metodo verifyUpdateData(int idUser, String user, String mail) verifica che i dati di aggiornamento del
 	 * profilo inseriti dall'utente, in particolare username e email, non siano già presenti nel database.
 	 * Il valore di ritorno è true se i dati inseriti sono corretti, false altrimenti.
 	 * In caso di eccezioni viene restituito fail.
-	 * @param user String
-	 * @param mail String
+	 * @param idUser int l'id dell'utente, per poter effettuare la verifica su tutti gli altri utenti
+	 * @param user String lo username dell'utente
+	 * @param mail String l'e-mail dell'utente
 	 * @return String esito della verifica
 	 * @author Luca Talocci
 	 */
@@ -169,7 +169,7 @@ public class UserDCS {
 	 * forniti dalla classe UtilDB per inserire nel Database le associazioni di un utente con
 	 * le categorie.
 	 * @param idUser int
-	 * @param categories int[]
+	 * @param categories int[] array degli id delle categorie
 	 * @return String esito degli inserimenti
 	 * @author Luca Talocci
 	 */
@@ -214,7 +214,7 @@ public class UserDCS {
 	 * forniti dalla classe UtilDB per aggiornare nel Database le associazioni di un utente con
 	 * le categorie. In particolare cancella tutte quelle presenti e inserisce le nuove scelte.
 	 * @param idUser int
-	 * @param categories int[]
+	 * @param categories int[] array degli id delle categorie
 	 * @return String esito degli aggiornamenti
 	 * @author Lorenzo Bernabei
 	 */

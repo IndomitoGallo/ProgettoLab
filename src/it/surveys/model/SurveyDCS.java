@@ -9,14 +9,14 @@ import java.sql.*;
  * particolare oggetto del dominio.
  * La classe DCS e' accessibile esclusivamente tramite i manager.
  * @author L.Camerlengo
- * @version 1.1,26/02/2016
+ * @version 1.1, 26/02/2016
  */
 public class SurveyDCS {
     
     /**
      * Effettua una formattazione in una tabella dei risultati del sondaggio passato in ingresso;
      * la tabella contiene per ogni riga una determinata risposta tra le possibili e una percentuale che esprime 
-     * il numero di volte che la risposta e' stata scelta dagli utenti;
+     * la porzione di utenti che l'hanno scelta;
      * se una risposta non e' mai stata selezionata da un utente la sua percentuale e' 0%.
      * Restituisce una tabella sotto forma di stringa contenente i risultati di un determinato sondaggio.
      * @param idSurvey int
@@ -103,8 +103,7 @@ public class SurveyDCS {
      * responsabile di visionare l'andamento delle risposte e un pulsante cancella che consente di cancellare
      * il sondaggio dal database.
      * Restituisce una tabella sotto forma di stringa contenente i sondaggi presenti nel database, altrimenti
-     * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa
-     * che notifica al responsabile che non sono presenti sondaggi.
+     * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa.
      * @return String sondaggi presenti nel database.
      */
     public static String displayCreatedSurveys(){
@@ -162,13 +161,13 @@ public class SurveyDCS {
      * Effettua una formattazione in una tabella dei sondaggi appartenenti alle categorie di interesse 
      * per l'utente passato in ingresso a cui ancora non ha risposto;
      * la tabella contiene per ogni riga la domanda del sondaggio e un pulsante visualizza che permette all'utente di
-     * visualizzare le risposte alla domanda e di selezionarne una tra quelle possibili.
+     * visualizzare per intero il sondaggio e di poter rispondere.
      * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle 
      * categoire di interesse per l'utente presenti nel database, altrimenti se non e' presente
-     * alcun sondaggio associato alle categorie di interesse dell'utente restiuisce un
-     * messaggio sotto forma di stringa, che invita l'utente ad aggiungere nuove categorie di interesse.
+     * alcun sondaggio associato alle categorie di interesse dell'utente restituisce un
+     * messaggio sotto forma di stringa.
      * @param idUser int
-     * @return String Sondaggi delle relative categorie preferite dell'utente. 
+     * @return String sondaggi appartenenti alle categorie preferite dell'utente. 
      */
     public static String displayAllowedSurvey(int idUser){
         UtilDB utl=UtilDB.getUtilDB();
@@ -230,7 +229,7 @@ public class SurveyDCS {
      * @param answer String
      * @return String esito dell'inserimento della risposta
      */
-    public static String insertAnswer(int idSurvey,int idUser,String answer){
+    public static String insertAnswer(int idSurvey, int idUser, String answer){
         UtilDB utl=UtilDB.getUtilDB();
         Connection conn=null;
         Statement stm=null;
@@ -321,7 +320,7 @@ public class SurveyDCS {
      * Effettua un inserimento nel database delle associazioni del sondaggio con le categorie passate in ingresso. 
      * Restituisce "success" se l'inserimento delle associazioni e' andato a buon fine, "fail" altrimenti.
      * @param idSurvey int
-     * @param categories int[]
+     * @param categories int[] array degli id delle categorie
      * @return String esito dell'inserimento
      */
     public static String insertCategoriesAssociation(int idSurvey,int[] categories){

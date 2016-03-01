@@ -29,12 +29,14 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo createConnection() crea una connessione ad un DB 
+	 * Il metodo crea una connessione ad un DB 
 	 * caricando innanzitutto il Driver e poi sfruttando il metodo privato
 	 * {@link #createConnection(java.lang.String, java.lang.String, java.lang.String)}
      * L'esistenza di questo metodo permette di cambiare il database a cui si accede in modo semplice:
      * e' l'unico metodo a contenere i riferimenti al database utilizzato.
 	 * @return conn Connection to DB
+	 * @throws ClassNotFoundException
+	 * @throws SQLException
      * @see com.mysql.jdbc.Driver
 	 */
     public Connection createConnection() throws ClassNotFoundException, SQLException {
@@ -51,7 +53,7 @@ public class UtilDB {
 	 * @param username String username dell'utente mySQL
 	 * @param password String password dell'utente mySQL
 	 * @return Connection to DB
-	 * @throws SQLException 
+	 * @throws SQLException
      * @see java.sql.DriverManager
 	 */
 	private Connection createConnection(String db, String username, String password) throws SQLException {		
@@ -62,12 +64,12 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo createStatement permette di creare
+	 * Il metodo permette di creare
 	 * uno Statement associato alla connessione passata in ingresso.
      * Lo Statement e' un oggetto necessario per poter eseguire query mysql.
 	 * @param conn Connection to DB
 	 * @return Statement associato alla connessione in ingresso
-	 * @throws SQLException 
+	 * @throws SQLException
      * @see java.sql.Statement
 	 */
 	public Statement createStatement(Connection conn) throws SQLException {
@@ -75,12 +77,12 @@ public class UtilDB {
 	}
 
 	/**
-	 * Il metodo query ha il compito di eseguire una query sul DB, il cui risultato
+	 * Il metodo ha il compito di eseguire una query sul DB, il cui risultato
 	 * e' un oggetto di tipo ResultSet che contiene i record restituiti dalla query.
-	 * @param stmt oggetto Statement associato ad una connessione al database
-	 * @param qry query in linguaggio MySQL 
+	 * @param stmt Statement associato ad una connessione al database
+	 * @param qry String query in linguaggio MySQL 
 	 * @return ResultSet oggetto che contiene l'insieme dei record risultanti dalla query qry
-	 * @throws SQLException 
+	 * @throws SQLException
      * @see java.sql.Statement
 	 */
 	public ResultSet query(Statement stmt, String qry) throws SQLException {
@@ -88,11 +90,11 @@ public class UtilDB {
 	}
 
 	/**
-	 * Il metodo manipulate gestisce le operazioni di Insert, Update e Delete sul DB.
-	 * @param stmt oggetto di tipo Statement associato ad una connessione al database
-	 * @param qry query in linguaggio MySQL e in formato String
+	 * Il metodo gestisce le operazioni di Insert, Update e Delete sul DB.
+	 * @param stmt Statement associato ad una connessione al database
+	 * @param qry String query in linguaggio MySQL
 	 * @return int numero di righe(tuple/records) coinvolte nella query
-     * @throws SQLException 
+     * @throws SQLException
      * @see java.sql.Statement#executeUpdate(java.lang.String) 
 	 */
 	public int manipulate(Statement stmt, String qry) throws SQLException {
@@ -100,10 +102,10 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo closeStatement permette di chiudere lo 
+	 * Il metodo permette di chiudere lo 
 	 * Statement passato in ingresso.
-	 * @param stmt oggetto di tipo Statement che si vuole chiudere
-	 * @throws SQLException 
+	 * @param stmt Statement che si vuole chiudere
+	 * @throws SQLException
      * @see java.sql.Statement#close() 
 	 */
 	public void closeStatement(Statement stmt) throws SQLException {
@@ -111,11 +113,11 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo closeConnection ha il compito di chiudere la connessione al DB.
+	 * Il metodo ha il compito di chiudere la connessione al DB.
 	 * Chiudere la connessione puo' essere necessario poiche' un DBMS puo' gestire soltanto un pool
 	 * predefinito di connessioni in parallelo.
-	 * @param conn Connessione al DataBase
-	 * @throws SQLException 
+	 * @param conn Connection to DB
+	 * @throws SQLException
      * @see java.sql.Connection#close()
 	 */
 	public void closeConnection(Connection conn) throws SQLException {
@@ -123,10 +125,10 @@ public class UtilDB {
 	}
 
 	/**
-	 * Il metodo printResultSet stampa a schermo il resultSet in ingresso
+	 * Il metodo stampa a schermo il resultSet in ingresso
 	 * in modo formattato, separando i campi di ogni record con il carattere "|".
-	 * @param rs ResultSet
-	 * @throws SQLException 
+	 * @param rs ResultSet prodotto da una query
+	 * @throws SQLException
      * @see java.sql.ResultSet
 	 */
 	public void printResultSet(ResultSet rs) throws SQLException{
@@ -147,16 +149,16 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo resultSetToArrayString prende in ingresso un oggetto di tipo ResultSet
+	 * Il metodo prende in ingresso un oggetto di tipo ResultSet
      * e restituisce un ArrayList di oggetti di tipo String, dove ogni Stringa e' un record del ResultSet
 	 * L'esistenza del metodo e' finalizzata a rendere la gestione dei risultati delle query
      * sul DB piu' semplici da parte dell'applicazione
      * Il metodo ottiene in primo luogo un oggetto di tipo ResultSetMetaData a partire dal ResultSet rs in ingresso
      * Esso permette di conoscere il numero di colonne del ResultSet rs, in modo da separare, 
      * per ogni stringa nell'ArrayList di ritorno, i campi del record (tramite '*').
-	 * @param rs ResultSet 
+	 * @param rs ResultSet prodotto da una query
      * @return ArrayList<String> collezione di oggetti di tipo String
-	 * @throws SQLException 
+	 * @throws SQLException
      * @see java.sql.ResultSet#getMetaData() 
      * @see java.sql.ResultSetMetaData  
 	 */
@@ -180,8 +182,8 @@ public class UtilDB {
 	}
 
 	/**
-	 * Stampa a schermo la lista di tutte le tabelle del DataBase, una per riga.
-	 * @param conn La connessione al DataBase
+	 * Il metodo stampa a schermo la lista di tutte le tabelle del DataBase, una per riga.
+	 * @param conn Connection to DB
      * @see java.sql.ResultSet#getString(int) 
 	 * @throws SQLException
 	 */
@@ -208,12 +210,10 @@ public class UtilDB {
 	}
 		
     /**
-     * Metodo che, presa in input la connessione ad un Database ed il nome di
-     * una tabella in formato String, stampa a schermo i nomi di tutte le colonne
-     * presenti in quella tabella.
-     * @param conn connection to DB
-     * @param tableName nome esatto della tabella
-     * @throws SQLException 
+     * Il metodo che stampa a schermo i nomi di tutte le colonne presenti in una tabella.
+     * @param conn Connection to DB
+     * @param tableName String nome esatto della tabella
+     * @throws SQLException
      * @see java.sql.DatabaseMetaData#getColumns(java.lang.String, java.lang.String, java.lang.String, java.lang.String) 
      */
 	public void printTableColumnsNames(Connection conn, String tableName) throws SQLException{

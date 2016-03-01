@@ -36,7 +36,7 @@ public class SurveyManager {
      * Restituisce "success" se l'inserimento del sondaggio con le relative associazioni con le categorie sono state
      * inserite correttamente nel database, "db_fail" altrimenti.
      * @param s Survey
-     * @param categories int[]
+     * @param categories int[] array degli id delle categorie
      * @return String esito dell'inserimento
      */
     public String insert(Survey s,int[] categories){
@@ -54,18 +54,17 @@ public class SurveyManager {
 			SurveyDAO.delete(s);
 	        return "db_fail";
 	    }
-	    return "success";
+	    return result;
     }
     
     /**
-     * Questo metodo, utilizzando il corrispondente del livello inferiore in surveyDAO, crea una tabella 
-     * sotto forma di stringa contenente la domanda del sondaggio e tutte le possibili risposte selezionabili 
-     * dal cliente per rispondere ad un determinato sondaggio.
-     * Restituisce un tabella sotto forma di stringa contenente la domanda e le possibili risposte
-     * selezionabili di un determinato sondaggio se il metodo retrieve del livello inferiore
-     * ha esito positivo, "db_fail" altrimenti.
+     * Questo metodo utilizza il corrispondente del livello inferiore in SurveyDAO per recuperare
+     * i dati del sondaggio e restituisce una stringa formattata in HTML con una tabella contenente la
+     * domanda del sondaggio e tutte le possibili risposte selezionabili dal cliente per rispondere
+     * ad un determinato sondaggio. Le risposte vengono visualizzate sotto forma di radio button
+     * (tag "s:radio" di Struts2). Se viene restituito fail, si ritorna un fallimento.
      * @param s Survey
-     * @return String tabella contenente la domanda e le possibili risposte selezionabili di un determinato sondaggio.
+     * @return String stringa formattata opportunamente
      */
     public String retrieve(Survey s){
         String result=SurveyDAO.retrieve(s);
@@ -114,7 +113,7 @@ public class SurveyManager {
     
     /**
      * Questo metodo chiama semplicemente il corrispondente metodo del livello inferiore in SurveyDCS.
-     * Restituisce una tabella sotto forma di stringa contenente i risultati di un determinato sondaggio,
+     * Restituisce una stringa formattata in HTML con una tabella contenente i risultati di un determinato sondaggio,
      * altrimenti se qualcosa e' andato storto restituisce "db_fail".
      * @param idSurvey int
      * @return String Risultati di un determinato sondaggio
@@ -129,11 +128,10 @@ public class SurveyManager {
     
     /**
      * Questo metodo chiama semplicemente il corrispondente metodo del livello inferiore in SurveyDCS.
-     * Restituisce una tabella sotto forma di stringa contenente i sondaggi presenti nel database, altrimenti
-     * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa
-     * che notifica al responsabile che non sono presenti sondaggi, altrimenti 
+     * Restituisce stringa formattata in HTML con una tabella contenente i sondaggi presenti nel database, altrimenti
+     * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa, altrimenti 
      * se qualcosa e' andato storto restituisce "db_fail".
-     * @return String sondaggi presenti nel database.
+     * @return String stringa formattata opportunamente
      */
     public String displayCreatedSurveys(){
         String result=SurveyDCS.displayCreatedSurveys();
@@ -145,13 +143,12 @@ public class SurveyManager {
     
     /**
      * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
-     * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle categorie
-     * di interesse per l'utente presenti nel database, altrimenti se non e' presente alcun sondaggio
-     * associato alle categorie di interesse dell'utente restiuisce un messaggio sotto forma di stringa, 
-     * che invita l'utente ad aggiungere nuove categorie di interesse, altrimenti se qualcosa e'
-     * andato storto restituisce "db_fail".
+     * Restituisce una stringa formattata in HTML con una tabella contenente i sondaggi appartenenti
+     * alle categorie di interesse per l'utente presenti nel database, altrimenti se non e' presente
+     * alcun sondaggio associato alle categorie di interesse dell'utente restituisce un messaggio sotto
+     * forma di stringa, altrimenti se qualcosa e' andato storto restituisce "db_fail".
      * @param idUser int
-     * @return String Sondaggi delle relative categorie preferite dell'utente. 
+     * @return String stringa formattata opportunamente 
      */
     public String displayAllowedSurveys(int idUser){
         String result=SurveyDCS.displayAllowedSurvey(idUser);

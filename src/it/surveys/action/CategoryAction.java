@@ -17,13 +17,21 @@ public class CategoryAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
     private int id;
     private String name;
-    private String message;
-    private String output;
+	/** eventuale messaggio di errore da visualizzare nella view. */
+	private String message;
+	/** eventuale output da visualizzare nella view. */
+	private String output;
+	/** 
+	 * viene utilizzato in displayCheckBoxCategories() per differenziare
+	 * successo e fallimento, in base a chi ha richiesto la action. In pratica
+	 * reindirizza l'utente alla registrazione o l'admin alla creazione del sondaggio.
+	 */
     private String flag;
     
     /**
      * Il metodo createCategory() viene attivato dopo che il responsabile ha effettuato l'accesso
      * nella sua pagina personale ed ha effettuato un click su "Crea nuova categoria".
+     * Vengono validati i dati del form e viene chiamato il metodo insert del CategoryManager.
      * @return String esito della creazione della categoria. 
      */
     public String createCategory(){
@@ -32,8 +40,7 @@ public class CategoryAction extends ActionSupport{
             return "fail";
         }
         CategoryManager cm = CategoryManager.getCategoryManager();
-        Category c = new Category();
-        c.setName(name);
+        Category c = new Category(name);
         String result = cm.insert(c);
         if(result.equals("verification_fail")){
             setMessage("Spiaciente, la categoria " + name + " e' gia esistente.");
@@ -48,6 +55,7 @@ public class CategoryAction extends ActionSupport{
      * Il metodo deleteCategory() viene attivato dopo che il responsabile ha effettuato un click
      * su "Elimina categoria esistente" all'interno della sua pagina personale ed ha selezionato
      * una determinata categoria ed ha cliccato su "Cancella".
+     * Viene chiamato il corrispondente metodo del CategoryManager.
      * @return String esito della cancellazione della categoria. 
      */
     public String deleteCategory(){
@@ -64,7 +72,9 @@ public class CategoryAction extends ActionSupport{
     
     /**
      * Il metodo displayListCategories() viene attivato dopo che il responsabile ha effettuato l'accesso
-     * nella sua pagina personale ed ha effettuato un click su "Crea nuova categoria".
+     * nella sua pagina personale ed ha effettuato un click su "Crea nuova categoria". Viene chiamato il
+     * corrispondente metodo del CategoryManager. Infine effettua i set degli attributi con i dati da mostrare
+     * all'utente.
      * @return String esito del prelevamento delle categorie esistenti.
      */
     public String displayListCategories(){
@@ -74,13 +84,15 @@ public class CategoryAction extends ActionSupport{
             setMessage("Non e' stato possibile caricare le categorie esistenti.");
             return "fail";
         }
+		setOutput(result);
         return "success";
     }
     
     /**
      * Il metodo displayRadioCategories() viene attivato dopo che il responsabile ha effettuato l'accesso nella 
-     * sua pagina personale ed ha cliccato su "Elimina categoria esistente".
-     * @return String esito del prelevamento delle categorie esistenti. 
+     * sua pagina personale ed ha cliccato su "Elimina categoria esistente". Viene chiamato il corrispondente
+     * metodo del CategoryManager. Infine effettua i set degli attributi con i dati da mostrare all'utente.
+     * @return String esito del prelevamento delle categorie esistenti (vedi {@link #flag}). 
      */
     public String displayRadioCategories(){
         CategoryManager cm = CategoryManager.getCategoryManager();
@@ -89,12 +101,14 @@ public class CategoryAction extends ActionSupport{
             setMessage("Non e' stato possibile caricare le categorie esistenti.");
             return "fail";     
         }
+		setOutput(result);
         return "success";
     }
     
     /**
      * Il metodo displayCheckBoxCategories() viene attivato dopo che il cliente ha effettuato l'accesso nella
-     * pagina personale ed ha cliccato su "ModificaProfilo". 
+     * pagina personale ed ha cliccato su "ModificaProfilo". Viene chiamato il corrispondente metodo del
+     * CategoryManager. Infine effettua i set degli attributi con i dati da mostrare all'utente.
      * @return esito del prelevamento delle categorie. 
      */
     public String displayCheckBoxCategories(){
@@ -102,9 +116,10 @@ public class CategoryAction extends ActionSupport{
         String result = cm.displayCheckBoxCategories();
         if(result.equals("fail")){
             setMessage("Non e' stato possibile caricare le categorie.");
-            return flag + "_fail";
+            return getFlag() + "_fail";
         }
-        return flag + "_success";
+		setOutput(result);
+        return getFlag() + "_success";
     }
     
     /**

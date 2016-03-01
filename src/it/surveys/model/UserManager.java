@@ -32,13 +32,14 @@ public class UserManager {
 	}
 	
 	/**
-	 * Questo metodo chiama vari metodi del livello inferiore per effettuare la registrazione
-	 * dell'utente. In particolare prima si verifica se i dati inseriti sono corretti e in
+	 * Il metodo register(User u, int[] categories) chiama vari metodi del livello inferiore
+	 * per effettuare la registrazione dell'utente.
+	 * In particolare prima si verifica se i dati inseriti sono corretti e in
 	 * quel caso si inseriscono l'utente e le associazioni con le categorie scelte.
 	 * Se viene restituito false o fail, si ritorna un fallimento, altrimenti un successo.
 	 * @param u User
-	 * @param categories int[]
-	 * @return String
+	 * @param categories int[] array degli id delle categorie
+	 * @return String esito della registrazione
 	 * @author Lorenzo Bernabei
 	 */
 	public String register(User u, int[] categories) {
@@ -71,9 +72,9 @@ public class UserManager {
 	 * In particolare, prima seleziona dal DB i dati dell'utente (settando lo stato dell'oggetto
 	 * User), poi seleziona le categorie di interesse scelte dall'utente e le utilizza per
 	 * selezionare tutte le categorie esistenti e restituire una stringa formattata in HTML con
-	 * dei check box precompilati delle categorie.
+	 * un check box precompilato delle categorie. Se viene restituito fail, si ritorna un fallimento.
 	 * @param u User
-	 * @return String
+	 * @return String stringa formattata opportunamente
 	 * @author Luca Talocci
 	 */
 	public String displayProfile(User u) {
@@ -98,8 +99,8 @@ public class UserManager {
 	 * quel caso si aggiornano l'utente e le associazioni con le categorie scelte.
 	 * Se viene restituito false o fail, si ritorna un fallimento, altrimenti un successo.
 	 * @param u User
-	 * @param categories int[]
-	 * @return String
+	 * @param categories int[] array degli id delle categorie
+	 * @return String esito dell'aggiornamento del profilo
 	 * @author Lorenzo Bernabei
 	 */
 	public String update(User u, int[] categories) {
@@ -121,9 +122,9 @@ public class UserManager {
 	/**
 	 * Questo metodo chiama semplicemente il corrispondente del livello inferiore in UserDCS.
 	 * Se viene restituito 0 o -1 corrisponde ad un fallimento, altrimenti viene restituito l'id dell'utente.
-	 * @param user String
-	 * @param pwd String
-	 * @return int
+	 * @param user String lo username dell'utente
+	 * @param pwd String la password dell'utente
+	 * @return int valore numerico che rappresenta l'esito della verifica
 	 * @author Lorenzo Bernabei
 	 */
 	public int verifyLoginData(String user, String pwd) {

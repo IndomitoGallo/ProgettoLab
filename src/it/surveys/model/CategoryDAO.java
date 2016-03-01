@@ -14,7 +14,7 @@ import it.surveys.util.UtilDB;
 public class CategoryDAO {
 	
 	/**
-	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per inserire una
+	 * Il metodo sfrutta i servizi forniti dalla classe UtilDB per inserire una
 	 * categoria nel Database.
 	 * @param c Category
 	 * @return String esito dell'inserimento
@@ -55,8 +55,9 @@ public class CategoryDAO {
 	}
 	
 	/**
-	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per leggere i dati di una
+	 * Il metodo sfrutta i servizi forniti dalla classe UtilDB per leggere i dati di una
 	 * specifica categoria dal Database.
+	 * Viene, quindi settato l'oggetto Category passato come parametro.
 	 * @param c Category
 	 * @return String esito della SELECT SQL
 	 * @author Lorenzo Bernabei
@@ -102,7 +103,7 @@ public class CategoryDAO {
 	}	
 	
 	/**
-	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per modificare i dati di
+	 * Il metodo sfrutta i servizi forniti dalla classe UtilDB per modificare i dati di
 	 * una specifica categoria nel Database.
 	 * @param u User
 	 * @return String esito dell'aggiornamento
@@ -144,7 +145,7 @@ public class CategoryDAO {
 	}
 	
 	/**
-	 * Questo metodo sfrutta i servizi forniti dalla classe UtilDB per eliminare una
+	 * Il metodo sfrutta i servizi forniti dalla classe UtilDB per eliminare una
 	 * specifica categoria dal Database.
 	 * @param c Category
 	 * @return String esito della cancellazione

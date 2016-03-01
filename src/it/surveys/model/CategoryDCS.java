@@ -14,14 +14,13 @@ import java.util.ArrayList;
  * particolare oggetto del dominio.
  * La classe DCS e' accessibile esclusivamente tramite i manager.
  * @author Davide Vitiello
- * @version 1.2,28/02/2016
+ * @version 1.2, 28/02/2016
  */
-
 public class CategoryDCS {
 	
 	/**
-	 * Il metodo verifyCategory(String name) verifica che la stringa in ingresso 
-	 * corrisponda al nome di una categoria presente nel DataBase.	 
+	 * Il metodo verifyCategory(String name) verifica che la stringa in ingresso non 
+	 * corrisponda al nome di una categoria già presente nel DataBase.	 
 	 * Il valore di ritorno e': 'true' in caso di esito positivo,
 	 * 'false' in caso di esito negativo,
      * 'fail' in caso di problemi di accesso al DataBase per la verifica
@@ -69,8 +68,8 @@ public class CategoryDCS {
     }
     
 	/**
-	 * Il metodo displayListCategories() restituisce la stringa formattata al tipo
-	 * "unordered list <ul>" in HTML nella quale ogni elemento corrisponde ad una categoria.
+	 * Il metodo displayListCategories() restituisce la stringa formattata in HTML,
+	 * col tag "unordered list", in cui ogni elemento corrisponde ad una categoria.
 	 * @return String la lista formattata in HTML delle categorie presenti nel DB
 	 */
     public static String displayListCategories() {
@@ -127,9 +126,9 @@ public class CategoryDCS {
     /**
      * Il metodo displayRadioCategories() restituisce una formattazione di tutte
      * le categorie presenti nel DataBase.
-     * La formattazione in questione consiste in una lista di elementi '<s:radio>' 
-     * secondo la sintassi di Struts2 dove ogni elemento e' una coppia 
-     * numero:nomedellacategoria
+     * La formattazione in questione consiste in un radio button ("s:radio" 
+     * secondo la sintassi di Struts2). Viene usato l'attributo list per elencare le
+     * categorie (sono delle coppie "id":"nome_categoria").
      * @return String tutte le categorie dei sondaggi formattate opportunamente
      */
     public static String displayRadioCategories() {
@@ -179,10 +178,11 @@ public class CategoryDCS {
     }
     
     /**
-     * Il metodo displayCheckBoxCategories() restituisce una formattazione dei nomi
-     * di tutte le categorie presenti nel DataBase
-     * La stringa dei nomi viene formattata come una '<s:checkboxlist>' secondo la sintassi di Struts2,
-     * dove ogni elemento e' una coppia idCategoria:nomeCategoria.
+     * Il metodo displayCheckBoxCategories() restituisce una formattazione di tutte
+     * le categorie presenti nel DataBase.
+     * La formattazione in questione consiste in un checkbox ("s:checkboxlist" 
+     * secondo la sintassi di Struts2). Viene usato l'attributo list per elencare le
+     * categorie (sono delle coppie "id":"nome_categoria").
      * @return String tutte le categorie dei sondaggi formattate opportunamente
      */
     public static String displayCheckBoxCategories() {
@@ -232,12 +232,15 @@ public class CategoryDCS {
     }
     
     /**
-     * Il metodo displayCheckBoxCategories(ArrayList<Integer> userCategories) restituisce una formattazione dei nomi delle
-     * categorie presenti nel DataBase formattate in una '<s:checkboxlist>' secondo la sintassi di Struts2,
-     * dove ogni elemento e' una coppia idCategoria:nomeCcategoria. 
+     * Il metodo displayCheckBoxCategories(ArrayList<Integer> userCategories) restituisce una
+     * formattazione di tutte le categorie presenti nel DataBase.
+     * La formattazione in questione consiste in un checkbox ("s:checkboxlist" 
+     * secondo la sintassi di Struts2). Viene usato l'attributo list per elencare le
+     * categorie (sono delle coppie "id":"nome_categoria").
      * Si noti che le categorie passate in ingresso al metodo, ovvero quelle già associate all'utente,
      * nella checkboxlist saranno già checked.
-     * @param userCategories ArrayList<Integer> Una collezione di numeri corrispondenti agli ID delle categorie nel DB
+     * @param userCategories ArrayList<Integer> una collezione di numeri corrispondenti agli ID delle
+     * categorie associate ad un utente
      * @return String i nomi di tutte le categorie dei sondaggi formattate opportunamente
      */
     public static String displayCheckBoxCategories(ArrayList<Integer> userCategories) {

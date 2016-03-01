@@ -11,16 +11,21 @@ public class Survey {
     private String question;
     private String[] answers;
     
-	//Costruttore
+    /**
+     * Il Costruttore di default, senza parametri.
+     * Inizializza gli attributi con una stringa vuota o con null.
+     */
 	public Survey(){
-		this.id = 0;
 		this.question = "";
 		this.answers = null;
 	}
 	
-	//Costruttore con parametri
-	public Survey(int id, String question, String[] answers){
-		this.id = id;
+	/**
+	 * Il Costruttore con parametri.
+	 * @param question String la domanda del sondaggio
+	 * @param answers String[] un array contenente le possibili risposte al sondaggio
+	 */
+	public Survey(String question, String[] answers){
 		this.question = question;
 		this.answers = answers;
 	}

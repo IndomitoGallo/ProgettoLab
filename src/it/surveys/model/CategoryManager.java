@@ -40,7 +40,7 @@ public class CategoryManager {
 	 */
 	public String insert(Category c) {
 		String result;
-		result = "metodo da implementare";//CategoryDCS.verifyCategory(c.getName());
+		result = CategoryDCS.verifyCategory(c.getName());
 		if(result == "false")
 			return "verification_fail";
 		if(result == "fail")
@@ -54,6 +54,7 @@ public class CategoryManager {
 	/**
 	 * Il metodo delete(Category c) gestisce la cancellazione di un oggetto di tipo
 	 * Category dal database usufruendo dei servizi offerti dalla classe CategoryDAO.
+	 * Se viene restituito fail, si ritorna un fallimento, altrimenti un successo.
 	 * @param c Category
 	 * @return String esito della cancellazione
 	 * @author Luca Talocci
@@ -69,45 +70,45 @@ public class CategoryManager {
 	/**
 	 * Questo metodo usufruisce dei servizi offerti dalla classe CategoryDCS, chiamando il
 	 * corrispondente metodo e restituendo una stringa formattata in HTML con una lista delle
-	 * categorie esistenti.
-	 * @return String
+	 * categorie esistenti. Se viene restituito fail, si ritorna un fallimento.
+	 * @return String stringa formattata opportunamente
 	 * @author Lorenzo Bernabei
 	 */
 	public String displayListCategories() {
 		String result;
-		result = "metodo da implementare";//CategoryDCS.displayListCategories();
+		result = CategoryDCS.displayListCategories();
 		if(result == "fail")
 			return "fail";
-		return "success";
+		return result;
 	}
 	
 	/**
 	 * Questo metodo usufruisce dei servizi offerti dalla classe CategoryDCS, chiamando il
-	 * corrispondente metodo e restituendo una stringa formattata in HTML con dei radio
-	 * button delle categorie esistenti.
-	 * @return String
+	 * corrispondente metodo e restituendo una stringa formattata in HTML con un radio
+	 * button delle categorie esistenti. Se viene restituito fail, si ritorna un fallimento.
+	 * @return String stringa formattata opportunamente
 	 * @author Lorenzo Bernabei
 	 */
 	public String displayRadioCategories() {
 		String result;
-		result = "metodo da implementare";//CategoryDCS.displayRadioCategories();
+		result = CategoryDCS.displayRadioCategories();
 		if(result == "fail")
 			return "fail";
-		return "success";
+		return result;
 	}
 	
 	/**
 	 * Questo metodo usufruisce dei servizi offerti dalla classe CategoryDCS, chiamando il
-	 * corrispondente metodo e restituendo una stringa formattata in HTML con dei check box
-	 * delle categorie esistenti.
-	 * @return String
+	 * corrispondente metodo e restituendo una stringa formattata in HTML con un check box
+	 * delle categorie esistenti. Se viene restituito fail, si ritorna un fallimento.
+	 * @return String stringa formattata opportunamente
 	 * @author Lorenzo Bernabei
 	 */
 	public String displayCheckBoxCategories() {
 		String result;
-		result = "metodo da implementare";//CategoryDCS.displayCheckBoxCategories();
+		result = CategoryDCS.displayCheckBoxCategories();
 		if(result == "fail")
 			return "fail";
-		return "success";
+		return result;
 	}
 }

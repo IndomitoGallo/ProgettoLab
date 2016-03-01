@@ -5,12 +5,8 @@ import it.surveys.util.UtilDB;
 import java.sql.*;
 
 /**
- * La classe SurveyDAO (Data Access Object) contiene i metodi di interrogazione e manipolazione 
- * della corrispondente classe di dominio. 
- * Essa si fa carico di gestire il codice SQL, mentre tutto cio' e'
- * trasparente rispetto alla corrispondente classe di dominio.
- * In pratica contiene le funzionalita' di base (CRUD).
- * I Data Access Object sono accessibili esclusivamente tramite i Manager.
+ * La classe SurveyDAO (Data Access Object) contiene i metodi che eseguono 
+ * le operazioni CRUD riguardanti la corrispondente classe di dominio Survey.
  * @author L.Camerlengo
  * @version 1.0,6/02/2016
  */
@@ -18,7 +14,9 @@ public class SurveyDAO {
     
 	/**
      * Effettua l'operazione di inserimento nel database del sondaggio passato come argomento.
-     * Restituisce "success" se l'inserimento e' andato a buon fine, "fail" altrimenti. 
+     * Inoltre, viene prelevato l'id e settato l'oggetto Survey passato come parametro,
+	 * per un uso successivo dell'identificatore nel {@link SurveyManager}.
+	 * Restituisce "success" se l'inserimento e' andato a buon fine, "fail" altrimenti.
      * @param s Survey
      * @return String esito dell'inserimento
      * @author L.Camerlengo

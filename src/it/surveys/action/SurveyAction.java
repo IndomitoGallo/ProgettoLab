@@ -23,12 +23,15 @@ public class SurveyAction extends ActionSupport{
     private String[] answers = new String[4];
     private int[] categories;
     private String answer;
-    private String message;
-    private String output;
+	/** eventuale messaggio di errore da visualizzare nella view. */
+	private String message;
+	/** eventuale output da visualizzare nella view. */
+	private String output;
     
     /**
      * Il metodo createSurvey() viene attivato dopo che il responsabile ha effettuato l'accesso nella
      * sua pagina personale ed ha cliccato su "Crea sondaggio".
+     * Vengono validati i dati del form e viene chiamato il metodo insert del SurveyManager.
      * @return String esito della creazione di un determinato sondaggio. 
      */
     public String createSurvey(){
@@ -39,9 +42,7 @@ public class SurveyAction extends ActionSupport{
             return "fail";
         }
         SurveyManager sm = SurveyManager.getSurveyManager();
-        Survey s = new Survey();
-        s.setQuestion(question);
-        s.setAnswers(answers);
+        Survey s = new Survey(question, answers);
         String result = sm.insert(s, categories);
         if(result.equals("db_fail")){
             setMessage("Non e' stato possibile creare il sondaggio.");
@@ -53,7 +54,8 @@ public class SurveyAction extends ActionSupport{
     /**
      * Il metodo deleteSurvey() viene attivato se dopo che il responsabile ha effettuato l'accesso
      * nella sua pagina personale e dopo che ha effettuato un click sul pulsante "Cancella" di un determinato
-     * sondaggio, esso ha cliccato su "Ok" nel relativo alert di conferma. 
+     * sondaggio, esso ha cliccato su "Ok" nel relativo alert di conferma.
+     * Viene chiamato il corrispondente metodo del SurveyManager.
      * @return String esito della cancellazione del sondaggio nel database.
      */
     public String deleteSurvey(){
@@ -71,6 +73,8 @@ public class SurveyAction extends ActionSupport{
     /**
      * Il metodo displayResults() viene attivato dopo che il responsabile ha effettuato l'accesso nella sua 
      * pagina personale ed ha effettuato un click sul pulsante "Risultati" di un determinato sondaggio.
+     * Viene chiamato il corrispondente metodo del SurveyManager.
+     * Infine effettua i set degli attributi con i dati da mostrare all'utente.
      * @return String esito del prelevamento dei risultati di un determinato sondaggio.
      */
     public String displayResults(){
@@ -87,6 +91,8 @@ public class SurveyAction extends ActionSupport{
     /**
      * Il metodo displayCreatedSurveys() viene attivato dopo che il responsabile ha effettuato l'accesso nella
      * sua pagina personale.
+     * Viene chiamato il corrispondente metodo del SurveyManager.
+     * Infine effettua i set degli attributi con i dati da mostrare all'utente.
      * @return String esito del prelevamento dei sondaggi creati. 
      */
     public String displayCreatedSurveys(){
@@ -103,6 +109,8 @@ public class SurveyAction extends ActionSupport{
     /**
      * Il metodo displayAllowedSurveys() viene attivato quando il cliente ha effettuato l'accesso nella sua
      * pagina personale.
+     * Fa uso dei dati della sessione e chiama il corrispondente metodo del SurveyManager.
+     * Infine effettua i set degli attributi con i dati da mostrare all'utente.
      * @return String esito del prelevamento dei sondaggi preferiti del cliente. 
      */
     public String displayAllowedSurveys(){
@@ -120,6 +128,8 @@ public class SurveyAction extends ActionSupport{
     /**
      * Il metodo displaySurvey() viene attivato dopo che il cliente ha effettuato l'accesso nella sua pagina
      * personale ed ha effettuato un click sul pulsante "Visualizza" di un determinato sondaggio.
+     * Viene chiamato il metodo retrieve del SurveyManager.
+     * Infine effettua i set degli attributi con i dati da mostrare all'utente.
      * @return String esito del prelevamento dei dati di un determinato sondaggio. 
      */
     public String displaySurvey(){
@@ -138,6 +148,7 @@ public class SurveyAction extends ActionSupport{
     /**
      * Il metodo answerSurvey() viene attivato dopo che il cliente ha visualizzato un determinato sondaggio con le relative
      * risposte, ha selezionato una risposta ed ha effettuato un click sul pulsante "Rispondi".
+     * Fa uso dei dati della sessione e chiama il metodo insertAnswer del SurveyManager.
      * @return String esito dell'inserimento della risposta.
      */
     public String answerSurvey(){
@@ -152,9 +163,11 @@ public class SurveyAction extends ActionSupport{
     }
     
     /**
-     * Il metodo validateSurvey() effettua un controllo dei campi required in fase di creazione del sondaggio da parte del responsabile.
-     * Restituisce false se e' vuoto almeno uno dei seguenti campi required: la domanda del sondaggio, la categoria
-     * alla quale associare il sondaggio e le minimo due risposte da associare al sondaggio. Restituisce true altrimenti. 
+     * Il metodo validateSurvey() effettua un controllo dei campi required in fase di creazione
+     * del sondaggio da parte del responsabile. Se soltanto uno di essi non è stato inserito
+     * dall'admin oppure se l'admin non ha selezionato almeno una categoria, il controllo ha
+     * esito negativo, positivo altrimenti.
+     * Inoltre si ha esito negativo anche nel caso in cui le risposte sono due e sono diverse da Si/No. 
      * @return boolean esito della validazione 
      */
     private boolean validateSurvey(){

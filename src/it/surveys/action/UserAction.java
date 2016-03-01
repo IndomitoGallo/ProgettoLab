@@ -27,13 +27,16 @@ public class UserAction extends ActionSupport{
 	private String email;
 	private String name;
 	private String surname;
+	/** eventuale messaggio di errore da visualizzare nella view. */
 	private String message;
+	/** eventuale output da visualizzare nella view. */
 	private String output;
 	
 	/**
 	 * Il metodo register() si attiva nel momento in cui l'utente invia i dati di registrazione
-	 * attraverso l'apposito form.
-	 * @return String
+	 * attraverso l'apposito form. Vengono validati i dati del form e viene chiamato il corrispondente
+	 * metodo dello UserManager.
+	 * @return String successo o fallimento
 	 * @author Luca Talocci
 	 */
 	public String register() {
@@ -61,8 +64,9 @@ public class UserAction extends ActionSupport{
 	
 	/**
 	 * Il metodo login() si attiva nel momento in cui l'utente invia i dati di login
-	 * attraverso l'apposito form.
-	 * @return String
+	 * attraverso l'apposito form. Vengono validati i dati del form, vengono verificati
+	 * i dati di login e viene creata una nuova sessione.
+	 * @return String successo (separato per Admin e Cliente) o fallimento
 	 * @author Luca Talocci 
 	 */
 	public String login() {
@@ -91,7 +95,8 @@ public class UserAction extends ActionSupport{
 
 	/**
 	 * Il metodo logout() si attiva nel momento in cui l'utente clicca sul tasto di logout.
-	 * @return String
+	 * Viene chiusa la sessione esistente.
+	 * @return String successo o fallimento
 	 * @author Luca Talocci
 	 */
 	public String logout() {
@@ -101,8 +106,9 @@ public class UserAction extends ActionSupport{
 	
 	/**
 	 * Il metodo displayProfile() si attiva nel momento in cui l'utente clicca sul tasto di
-	 * gestione profilo.
-	 * @return String
+	 * gestione profilo. Fa uso dei dati della sessione e chiama il corrispondente metodo dello
+	 * UserManager. Infine effettua i set degli attributi con i dati da mostrare all'utente.
+	 * @return String successo o fallimento
 	 * @author Lorenzo Bernabei 
 	 */
 	public String displayProfile() {
@@ -132,7 +138,8 @@ public class UserAction extends ActionSupport{
 	/**
 	 * Il metodo updateProfile() si attiva nel momento in cui l'utente invia i nuovi dati
 	 * del profilo attraverso l'apposito form.
-	 * @return String
+	 * Valida i dati del form e chiama il corrispondente metodo dello UserManager.
+	 * @return String successo o fallimento
 	 * @author Lorenzo Bernabei
 	 */
 	public String updateProfile() {
@@ -160,7 +167,6 @@ public class UserAction extends ActionSupport{
 	/**
 	 * Il metodo createSession() crea una nuova sessione inserendo l'id dell'utente.
 	 * @param idUser
-	 * @return String
 	 * @author Lorenzo Bernabei, Luca Talocci
 	 */
 	public void createSession(int idUser) {
@@ -170,7 +176,6 @@ public class UserAction extends ActionSupport{
 	
 	/**
 	 * Il metodo closeSession() chiude la sessione corrente rimuovendo l'id dell'utente.
-	 * @return String
 	 * @author Lorenzo Bernabei, Luca Talocci
 	 */
 	public void closeSession() {
@@ -179,9 +184,10 @@ public class UserAction extends ActionSupport{
 	}
 	
 	/**
-	 * Il metodo validateRegister() effettua un controllo sui campi inseriti dall'utente 
+	 * Il metodo validateRegister() effettua un controllo sui campi required inseriti dall'utente 
 	 * in fase di registrazione. Se soltanto uno di essi non è stato inserito dall'utente
-	 * il controllo ha esito negativo oppure se l'utente non ha selezionato almeno una categoria, positivo altrimenti.
+	 * oppure se l'utente non ha selezionato almeno una categoria il controllo ha esito
+	 * negativo, positivo altrimenti.
 	 * @return Boolean
 	 * @author Luca Talocci
 	 */
@@ -209,9 +215,10 @@ public class UserAction extends ActionSupport{
 	}
 	
 	/**
-	 * Il metodo validateUpdateProfile() effettua un controllo sui campi inseriti dall'utente 
+	 * Il metodo validateUpdateProfile() effettua un controllo sui campi required inseriti dall'utente 
 	 * nella pagina di modifica del profilo. Se soltanto uno di essi non è stato inserito dall'utente
-	 * il controllo ha esito negativo, positivo altrimenti.
+	 * oppure se l'utente non ha selezionato almeno una categoria il controllo ha esito
+	 * negativo, positivo altrimenti.
 	 * @return Boolean
 	 * @author Luca Talocci
 	 */
@@ -219,6 +226,9 @@ public class UserAction extends ActionSupport{
 		if(getUsername().isEmpty() || getPassword().isEmpty() || getEmail().isEmpty() ||
 				getName().isEmpty() || getSurname().isEmpty())
 			return false;
+		//controllo che almeno una categoria è associata all'utente
+        if(getCategories().length < 1)
+        	return false;
 		return true;
 	}
 

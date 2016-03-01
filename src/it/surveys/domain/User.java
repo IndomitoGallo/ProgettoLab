@@ -14,7 +14,10 @@ public class User {
 	private String name;
 	private String surname;
 	
-	//Costruttore
+    /**
+     * Il Costruttore di default, senza parametri.
+     * Inizializza gli attributi con una stringa vuota.
+     */
 	public User(){
 		this.username = "";
 		this.password = "";
@@ -23,7 +26,14 @@ public class User {
 		this.surname = "";
 	}
 	
-	//Costruttore con parametri
+	/**
+	 * Il Costruttore con parametri.
+	 * @param username String lo username dell'utente
+	 * @param password String la password dell'utente
+	 * @param email String l'e-mail dell'utente
+	 * @param name String il nome dell'utente
+	 * @param surname String il cognome dell'utente
+	 */
 	public User(String username, String password, String email, String name, String surname){
 		this.username = username;
 		this.password = password;

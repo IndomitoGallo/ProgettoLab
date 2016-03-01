@@ -10,15 +10,19 @@ public class Category {
 	private int id;
     private String name;
     
-    //Costruttore
+    /**
+     * Il Costruttore di default, senza parametri.
+     * Inizializza gli attributi con una stringa vuota.
+     */
     public Category() {
-		this.id = 0;
 		this.name = "";
 	}
     
-    //Costruttore con parametri
-    public Category(int id, String name) {
-		this.id = id;
+    /**
+     * Il Costruttore con parametri.
+     * @param name String il nome della categoria
+     */
+    public Category(String name) {
 		this.name = name;
 	}
     

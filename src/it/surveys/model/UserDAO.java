@@ -11,12 +11,13 @@ import it.surveys.util.UtilDB;
  * @author Luca Talocci, Lorenzo Bernabei
  * @version 1.0 08/02/2016
  */
-
 public class UserDAO {
 	
 	/**
 	 * Il metodo insert(User u) sfrutta i metodi forniti dalla classe UtilDB
 	 * per inserire i dati di un utente nel Database.
+	 * Inoltre, viene prelevato l'id e settato l'oggetto User passato come parametro,
+	 * per un uso successivo dell'identificatore nello {@link UserManager}.
 	 * @param u User
 	 * @return String esito dell'inserimento
 	 * @author Luca Talocci
@@ -66,6 +67,7 @@ public class UserDAO {
 	/**
 	 * Il metodo retrieve(User u) sfrutta i metodi forniti dalla classe UtilDB
 	 * per leggere i dati di un utente specifico memorizzato nel Database.
+	 * Viene, quindi settato l'oggetto User passato come parametro.
 	 * @param u User
 	 * @return String esito della SELECT SQL
 	 * @author Luca Talocci
