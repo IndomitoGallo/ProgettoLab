@@ -53,7 +53,7 @@ public class SurveyAction extends ActionSupport{
     /**
      * Il metodo deleteSurvey() viene attivato se dopo che il responsabile ha effettuato l'accesso
      * nella sua pagina personale e dopo che ha effettuato un click sul pulsante "Cancella" di un determinato
-     * sondaggio, esso ha clicclato su "Ok" nel relativo alert di conferma. 
+     * sondaggio, esso ha cliccato su "Ok" nel relativo alert di conferma. 
      * @return String esito della cancellazione del sondaggio nel database.
      */
     public String deleteSurvey(){
@@ -153,7 +153,7 @@ public class SurveyAction extends ActionSupport{
     
     /**
      * Il metodo validateSurvey() effettua un controllo dei campi required in fase di creazione del sondaggio da parte del responsabile.
-     * Restituisce false se è vuoto almeno uno dei seguenti campi required: la domanda del sondaggio, la categoria
+     * Restituisce false se e' vuoto almeno uno dei seguenti campi required: la domanda del sondaggio, la categoria
      * alla quale associare il sondaggio e le minimo due risposte da associare al sondaggio. Restituisce true altrimenti. 
      * @return boolean esito della validazione 
      */

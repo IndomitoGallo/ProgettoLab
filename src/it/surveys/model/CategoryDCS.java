@@ -69,8 +69,8 @@ public class CategoryDCS {
     }
     
 	/**
-	 * Il metodo displayListCategories() restituisce la  stringa formattata al tipo
-	 * lista in HTML nella quale ogni elemento e' una coppia idcategoria:nomecategoria
+	 * Il metodo displayListCategories() restituisce la stringa formattata al tipo
+	 * "unordered list <ul>" in HTML nella quale ogni elemento corrisponde ad una categoria.
 	 * @return String la lista formattata in HTML delle categorie presenti nel DB
 	 */
     public static String displayListCategories() {
@@ -181,10 +181,8 @@ public class CategoryDCS {
     /**
      * Il metodo displayCheckBoxCategories() restituisce una formattazione dei nomi
      * di tutte le categorie presenti nel DataBase
-     * La formattazione in questione consiste in una lista di elementi checkbox,
-     * ovvero '<s:checkboxlist>' secondo la sintassi di Struts2,
-     * dove ogni elemento e' una coppia numero:nomedellacategoria ed 
-     * il numero in question e' un valore intero incrementale che parte da 1
+     * La stringa dei nomi viene formattata come una '<s:checkboxlist>' secondo la sintassi di Struts2,
+     * dove ogni elemento e' una coppia idCategoria:nomeCategoria.
      * @return String tutte le categorie dei sondaggi formattate opportunamente
      */
     public static String displayCheckBoxCategories() {
@@ -234,13 +232,11 @@ public class CategoryDCS {
     }
     
     /**
-     * Il metodo displayCheckBoxCategories() restituisce una formattazione dei nomi delle
-     * categorie presenti nel DataBase che hanno come ID (chiave primaria) uno dei
-     * numeri presenti nell'ArrayList in ingresso
-     * La formattazione in questione consiste in una lista di elementi checkbox,
-     * ovvero '<s:checkboxlist>' secondo la sintassi di Struts2,
-     * dove ogni elemento e' una coppia numero:nomedellacategoria. 
-     * Il numero e' un valore intero incrementale che parte da 1.
+     * Il metodo displayCheckBoxCategories(ArrayList<Integer> userCategories) restituisce una formattazione dei nomi delle
+     * categorie presenti nel DataBase formattate in una '<s:checkboxlist>' secondo la sintassi di Struts2,
+     * dove ogni elemento e' una coppia idCategoria:nomeCcategoria. 
+     * Si noti che le categorie passate in ingresso al metodo, ovvero quelle già associate all'utente,
+     * nella checkboxlist saranno già checked.
      * @param userCategories ArrayList<Integer> Una collezione di numeri corrispondenti agli ID delle categorie nel DB
      * @return String i nomi di tutte le categorie dei sondaggi formattate opportunamente
      */

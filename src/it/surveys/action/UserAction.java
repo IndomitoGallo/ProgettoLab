@@ -181,7 +181,7 @@ public class UserAction extends ActionSupport{
 	/**
 	 * Il metodo validateRegister() effettua un controllo sui campi inseriti dall'utente 
 	 * in fase di registrazione. Se soltanto uno di essi non è stato inserito dall'utente
-	 * il controllo ha esito negativo, positivo altrimenti.
+	 * il controllo ha esito negativo oppure se l'utente non ha selezionato almeno una categoria, positivo altrimenti.
 	 * @return Boolean
 	 * @author Luca Talocci
 	 */

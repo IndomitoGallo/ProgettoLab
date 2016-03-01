@@ -1,7 +1,7 @@
 package it.surveys.domain;
 
 /**
- * La classe che modella la rispettiva entita' del database e rappresenta quindi
+ * La classe Survey modella la rispettiva entita' del database e rappresenta quindi
  * una delle classi del dominio dell'applicazione.
  * @author L.Camerlengo
  * @version 1.0 06/02/2016

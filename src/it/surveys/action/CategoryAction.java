@@ -78,8 +78,8 @@ public class CategoryAction extends ActionSupport{
     }
     
     /**
-     * Il metodo displayRadioCategories() viene attivato dopo il responsabile ha effettuato l'accesso nella 
-     * sua pagina personale ed ha effettuato un click su "Elimina categoria esistente".
+     * Il metodo displayRadioCategories() viene attivato dopo che il responsabile ha effettuato l'accesso nella 
+     * sua pagina personale ed ha cliccato su "Elimina categoria esistente".
      * @return String esito del prelevamento delle categorie esistenti. 
      */
     public String displayRadioCategories(){
@@ -94,7 +94,7 @@ public class CategoryAction extends ActionSupport{
     
     /**
      * Il metodo displayCheckBoxCategories() viene attivato dopo che il cliente ha effettuato l'accesso nella
-     * pagina personale ed ha effettuato click su "ModificaProfilo". 
+     * pagina personale ed ha cliccato su "ModificaProfilo". 
      * @return esito del prelevamento delle categorie. 
      */
     public String displayCheckBoxCategories(){
@@ -160,6 +160,5 @@ public class CategoryAction extends ActionSupport{
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
-    
     
 }

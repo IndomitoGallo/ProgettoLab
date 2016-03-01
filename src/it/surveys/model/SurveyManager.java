@@ -3,8 +3,8 @@ package it.surveys.model;
 import it.surveys.domain.Survey;
 
 /**
- * Questa classe e' il cuore del model e gestisce tutte le azioni che riguardano i sondaggi,
- * difatti offre i suoi servizi alla SurveyAction.
+ * La classe SurveyManager classe e' il cuore del model e gestisce tutte le azioni che riguardano i sondaggi,
+ * difatti offre i suoi servizi alla classe SurveyAction.
  * Il manager, poi, utilizza i servizi del secondo livello del model: le classi DAO e DCS.
  * Saranno queste ultime a dialogare con il Database.
  * Infine il manager e' stato implementato come una factory con pattern singleton.
@@ -58,11 +58,12 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo utilizzando il corrispondente del livello inferiore in surveyDAO, crea una tabella 
-     * sotto forma di stringa contenente la domanda del sondaggio e tutte le possibili risposte selezionabili dal cliente per rispondere ad
-     * un determinato sondaggio.
-     * Restituisce un tabella sotto forma di stringa contenente la domanda e le possibili risposte selezionabili di un determinato sondaggio se
-     * il metodo retrieve del livello inferiore ha esito positivo, "db_fail" altrimenti.
+     * Questo metodo, utilizzando il corrispondente del livello inferiore in surveyDAO, crea una tabella 
+     * sotto forma di stringa contenente la domanda del sondaggio e tutte le possibili risposte selezionabili 
+     * dal cliente per rispondere ad un determinato sondaggio.
+     * Restituisce un tabella sotto forma di stringa contenente la domanda e le possibili risposte
+     * selezionabili di un determinato sondaggio se il metodo retrieve del livello inferiore
+     * ha esito positivo, "db_fail" altrimenti.
      * @param s Survey
      * @return String tabella contenente la domanda e le possibili risposte selezionabili di un determinato sondaggio.
      */
@@ -98,8 +99,8 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDAO.
-     * Se la cancellazione del sondaggio è andata a buon fine restituisce "success", "db_fail" altrimenti.
+     * Questo metodo chiama semplicemente il corrispondente metodo del livello inferiore in SurveyDAO.
+     * Se la cancellazione del sondaggio e' andata a buon fine restituisce "success", "db_fail" altrimenti.
      * @param s Survey
      * @return String esito della cancellazione del sondaggio
      */
@@ -112,7 +113,7 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
+     * Questo metodo chiama semplicemente il corrispondente metodo del livello inferiore in SurveyDCS.
      * Restituisce una tabella sotto forma di stringa contenente i risultati di un determinato sondaggio,
      * altrimenti se qualcosa e' andato storto restituisce "db_fail".
      * @param idSurvey int
@@ -127,7 +128,7 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
+     * Questo metodo chiama semplicemente il corrispondente metodo del livello inferiore in SurveyDCS.
      * Restituisce una tabella sotto forma di stringa contenente i sondaggi presenti nel database, altrimenti
      * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa
      * che notifica al responsabile che non sono presenti sondaggi, altrimenti 
@@ -144,9 +145,10 @@ public class SurveyManager {
     
     /**
      * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
-     * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle categoire di interesse per l'utente presenti nel 
-     * database, altrimenti se non e' presente alcun sondaggio associato alle categorie di interesse dell'utente restiuisce un
-     * messaggio sotto forma di stringa, che invita l'utente ad aggiungere nuove categorie di interesse, altrimenti se qualcosa e'
+     * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle categorie
+     * di interesse per l'utente presenti nel database, altrimenti se non e' presente alcun sondaggio
+     * associato alle categorie di interesse dell'utente restiuisce un messaggio sotto forma di stringa, 
+     * che invita l'utente ad aggiungere nuove categorie di interesse, altrimenti se qualcosa e'
      * andato storto restituisce "db_fail".
      * @param idUser int
      * @return String Sondaggi delle relative categorie preferite dell'utente. 
@@ -160,7 +162,7 @@ public class SurveyManager {
     }
     
     /**
-     * Questo metodo chiama semplicemente il corrispondente del livello inferiore in SurveyDCS.
+     * Questo metodo chiama semplicemente il corrispondente metodo del livello inferiore in SurveyDCS.
      * Restituisce "success" se l'inserimento della risposta e' andato a buon fine, "db_fail" altrimenti.
      * @param idSurvey int
      * @param idUser int

@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * L'utility di accesso al DataBase implementata come una factory con il pattern
+ * La classe UtilDB è un'utility di accesso al DataBase implementata come una factory con il pattern
  * singleton. Questa utility viene istanziata ed utilizzata dal model.
  * Nell'architettura dell'applicazione si pone tra il model e il JDBC.
  * @author Luca Talocci, Lorenzo Bernabei, Luca Camerlengo, Davide Vitiello

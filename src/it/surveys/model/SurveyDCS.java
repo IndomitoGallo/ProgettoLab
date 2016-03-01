@@ -4,7 +4,7 @@ import it.surveys.util.UtilDB;
 import java.sql.*;
 
 /**
- * La funzionalita'� della classe DCS (Domain Control Service) e' simile a quella della classe
+ * La funzionalita' della classe DCS (Domain Control Service) e' simile a quella della classe
  * DAO; a differenza di essa realizza delle feature addizionali che non riguardano un
  * particolare oggetto del dominio.
  * La classe DCS e' accessibile esclusivamente tramite i manager.
@@ -17,7 +17,7 @@ public class SurveyDCS {
      * Effettua una formattazione in una tabella dei risultati del sondaggio passato in ingresso;
      * la tabella contiene per ogni riga una determinata risposta tra le possibili e una percentuale che esprime 
      * il numero di volte che la risposta e' stata scelta dagli utenti;
-     * se una risposta non e' mai stata selezionata da un utente la sua percentuale è 0%.
+     * se una risposta non e' mai stata selezionata da un utente la sua percentuale e' 0%.
      * Restituisce una tabella sotto forma di stringa contenente i risultati di un determinato sondaggio.
      * @param idSurvey int
      * @return String risultati di un determinato sondaggio
@@ -99,11 +99,11 @@ public class SurveyDCS {
     
     /**
      * Effettua una formattazione in una tabella dei sondaggi presenti nel database;
-     * la tabella contiene per ogni riga la domanda del sondaggio, un pulsante visualizza che permette al
+     * la tabella contiene per ogni riga la domanda del sondaggio, un pulsante "Visualizza" che permette al
      * responsabile di visionare l'andamento delle risposte e un pulsante cancella che consente di cancellare
      * il sondaggio dal database.
      * Restituisce una tabella sotto forma di stringa contenente i sondaggi presenti nel database, altrimenti
-     * se non è presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa
+     * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa
      * che notifica al responsabile che non sono presenti sondaggi.
      * @return String sondaggi presenti nel database.
      */
@@ -159,11 +159,13 @@ public class SurveyDCS {
     }
     
     /**
-     * Effettua una formattazione in una tabella dei sondaggi appartenenti alle categorie di interesse per l'utente passato in ingresso a cui ancora non ha risposto;
+     * Effettua una formattazione in una tabella dei sondaggi appartenenti alle categorie di interesse 
+     * per l'utente passato in ingresso a cui ancora non ha risposto;
      * la tabella contiene per ogni riga la domanda del sondaggio e un pulsante visualizza che permette all'utente di
      * visualizzare le risposte alla domanda e di selezionarne una tra quelle possibili.
-     * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle categoire di interesse per l'utente presenti nel 
-     * database, altrimenti se non è presente alcun sondaggio associato alle categorie di interesse dell'utente restiuisce un
+     * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle 
+     * categoire di interesse per l'utente presenti nel database, altrimenti se non e' presente
+     * alcun sondaggio associato alle categorie di interesse dell'utente restiuisce un
      * messaggio sotto forma di stringa, che invita l'utente ad aggiungere nuove categorie di interesse.
      * @param idUser int
      * @return String Sondaggi delle relative categorie preferite dell'utente. 
@@ -219,7 +221,6 @@ public class SurveyDCS {
         return surveys;
     }
     
-    
     /**
      * Effettua l'operazione di inserimento nel database di una risposta ad un determinato sondaggio 
      * da parte di un determinato utente.
@@ -267,7 +268,7 @@ public class SurveyDCS {
     
     /**
      * Effettua l'operazione di cancellazione nel database dei sondaggi che non hanno categorie associate.
-     * Restituisce "success" se la cancellazione è andata a buon fine o non esistono sondaggi da cancellare,
+     * Restituisce "success" se la cancellazione e' andata a buon fine o non esistono sondaggi da cancellare,
      * "fail" altrimenti.
      * @return String esito della cancellazione
      */
@@ -315,10 +316,10 @@ public class SurveyDCS {
         }
         return "success";
     }
+    
     /**
-     * Effettua un inserimento nel database delle associazioni del sondaggio con le categorie passate in
-     * ingresso.
-     * restituisce "success" se l'inserimento delle associazioni è andato a buon fine, "fail" altrimenti.
+     * Effettua un inserimento nel database delle associazioni del sondaggio con le categorie passate in ingresso. 
+     * Restituisce "success" se l'inserimento delle associazioni e' andato a buon fine, "fail" altrimenti.
      * @param idSurvey int
      * @param categories int[]
      * @return String esito dell'inserimento

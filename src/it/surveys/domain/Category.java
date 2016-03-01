@@ -1,7 +1,7 @@
 package it.surveys.domain;
 
 /**
- * Questa classe modella la rispettiva entita' del Database e rappresenta
+ * La classe Category modella la rispettiva entita' del Database e rappresenta
  * quindi una delle classi del dominio dell'applicazione.
  * @author Lorenzo Bernabei
  * @version 1.0 08/02/2016
