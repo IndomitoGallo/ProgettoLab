@@ -228,7 +228,7 @@ public class UserDCS {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
-			String sql = "DELETE FROM categoriesUser WHERE id=" + idUser;
+			String sql = "DELETE FROM categoriesUser WHERE idUser=" + idUser;
 			utl.manipulate(stmt, sql); //eliminazione delle categorie presenti in precedenza
 			for(int idCat : categories){	//per ognuna delle nuove categorie scelte dall'utente
 				//SQL insert per inserire le nuove categorie scelte

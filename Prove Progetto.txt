@@ -1,0 +1,24 @@
+Prova Funzionamento:
+
+(1) ADMIN:
+
+	INSERT INTO user VALUES(NULL, 'admin', 'Marco', 'Bernacchi', 'admin', 'ingsoftwarelab@gmail.com');
+
+(2) CATEGORIES:
+	
+		- Informatica
+		- Elettronica
+
+(3) USERS:
+
+		- Luca, Talocci, IndomitoGallo, lucatalocci@gmail.com, labjava, Informatica/Elettronica
+
+(4) SURVEYS: 
+
+		- 
+		- 
+
+
+
+
+

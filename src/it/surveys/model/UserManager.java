@@ -1,5 +1,6 @@
 package it.surveys.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import it.surveys.domain.User;
@@ -77,17 +78,21 @@ public class UserManager {
 	 * @return String stringa formattata opportunamente
 	 * @author Luca Talocci
 	 */
-	public HashMap<String, String> displayProfile(User u, HashMap<String, String> defaultCategories) {
-		HashMap<String, String> categories;
+	public ArrayList<HashMap<String, String>> displayProfile(User u) {
+		HashMap<String, String> listCategories;
+		HashMap<String, String> defaultCategories;
 		String result = UserDAO.retrieve(u);
 		if(result.equals("fail"))
 			return null;
 		defaultCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
 		if(defaultCategories == null)
 			return null;
-		categories = CategoryDCS.displayCheckBoxCategories();
-		if(categories.equals("fail"))
+		listCategories = CategoryDCS.displayCheckBoxCategories();
+		if(listCategories == null)
 			return null;
+		ArrayList<HashMap<String, String>> categories = new ArrayList<HashMap<String, String>>();
+		categories.add(listCategories);
+		categories.add(defaultCategories);
 		return categories;
 	}
 

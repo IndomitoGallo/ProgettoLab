@@ -160,7 +160,7 @@ public class CategoryDAO {
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
 			//SQL delete
-			String sql = "DELETE FROM user WHERE id=" + c.getId();
+			String sql = "DELETE FROM category WHERE id=" + c.getId();
 			//esecuzione del comando SQL
 			if(utl.manipulate(stmt, sql) == 0){ 
 				//se la query non ha interessato alcun record del DB, viene restituita una stringa di errore

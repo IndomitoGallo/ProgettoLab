@@ -6,6 +6,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import it.surveys.domain.User;
 import it.surveys.model.UserManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -122,20 +123,21 @@ public class UserAction extends ActionSupport{
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		u.setId((int)session.get("idUser")); //viene preso l'id dell'utente dalla sessione e settato l'oggetto
 		
-		HashMap<String, String> outcome;
-		outcome = usm.displayProfile(u, defaultCategories);
+		ArrayList<HashMap<String, String>> outcome;
+		outcome = usm.displayProfile(u);
 		if(outcome == null) {
 			setMessage("Non e' stato possibile visualizzare i dati del profilo!");
 			return "fail";
 		}
 		//vengono settati tutti i dati da mostrare all'utente
-		setCategoriesCheckBox(outcome);
+		setCategoriesCheckBox(outcome.get(0));
+		defaultCategories = outcome.get(1);
 		setUsername(u.getUsername());
 		setPassword(u.getPassword());
 		setEmail(u.getEmail());
 		setName(u.getName());
 		setSurname(u.getSurname());
-		System.out.print(defaultCategories);
+
 		return "success";
 
 	}
@@ -155,10 +157,12 @@ public class UserAction extends ActionSupport{
 		else {
 			UserManager usm = UserManager.getUserManager();
 			User u = new User(getUsername(), getPassword(), getEmail(), getName(), getSurname());
+			Map<String, Object> session = ActionContext.getContext().getSession();
+			u.setId((int)session.get("idUser")); //viene preso l'id dell'utente dalla sessione e settato l'oggetto
 			String outcome;
 			outcome = usm.update(u, getCategories());
 			if(outcome.equals("verification_fail")) {
-				setMessage("Username o Email già presenti!");
+				setMessage("Username o Email gia' presenti!");
 				return "fail";
 			}
 			if(outcome.equals("db_fail")) {
