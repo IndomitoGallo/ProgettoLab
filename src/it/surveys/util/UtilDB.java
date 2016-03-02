@@ -42,7 +42,7 @@ public class UtilDB {
     public Connection createConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = null;
-        conn = createConnection("surveys", "root", "aeg20e");
+        conn = createConnection("surveys", "root", "");
         return conn;
     }
 

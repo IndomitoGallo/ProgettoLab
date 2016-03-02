@@ -13,20 +13,17 @@
 
 	<h1>Benvenuto nella tua pagina personale!</h1>
 	<p>Qui di seguito puoi creare un nuovo sondaggio.</p>
-	
-	<div id="message"><s:property escapeHtml="false" value="message"/></div>
-	
 	<s:form id="survey_form" name="createSurvey" action="createSurvey" method="POST">
 		<s:textfield class="form-control" type="text" id="question" name="question" label="Domanda" size="30"/>
 		<s:textfield class="form-control" type="text" id="answer1" name="answers[0]" label="Risposta1" size="30"/>
 		<s:textfield class="form-control" type="text" id="answer2" name="answers[1]" label="Risposta2" size="30"/>
 		<s:textfield class="form-control" type="text" id="answer3" name="answers[2]" label="Risposta3" size="30"/>
         <s:textfield class="form-control" type="text" id="answer4" name="answers[3]" label="Risposta4" size="30"/>
-        <s:property escapeHtml="false" value="output"/>
+        <s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" list="# {'1':'Categoria1','2':'Categoria2','3':'Categoria3','4':'Categoria4'}"/>
 		<s:submit class="btn" value="Crea"/>
 	</s:form>
 	<br><br>
-	<a href="displayCreatedSurveys.action">Indietro</a>
+	<a href="admin.jsp">Indietro</a> <!-- dovrei chiamare displayCreatedSurveys() -->
 	  
 </body>
 

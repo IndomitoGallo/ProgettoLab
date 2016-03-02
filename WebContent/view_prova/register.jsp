@@ -15,7 +15,8 @@
 			<h1>Registrazione</h1>
 			<img id="reg-profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
 			
-			<div id="message"><s:property escapeHtml="false" value="message"/></div>
+			<div id="message">Example of error message!</div>
+			<!-- Andrà messo nel div: <s:property escapeHtml="false" value="message"/> -->
 			
 			<s:form id="reg_form" name="register" action="register" method="POST">
 				<s:textfield class="form-control" type="text" id="name" name="name" label="Nome" placeholder="nome" size="30"/>
@@ -23,7 +24,7 @@
 				<s:textfield class="form-control" type="text" id="username" name="username" label="Username" placeholder="username" size="30"/>
 		        <s:textfield class="form-control" type="email" id="email" name="email" label="E-mail" placeholder="example@lab.it" size="30"/>
 		        <s:password class="form-control" id="password" name="password" label="Password" placeholder="*****" maxlength="10" size="30"/>
-				<s:property escapeHtml="false" value="output"/>
+				<s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" list="# {'1':'Categoria1','2':'Categoria2','3':'Categoria3','4':'Categoria4'}"/>
 				<s:submit class="btn" value="Registrati"/>
 			</s:form>
 			<br><br>

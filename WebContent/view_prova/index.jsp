@@ -14,9 +14,6 @@
 	<div class="card login-container">
 		<h1>Login</h1>
 	    <img id="login-profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
-	    
-	    <div id="message"><s:property escapeHtml="false" value="message"/></div>
-	    
 	    <s:form id="login_form" name="login" action="login" method="POST">
 	        <s:textfield class="form-control" type="text" id="username" name="username" label="Username" placeholder="username"/>
 	        <s:password class="form-control" id="password" name="password" label="Password" placeholder="*****"/>

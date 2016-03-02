@@ -16,31 +16,12 @@
 	
 	<br>
 	
-	<table>
-		<tr>
-			<th>Risposta</th>
-			<th>Risultato</th>
-		</tr>
-        <tr>
-        	<td>Risposta1</td>          
-        	<td>15%</td> 
-        </tr>
-		<tr>
-        	<td>Risposta2</td>          
-        	<td>30%</td> 
-        </tr>
-        <tr>
-        	<td>Risposta3</td>          
-        	<td>25%</td> 
-        </tr>
-		<tr>
-        	<td>Risposta4</td>          
-        	<td>30%</td>
-        </tr>
-    </table>  
-    <!-- I link <a> sono solo di prova -->
+	<div id="message"><s:property escapeHtml="false" value="message"/></div>
+	
+	<s:property escapeHtml="false" value="output"/>
+	
     <br><br>
-	<a href="admin.jsp">Indietro</a>
+	<a href="displayCreatedSurveys.action">Indietro</a>
 	  
 </body>
 

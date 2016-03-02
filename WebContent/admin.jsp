@@ -13,7 +13,7 @@
 <body>
 
 	<h1>Benvenuto nella tua pagina personale!</h1>
-	<button id="logout">Logout</button>
+	<button id="logout" onclick="window.location.assign('logout.action');">Logout</button>
 	<p>	Qui puoi: </p>
 	<ul style="list-style-type:circle;">
 		<li>Inserire e/o rimuovere sondaggi</li>
@@ -21,40 +21,15 @@
 		<li>Inserire e/o rimuovere categorie</li>
 	</ul>
 	
-	<a href="displayCheckBoxCategories.action?flag=survey">Crea nuovo sondaggio</a>
-	<a href="new_category.jsp">Crea nuova categoria</a> <!-- bisognerà chiamare displayListCategories() -->
-	<a href="delete_category.jsp">Elimina categoria esistente</a> <!-- bisognerà chiamare displayRadioCategories() -->
+	<button onclick="window.location.assign('displayCheckBoxCategories.action?flag=survey');">Crea nuovo sondaggio</button>
+	<button onclick="window.location.assign('displayListCategories.action');">Crea nuova categoria</button>
+	<button onclick="window.location.assign('displayRadioCategories.action');">Elimina categoria esistente</button>
 	
-	<br><br>
+	<br>
 	
-	<table>
-		<tr>
-			<th>Sondaggio</th>
-			<th>Risultati</th>
-			<th>Cancellazione</th>
-		</tr>
-        <tr>
-        	<td>Sondaggio1</td> <!-- bisognerà passare l'id del sondaggio come parametro sia in visualizza che in cancella -->         
-        	<td><a href="results.jsp">Visualizza</a></td> <!-- in questo caso dovrei chiamare displayResults() --> 
-        	<td><a onclick="confirmation()">Cancella</a></td>
-        </tr>
-		<tr>
-        	<td>Sondaggio2</td>          
-        	<td><a href="results.jsp">Visualizza</a></td> 
-        	<td><a onclick="confirmation()">Cancella</a></td>
-        </tr>
-        <tr>
-        	<td>Sondaggio3</td>          
-        	<td><a href="results.jsp">Visualizza</a></td> 
-        	<td><a onclick="confirmation()">Cancella</a></td>
-        </tr>
-		<tr>
-        	<td>Sondaggio4</td>          
-        	<td><a href="results.jsp">Visualizza</a></td> 
-        	<td><a onclick="confirmation()">Cancella</a></td>
-        </tr>
-    </table>  
-    <!-- I link <a> sono solo di prova -->
+	<div id="message"><s:property escapeHtml="false" value="message"/></div>
+	
+	<s:property escapeHtml="false" value="output"/>
 	  
 </body>
 

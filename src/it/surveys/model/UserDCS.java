@@ -33,8 +33,8 @@ public class UserDCS {
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
 			//SQL select
-			String sql = "SELECT id FROM user WHERE username=" + user +
-											  "AND password=" + pwd;
+			String sql = "SELECT id FROM user WHERE username='" + user +
+											  "' AND password='" + pwd + "'";
 			//memorizzazione del risultato della query in un ResultSet
 			ResultSet rs = utl.query(stmt, sql);
 			if(rs.next())
@@ -82,8 +82,8 @@ public class UserDCS {
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
 			//SQL select
-			String sql1 = "SELECT * FROM user WHERE username=" + user;
-			String sql2 = "SELECT * FROM user WHERE email=" + mail;
+			String sql1 = "SELECT * FROM user WHERE username='" + user + "'";
+			String sql2 = "SELECT * FROM user WHERE email='" + mail + "'";
 			//memorizzazione del risultato delle query in un ResultSet
 			ResultSet rs1 = utl.query(stmt, sql1);
 			ResultSet rs2 = utl.query(stmt, sql2);
@@ -133,8 +133,8 @@ public class UserDCS {
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
 			//SQL select
-			String sql1 = "SELECT * FROM user WHERE username=" + user + " AND id<>" + idUser;
-			String sql2 = "SELECT * FROM user WHERE email=" + mail + " AND id<>" + idUser;
+			String sql1 = "SELECT * FROM user WHERE username='" + user + "' AND id<>" + idUser;
+			String sql2 = "SELECT * FROM user WHERE email='" + mail + "' AND id<>" + idUser;
 			//memorizzazione del risultato delle query in un ResultSet
 			ResultSet rs1 = utl.query(stmt, sql1);
 			ResultSet rs2 = utl.query(stmt, sql2);

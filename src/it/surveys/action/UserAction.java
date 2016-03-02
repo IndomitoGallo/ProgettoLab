@@ -87,7 +87,7 @@ public class UserAction extends ActionSupport{
 				return "fail";
 			}
 			createSession(outcome);
-			if (getUsername() == "Admin")
+			if (getUsername().equals("admin"))
 				return "admin_success"; //per reindirizzare l'admin alla sua pagina personale
 			return "success";
 		}

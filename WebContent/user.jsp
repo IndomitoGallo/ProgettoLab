@@ -12,38 +12,18 @@
 <body>
 
 	<h1>Benvenuto nella tua pagina personale!</h1>
-	<button id="logout">Logout</button>
+	<button id="logout" onclick="window.location.assign('logout.action');">Logout</button>
 	<p>
 		Qui puoi vedere alcuni sondaggi che possono interessarti.<br>
-		Clicca sul tasto "view" per visionare un sondaggio e per poter rispondere.
+		Clicca sul tasto "visualizza" per visionare un sondaggio e per poter rispondere.
 	</p>
 	
-	<table>
-		<tr>
-			<th>Sondaggio</th>
-			<th>Rispondi</th>
-		</tr>
-        <tr>
-        	<td>Sondaggio1</td> <!-- bisognerà passare l'id del sondaggio come parametro -->          
-        	<td><a href="survey.jsp">Visualizza</a></td> <!-- in questo caso dovrei chiamare displaySurvey() -->
-        </tr>
-		<tr>
-        	<td>Sondaggio2</td>          
-        	<td><a href="survey.jsp">Visualizza</a></td> 
-        </tr>
-        <tr>
-        	<td>Sondaggio3</td>          
-        	<td><a href="survey.jsp">Visualizza</a></td> 
-        </tr>
-		<tr>
-        	<td>Sondaggio4</td>          
-        	<td><a href="survey.jsp">Visualizza</a></td> 
-        </tr>
-    </table>  
-    <!-- I link <a> sono solo di prova -->
+	<div id="message"><s:property escapeHtml="false" value="message"/></div>
+	
+	<s:property escapeHtml="false" value="output"/>
 	  
 	<p>Clicca sul tasto "Modifica Profilo" per visionare i tuoi dati e modificarli.</p>  
-	<a href="displayProfile.action">Modifica profilo!</a>
+	<button onclick="window.location.assign('displayProfile.action');">Modifica profilo</button>
 	
 </body>
 

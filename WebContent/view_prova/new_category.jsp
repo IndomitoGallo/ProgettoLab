@@ -13,20 +13,17 @@
 
 	<h1>Benvenuto nella tua pagina personale!</h1>
 	<p>Qui di seguito puoi aggiungere una nuova categoria diversa da quelle esistenti.</p>
-	
-	<div id="message"><s:property escapeHtml="false" value="message"/></div>
-	
 	<table class="withform">
         <tr>
-        	<td><s:property escapeHtml="false" value="output"/></td>
+        	<td>Qui apparirà la lista delle categorie</td>
         </tr>
-    </table>
+     </table>
 	<s:form id="category_form" name="createCategory" action="createCategory" method="POST">
 		<s:textfield class="form-control" type="text" id="category" name="name" label="Categoria" size="30"/>
 		<s:submit class="btn" value="Inserisci"/>
 	</s:form>	
 	<br><br>
-	<a href="displayCreatedSurveys.action">Indietro</a>
+	<a href="admin.jsp">Indietro</a>
 	  
 </body>
 
