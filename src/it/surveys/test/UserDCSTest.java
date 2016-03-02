@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import it.surveys.model.UserDCS;
 
@@ -120,9 +120,9 @@ public class UserDCSTest {
     public void testRetrieveCategoriesAssociation() {
         System.out.println("retrieveCategories");
         int id = 1;
-        ArrayList<Integer> expResult = new ArrayList<Integer>();
-        expResult.add(1);
-        ArrayList<Integer> result = UserDCS.retrieveCategoriesAssociation(id);
+        HashMap<String, String> expResult = new HashMap<>();
+        expResult.put("1", "1");
+        HashMap<String, String> result = UserDCS.retrieveCategoriesAssociation(id);
         assertEquals(expResult, result);      
        //fail("The test case is a prototype.");
     }

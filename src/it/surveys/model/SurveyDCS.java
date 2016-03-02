@@ -237,18 +237,14 @@ public class SurveyDCS {
             conn=utl.createConnection();
             stm=utl.createStatement(conn);
             String insert="insert into answer values("+idUser+","+idSurvey+",'"+answer+"')";
-            int rows=utl.manipulate(stm, insert);
-            if(rows!=1){
-                System.err.println("Insert Database Error!");
-                return "fail";
-            }
+            utl.manipulate(stm, insert);
         }catch(ClassNotFoundException e){
             System.err.println("Driver Not Found!");
-	    e.printStackTrace();
+            e.printStackTrace();
             return "fail";
         }catch(SQLException e){
             System.err.println("Database Error!");
-	    e.printStackTrace();
+            e.printStackTrace();
             return "fail";
         }finally{
             try{

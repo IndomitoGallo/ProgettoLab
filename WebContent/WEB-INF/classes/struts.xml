@@ -52,9 +52,9 @@
             <result name="success">survey.jsp</result>
             <result name="fail">survey.jsp</result>
         </action>
-        <action name="AnswerSurvey" class="it.surveys.action.SurveyAction" method="AnswerSurvey">
+        <action name="answerSurvey" class="it.surveys.action.SurveyAction" method="answerSurvey">
             <result name="success" type="redirectAction">displayAllowedSurveys</result>
-            <result name="fail" type="redirectAction">displaySurvey?message=${message}</result>
+            <result name="fail" type="redirectAction">displaySurvey?id=${id}&amp;message=${message}</result>
         </action>
     </package>
     

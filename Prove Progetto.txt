@@ -8,6 +8,7 @@ Prova Funzionamento:
 	
 		- Informatica
 		- Elettronica
+		- Giardinaggio
 
 (3) USERS:
 
@@ -15,8 +16,17 @@ Prova Funzionamento:
 
 (4) SURVEYS: 
 
-		- 
-		- 
+		- Qual e' la marca di computer che preferisci? Apple/Lenovo/Asus/Msi -- Informatica
+		- Secondo te sarebbe utile avere uno smartwatch? Si/No -- Elettronica
+		- Quale tipo di tagliaerba preferisci? Elettrico/A benzina/A gas -- Giardinaggio
+
+(5) ERRORI:
+
+		- Cancellazione del sondaggio
+		- displayResults
+		- answerSurvey
+		- perché il displaySurvey di un sondaggio con meno di 4 risposte viene male?
+		- Non funziona l'escape delle stringhe nella creazione sondaggi
 
 
 

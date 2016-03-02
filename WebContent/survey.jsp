@@ -18,6 +18,24 @@
 	
 	<div id="message"><s:property escapeHtml="false" value="message"/></div>
 	
+	<table class="withform">
+		<tr>
+        	<th>Sondaggio</th>
+        </tr>
+        <tr>
+        	<td><s:property escapeHtml="false" value="question"/></td>
+        </tr>
+        <tr>
+        	<td>
+        		<s:form id="answer_form" name="answerSurvey" action="answerSurvey" method="POST">
+        			<s:radio class="form-control" id="answer" name="answer" label="Risposte" value="defaultAnswer" list="answersList" />
+        			<s:submit class="btn" value="Rispondi"/>
+        		</s:form>
+        	</td>
+        </tr>
+    </table>
+    
+	
 	<s:property escapeHtml="false" value="output"/>
 
 	<br><br>

@@ -86,9 +86,10 @@ public class CategoryManager {
 	
 	/**
 	 * Questo metodo usufruisce dei servizi offerti dalla classe CategoryDCS, chiamando il
-	 * corrispondente metodo e restituendo una stringa formattata in HTML con un radio
-	 * button delle categorie esistenti. Se viene restituito fail, si ritorna un fallimento.
-	 * @return String stringa formattata opportunamente
+	 * corrispondente metodo e restituendo una HashMap<String, String> che costituirà il contenuto 
+	 * dell'attributo "list" del tag <s:radio> secondo la sintassi di Struts2.
+	 * Se non è stato possibile creare la HashMap il metodo restituisce null.
+	 * @return HashMap<String, String> collezione di coppie (key, value)=(idCategory, nameCategory)
 	 * @author Lorenzo Bernabei
 	 */
 	public HashMap<String, String> displayRadioCategories() {
@@ -101,9 +102,10 @@ public class CategoryManager {
 	
 	/**
 	 * Questo metodo usufruisce dei servizi offerti dalla classe CategoryDCS, chiamando il
-	 * corrispondente metodo e restituendo una stringa formattata in HTML con un check box
-	 * delle categorie esistenti. Se viene restituito fail, si ritorna un fallimento.
-	 * @return String stringa formattata opportunamente
+	 * corrispondente metodo e restituendo una HashMap<String, String> che costituirà il contenuto 
+	 * dell'attributo "list" del tag <s:checkboxlist> secondo la sintassi di Struts2.
+	 * Se non è stato possibile creare la HashMap il metodo restituisce null.
+	 * @return HashMap<String, String> collezione di coppie (key, value)=(idCategory, nameCategory)
 	 * @author Lorenzo Bernabei
 	 */
 	public HashMap<String, String> displayCheckBoxCategories() {

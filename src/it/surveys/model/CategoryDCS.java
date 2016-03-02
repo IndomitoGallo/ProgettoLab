@@ -124,12 +124,11 @@ public class CategoryDCS {
     }
     
     /**
-     * Il metodo displayRadioCategories() restituisce una formattazione di tutte
-     * le categorie presenti nel DataBase.
-     * La formattazione in questione consiste in un radio button ("s:radio" 
-     * secondo la sintassi di Struts2). Viene usato l'attributo list per elencare le
-     * categorie (sono delle coppie "id":"nome_categoria").
-     * @return String tutte le categorie dei sondaggi formattate opportunamente
+     * Il metodo displayRadioCategories() restituisce una collezione di coppie (key, value) in cui
+     * il campo key corrisponde all'id della categoria e il campo value corrisponde al nome della categoria.
+     * La collezione cosi costruita costituirà il contenuto dell'attributo "list" del tag
+     * <s:radio> secondo la sintassi di Struts2.
+     * @return HashMap<String, String> collezione di coppie (key, value)=(idCategory, nameCategory)
      */
     public static HashMap<String, String> displayRadioCategories() {
         UtilDB utl = UtilDB.getUtilDB();
@@ -178,12 +177,11 @@ public class CategoryDCS {
     }
     
     /**
-     * Il metodo displayCheckBoxCategories() restituisce una formattazione di tutte
-     * le categorie presenti nel DataBase.
-     * La formattazione in questione consiste in un checkbox ("s:checkboxlist" 
-     * secondo la sintassi di Struts2). Viene usato l'attributo list per elencare le
-     * categorie (sono delle coppie "id":"nome_categoria").
-     * @return String tutte le categorie dei sondaggi formattate opportunamente
+     * Il metodo displayCheckBoxCategories() restituisce una collezione di coppie (key, value) in cui
+     * il campo key corrisponde all'id della categoria e il campo value corrisponde al nome della categoria.
+     * La collezione cosi costruita costituirà il contenuto dell'attributo "list" del tag
+     * <s:checkboxlist> secondo la sintassi di Struts2. 
+     * @return HashMap<String, String> collezione di coppie (key, value)=(idCategory, nameCategory)
      */    
     public static HashMap<String, String> displayCheckBoxCategories() {
         UtilDB utl = UtilDB.getUtilDB();

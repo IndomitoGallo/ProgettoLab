@@ -1,5 +1,7 @@
 package it.surveys.model;
 
+import java.util.HashMap;
+
 import it.surveys.domain.Survey;
 
 /**
@@ -59,42 +61,39 @@ public class SurveyManager {
     
     /**
      * Questo metodo utilizza il corrispondente del livello inferiore in SurveyDAO per recuperare
-     * i dati del sondaggio e restituisce una stringa formattata in HTML con una tabella contenente la
+     * i dati del sondaggio e restituisce una HashMap<String, String> in cui la chiave corrisponde
+     * a........stringa formattata in HTML con una tabella contenente la
      * domanda del sondaggio e tutte le possibili risposte selezionabili dal cliente per rispondere
      * ad un determinato sondaggio. Le risposte vengono visualizzate sotto forma di radio button
      * (tag "s:radio" di Struts2). Se viene restituito fail, si ritorna un fallimento.
      * @param s Survey
-     * @return String stringa formattata opportunamente
+     * @return HashMap<String, String> collezione di coppie (key, value)
      */
-    public String retrieve(Survey s){
-        String result=SurveyDAO.retrieve(s);
-        String[] answers=s.getAnswers();
+    public HashMap<String, String> retrieve(Survey s){
+        String result = SurveyDAO.retrieve(s);
+        String[] answers = s.getAnswers();
         if(result.equals("fail")){
-            return "db_fail";
+            return null;
         } 
         
-        result="<table class=\"withform\">" +
-                "<tr>" +
-                    "<th>Sondaggio</th>" +
-                "</tr>";
-        result=result+"<tr>" + "<td>"+s.getQuestion()+"</td></tr>";
+        HashMap<String, String> survey = new HashMap<>();
+        survey.put("question", s.getQuestion());
         
         if(answers.length==2){
-            result=result+"<tr><td><s:form id=\"answer_form\" name=\"answer\" action=\"answerSurvey\" method=\"POST\">" +
-                   "<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\" list=\"# {'" + answers[0] + "':'" + answers[0] + "','" +
-                   answers[1] + "':'" + answers[1] + "'}\" value=\"'" + answers[0] + "'\"/>";
+        	survey.put("answer1", answers[0]);
+        	survey.put("answer2", answers[1]);
         }else if(answers.length==3){
-            result=result+"<tr><td><s:form id=\"answer_form\" name=\"answer\" action=\"answerSurvey\" method=\"POST\">"+
-            		"<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\"list=\"# {'" + answers[0] + "':'" + answers[0] + "','" +
-                    answers[1] + "':'" + answers[1] + "','" + answers[2] + "':'" + answers[2] + "'}\" value=\"'" + answers[0] + "'\"/>";
+        	survey.put("answer1", answers[0]);
+        	survey.put("answer2", answers[1]);
+        	survey.put("answer3", answers[2]);
         }else{
-            result=result+"<tr><td><s:form id=\"answer_form\" name=\"answer\" action=\"answerSurvey\" method=\"POST\">"+
-                   "<s:radio class=\"form-control\" id=\"answer\" name=\"answer\" label=\"Risposte\"list=\"# {'" + answers[0] + "':'" + answers[0] + "','" +
-                   answers[1] + "':'" + answers[1] + "','" + answers[2] + "':'" + answers[2] + "','" + answers[3] + "':'" + answers[3] + "'}\" value=\"'" + answers[0] + "'\"/>";
+        	survey.put("answer1", answers[0]);
+        	survey.put("answer2", answers[1]);
+        	survey.put("answer3", answers[2]);
+        	survey.put("answer4", answers[3]);
         }
-        result=result + "<s:submit class=\"btn\" value=\"Rispondi\"/></s:form></td></tr></table>";
         
-        return result;
+        return survey;
     }
     
     /**
@@ -167,7 +166,9 @@ public class SurveyManager {
      * @return String esito dell'inserimento della risposta
      */
     public String insertAnswer(int idSurvey, int idUser, String answer){
+    	System.out.println("Manager1");
         String result = SurveyDCS.insertAnswer(idSurvey, idUser, answer);
+        System.out.println("Manager2");
         if(result.equals("fail")){
             return "db_fail";
         }

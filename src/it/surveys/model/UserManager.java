@@ -71,11 +71,15 @@ public class UserManager {
 	 * tutti i dati associati al profilo di un utente e restituirli alla classe UserAction per
 	 * essere visualizzati.
 	 * In particolare, prima seleziona dal DB i dati dell'utente (settando lo stato dell'oggetto
-	 * User), poi seleziona le categorie di interesse scelte dall'utente e le utilizza per
-	 * selezionare tutte le categorie esistenti e restituire una stringa formattata in HTML con
-	 * un check box precompilato delle categorie. Se viene restituito fail, si ritorna un fallimento.
+	 * User), poi seleziona le categorie di interesse scelte dall'utente e le memorizza in una
+	 * HashMap<String, String> ed infine seleziona dal database la lista di tutte le categorie 
+	 * esistenti e le memorizza anch'esse in una HashMap<String, String>.
+	 * Restituisce una collezione di due HashMap, la prima contenente le categorie associate
+	 * all'oggetto User u, la seconda contenente tutte le categorie esistenti.  
+	 * Se non è stato possibile reperire i dati dell'utente o creare le due HashMap il metodo restituisce null.
 	 * @param u User
-	 * @return String stringa formattata opportunamente
+	 * @return ArrayList<HashMap<String, String>> collezione di HashMap in cui il campo key rappresenta l'id della 
+	 * categoria e il campo value rappresenta il nome della categoria
 	 * @author Luca Talocci
 	 */
 	public ArrayList<HashMap<String, String>> displayProfile(User u) {

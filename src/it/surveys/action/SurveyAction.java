@@ -5,6 +5,8 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import it.surveys.domain.Survey;
 import it.surveys.model.SurveyManager;
+
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -29,8 +31,10 @@ public class SurveyAction extends ActionSupport{
 	private String message;
 	/** eventuale output da visualizzare nella view. */
 	private String output;
+	private HashMap<String, String> answersList;
+	private HashMap<String, String> defaultAnswer;
     
-    /**
+	/**
      * Il metodo createSurvey() viene attivato dopo che il responsabile ha effettuato l'accesso nella
      * sua pagina personale ed ha cliccato su "Crea sondaggio".
      * Vengono validati i dati del form e viene chiamato il metodo insert del SurveyManager.
@@ -138,12 +142,17 @@ public class SurveyAction extends ActionSupport{
         SurveyManager sm = SurveyManager.getSurveyManager();
         Survey s = new Survey();
         s.setId(id);
-        String result = sm.retrieve(s);
-        if(result.equals("db_fail")){
+        HashMap<String, String> result = sm.retrieve(s);
+        if(result == null){
             setMessage("Non e' stato possibile visualizzare il sondaggio selezionato.");
             return "fail";
         }
-        setOutput(result);
+        setQuestion(result.get("question"));
+        result.remove("question");
+        setAnswersList(result);
+        HashMap<String, String> answ = new HashMap<>();
+        answ.put("answer1", result.get("answer1"));
+        setDefaultAnswer(answ);
         return "success";
     }
     
@@ -156,7 +165,9 @@ public class SurveyAction extends ActionSupport{
     public String answerSurvey(){
         SurveyManager sm = SurveyManager.getSurveyManager();
         Map<String, Object> session = ActionContext.getContext().getSession();
+        System.out.println("Action1");
         String result = sm.insertAnswer(id,(int)session.get("idUser"), answer);
+        System.out.println("Action2");
         if(result.equals("db_fail")){
             setMessage("Non e' stato possibile inserire la risposta.");
             return "fail";
@@ -243,6 +254,21 @@ public class SurveyAction extends ActionSupport{
     }
         
         
-        
+    public HashMap<String, String> getAnswersList() {
+		return answersList;
+	}
+
+	public void setAnswersList(HashMap<String, String> answersList) {
+		this.answersList = answersList;
+	}
+
+	public HashMap<String, String> getDefaultAnswer() {
+		return defaultAnswer;
+	}
+
+	public void setDefaultAnswer(HashMap<String, String> defaultAnswer) {
+		this.defaultAnswer = defaultAnswer;
+	}
+    
 	
 }
