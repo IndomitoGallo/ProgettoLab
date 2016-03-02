@@ -7,6 +7,8 @@ import it.surveys.domain.Survey;
 import it.surveys.model.SurveyManager;
 import java.util.Map;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 /**
  * Questa classe e' la "action" che gestisce tutte le attivita' che riguardano i sondaggi.
  * Essa e' un'estensione del Controller e fa da ponte tra le azioni client-side dell'utente
@@ -42,7 +44,7 @@ public class SurveyAction extends ActionSupport{
             return "fail";
         }
         SurveyManager sm = SurveyManager.getSurveyManager();
-        Survey s = new Survey(question, answers);
+        Survey s = new Survey(StringEscapeUtils.escapeSql(question), answers);
         String result = sm.insert(s, categories);
         if(result.equals("db_fail")){
             setMessage("Non e' stato possibile creare il sondaggio.");

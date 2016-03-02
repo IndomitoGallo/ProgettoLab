@@ -1,6 +1,6 @@
 package it.surveys.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import it.surveys.domain.User;
 
@@ -45,15 +45,15 @@ public class UserManager {
 	public String register(User u, int[] categories) {
 		String result;
 		result = UserDCS.verifySignupData(u.getUsername(), u.getEmail());
-		if(result == "false")
+		if(result.equals("false"))
 			return "verification_fail";
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "db_fail";
 		result = UserDAO.insert(u);
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "db_fail";
 		result = UserDCS.insertCategoriesAssociation(u.getId(), categories);
-		if(result == "fail") {
+		if(result.equals("fail")) {
 			/*Se viene inserito con successo l'utente ma non le categorie
 			bisogna abortire l'intera procedura. Si elimina l'utente inserito
 			con successo precedentemente, il che si traduce nell'eliminazione
@@ -77,19 +77,17 @@ public class UserManager {
 	 * @return String stringa formattata opportunamente
 	 * @author Luca Talocci
 	 */
-	public String displayProfile(User u) {
-		String result;
-		result = UserDAO.retrieve(u);
-		if(result == "fail")
-			return "fail";
-		ArrayList<Integer> userCategories;
-		userCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
-		if(userCategories == null)
-			return "fail";
-		String categories;
-		categories = CategoryDCS.displayCheckBoxCategories(userCategories);
-		if(categories == "fail")
-			return "fail";
+	public HashMap<String, String> displayProfile(User u, HashMap<String, String> defaultCategories) {
+		HashMap<String, String> categories;
+		String result = UserDAO.retrieve(u);
+		if(result.equals("fail"))
+			return null;
+		defaultCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
+		if(defaultCategories == null)
+			return null;
+		categories = CategoryDCS.displayCheckBoxCategories();
+		if(categories.equals("fail"))
+			return null;
 		return categories;
 	}
 
@@ -106,15 +104,15 @@ public class UserManager {
 	public String update(User u, int[] categories) {
 		String result;
 		result = UserDCS.verifyUpdateData(u.getId(), u.getUsername(), u.getEmail());
-		if(result == "false")
+		if(result.equals("false"))
 			return "verification_fail";
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "db_fail";
 		result = UserDAO.update(u);
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "db_fail";
 		result = UserDCS.updateCategoriesAssociation(u.getId(), categories);
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "db_fail";
 		return "success";
 	}

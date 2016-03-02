@@ -19,7 +19,7 @@
 	    
 	    <s:form id="login_form" name="login" action="login" method="POST">
 	        <s:textfield class="form-control" type="text" id="username" name="username" label="Username" placeholder="username"/>
-	        <s:password class="form-control" id="password" name="password" label="Password" placeholder="*****"/>
+	        <s:password class="form-control" id="password" name="password" label="Password" maxlength="10" placeholder="*****"/>
 	        <s:submit class="btn" value="Login"/>
 	    </s:form>
 	    <br><br>

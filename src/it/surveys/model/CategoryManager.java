@@ -1,5 +1,7 @@
 package it.surveys.model;
 
+import java.util.HashMap;
+
 import it.surveys.domain.Category;
 
 /**
@@ -41,12 +43,12 @@ public class CategoryManager {
 	public String insert(Category c) {
 		String result;
 		result = CategoryDCS.verifyCategory(c.getName());
-		if(result == "false")
+		if(result.equals("false"))
 			return "verification_fail";
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "db_fail";
 		result = CategoryDAO.insert(c);
-		if(result == "fail") 
+		if(result.equals("fail"))
 			return "db_fail";		
 		return "success";
 	}
@@ -62,7 +64,7 @@ public class CategoryManager {
 	public String delete(Category c) {
 		String result;
 		result = CategoryDAO.delete(c);
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "fail";
 		return "success";
 	}
@@ -77,7 +79,7 @@ public class CategoryManager {
 	public String displayListCategories() {
 		String result;
 		result = CategoryDCS.displayListCategories();
-		if(result == "fail")
+		if(result.equals("fail"))
 			return "fail";
 		return result;
 	}
@@ -89,11 +91,11 @@ public class CategoryManager {
 	 * @return String stringa formattata opportunamente
 	 * @author Lorenzo Bernabei
 	 */
-	public String displayRadioCategories() {
-		String result;
+	public HashMap<String, String> displayRadioCategories() {
+		HashMap<String, String> result;
 		result = CategoryDCS.displayRadioCategories();
-		if(result == "fail")
-			return "fail";
+		if(result == null)
+			return null;
 		return result;
 	}
 	
@@ -104,11 +106,11 @@ public class CategoryManager {
 	 * @return String stringa formattata opportunamente
 	 * @author Lorenzo Bernabei
 	 */
-	public String displayCheckBoxCategories() {
-		String result;
+	public HashMap<String, String> displayCheckBoxCategories() {
+		HashMap<String, String> result;
 		result = CategoryDCS.displayCheckBoxCategories();
-		if(result == "fail")
-			return "fail";
+		if(result == null)
+			return null;
 		return result;
 	}
 }

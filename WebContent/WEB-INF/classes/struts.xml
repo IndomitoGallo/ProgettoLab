@@ -15,7 +15,7 @@
 		</action>
 		<action name="register" class="it.surveys.action.UserAction" method="register">
 			<result name="success">index.jsp</result>
-			<result name="fail">register.jsp</result>
+			<result name="fail" type="redirectAction">displayCheckBoxCategories?flag=reg&amp;message=${message}</result>
 		</action>
 		<action name="displayProfile" class="it.surveys.action.UserAction" method="displayProfile">
 			<result name="success">manage_profile.jsp</result>
@@ -30,7 +30,7 @@
 	<package name="survey" extends="struts-default">
         <action name="createSurvey" class="it.surveys.action.SurveyAction" method="createSurvey">
             <result name="success" type="redirectAction">displayCreatedSurveys</result>
-            <result name="fail">new_survey.jsp</result>
+            <result name="fail" type="redirectAction">displayCheckBoxCategories?flag=survey&amp;message=${message}</result>
         </action>
         <action name="deleteSurvey" class="it.surveys.action.SurveyAction" method="deleteSurvey">
             <result name="success" type="redirectAction">displayCreatedSurveys</result>

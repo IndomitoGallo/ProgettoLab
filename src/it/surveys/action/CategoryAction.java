@@ -1,6 +1,11 @@
 package it.surveys.action;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 import com.opensymphony.xwork2.ActionSupport;
+
 import it.surveys.domain.Category;
 import it.surveys.model.CategoryManager;
 
@@ -21,6 +26,9 @@ public class CategoryAction extends ActionSupport{
 	private String message;
 	/** eventuale output da visualizzare nella view. */
 	private String output;
+	private HashMap<String, String> categories;
+	private HashMap<String, String> defaultCategories;
+	
 	/** 
 	 * viene utilizzato in displayCheckBoxCategories() per differenziare
 	 * successo e fallimento, in base a chi ha richiesto la action. In pratica
@@ -96,12 +104,20 @@ public class CategoryAction extends ActionSupport{
      */
     public String displayRadioCategories(){
         CategoryManager cm = CategoryManager.getCategoryManager();
-        String result = cm.displayRadioCategories();
-        if(result.equals("fail")){
+        HashMap<String, String> result = cm.displayRadioCategories();
+        if(result == null){
             setMessage("Non e' stato possibile caricare le categorie esistenti.");
             return "fail";     
         }
-		setOutput(result);
+		setCategories(result);
+		
+		//Per default viene checkato il primo elemento dell'HashMap categories
+		defaultCategories = new HashMap<>();
+		Set<String> keySet = result.keySet();
+		Iterator<String> it = keySet.iterator();
+		String key = it.next();
+		defaultCategories.put(key, result.get(key));
+		
         return "success";
     }
     
@@ -113,12 +129,13 @@ public class CategoryAction extends ActionSupport{
      */
     public String displayCheckBoxCategories(){
         CategoryManager cm = CategoryManager.getCategoryManager();
-        String result = cm.displayCheckBoxCategories();
-        if(result.equals("fail")){
+        HashMap<String, String> result = cm.displayCheckBoxCategories();
+        if(result == null){
             setMessage("Non e' stato possibile caricare le categorie.");
             return getFlag() + "_fail";
         }
-		setOutput(result);
+		setCategories(result);
+		defaultCategories = new HashMap<>();
         return getFlag() + "_success";
     }
     
@@ -175,5 +192,17 @@ public class CategoryAction extends ActionSupport{
 	public void setFlag(String flag) {
 		this.flag = flag;
 	}
+
+	public HashMap<String, String> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(HashMap<String, String> categories) {
+		this.categories = categories;
+	}
     
+	public HashMap<String, String> getDefaultCategories() {
+		return defaultCategories;
+	} 
+	
 }

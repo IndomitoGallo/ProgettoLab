@@ -22,8 +22,8 @@
 		        <s:textfield class="form-control" type="text" id="surname" name="surname" label="Cognome" placeholder="cognome" size="30"/>
 				<s:textfield class="form-control" type="text" id="username" name="username" label="Username" placeholder="username" size="30"/>
 		        <s:textfield class="form-control" type="email" id="email" name="email" label="E-mail" placeholder="example@lab.it" size="30"/>
-		        <s:password class="form-control" id="password" name="password" label="Password" placeholder="*****" maxlength="10" size="30"/>
-				<s:property escapeHtml="false" value="output"/>
+		        <s:password class="form-control" id="password" name="password" label="Password" placeholder="max 10 caratteri" maxlength="10" size="30"/>
+				<s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" value="defaultCategories" list="categories"/>
 				<s:submit class="btn" value="Registrati"/>
 			</s:form>
 			<br><br>

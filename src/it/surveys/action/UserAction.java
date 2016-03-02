@@ -6,6 +6,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import it.surveys.domain.User;
 import it.surveys.model.UserManager;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -32,6 +33,9 @@ public class UserAction extends ActionSupport{
 	/** eventuale output da visualizzare nella view. */
 	private String output;
 	
+	private HashMap<String, String> categoriesCheckBox;
+	private HashMap<String, String> defaultCategories;
+	
 	/**
 	 * Il metodo register() si attiva nel momento in cui l'utente invia i dati di registrazione
 	 * attraverso l'apposito form. Vengono validati i dati del form e viene chiamato il corrispondente
@@ -42,7 +46,7 @@ public class UserAction extends ActionSupport{
 	public String register() {
 		if(validateRegister() == false) {
 			setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori.<br>" + 
-						"Oppure non è stata selezionata alcuna categoria.");
+						"Oppure non e' stata selezionata alcuna categoria.");
 			return "fail";
 		}
 		else {
@@ -50,12 +54,12 @@ public class UserAction extends ActionSupport{
 			User u = new User(getUsername(), getPassword(), getEmail(), getName(), getSurname());
 			String outcome;
 			outcome = usm.register(u, getCategories());
-			if(outcome == "verification_fail") {
+			if(outcome.equals("verification_fail")) {
 				setMessage("Username o Email già presenti!");
 				return "fail";
 			}
-			if(outcome == "db_fail") {
-				setMessage("Non è stato possibile effettuare la registrazione!");
+			if(outcome.equals("db_fail")) {
+				setMessage("Non e' stato possibile effettuare la registrazione!");
 				return "fail";
 			}
 			return "success";
@@ -83,7 +87,7 @@ public class UserAction extends ActionSupport{
 				return "fail";
 			}
 			if(outcome == -1) {
-				setMessage("Non è stato possibile effettuare il login!");
+				setMessage("Non e' stato possibile effettuare il login!");
 				return "fail";
 			}
 			createSession(outcome);
@@ -118,19 +122,20 @@ public class UserAction extends ActionSupport{
 		Map<String, Object> session = ActionContext.getContext().getSession();
 		u.setId((int)session.get("idUser")); //viene preso l'id dell'utente dalla sessione e settato l'oggetto
 		
-		String outcome;
-		outcome = usm.displayProfile(u);
-		if(outcome == "fail") {
-			setMessage("Non è stato possibile visualizzare i dati del profilo!");
+		HashMap<String, String> outcome;
+		outcome = usm.displayProfile(u, defaultCategories);
+		if(outcome == null) {
+			setMessage("Non e' stato possibile visualizzare i dati del profilo!");
 			return "fail";
 		}
 		//vengono settati tutti i dati da mostrare all'utente
-		setOutput(outcome);
+		setCategoriesCheckBox(outcome);
 		setUsername(u.getUsername());
 		setPassword(u.getPassword());
 		setEmail(u.getEmail());
 		setName(u.getName());
 		setSurname(u.getSurname());
+		System.out.print(defaultCategories);
 		return "success";
 
 	}
@@ -152,12 +157,12 @@ public class UserAction extends ActionSupport{
 			User u = new User(getUsername(), getPassword(), getEmail(), getName(), getSurname());
 			String outcome;
 			outcome = usm.update(u, getCategories());
-			if(outcome == "verification_fail") {
+			if(outcome.equals("verification_fail")) {
 				setMessage("Username o Email già presenti!");
 				return "fail";
 			}
-			if(outcome == "db_fail") {
-				setMessage("Non è stato possibile effettuare l'aggiornamento dei dati!");
+			if(outcome.equals("db_fail")) {
+				setMessage("Non e' stato possibile effettuare l'aggiornamento dei dati!");
 				return "fail";
 			}
 			return "success";
@@ -303,5 +308,17 @@ public class UserAction extends ActionSupport{
 	public void setOutput(String output) {
 		this.output = output;
 	}
+
+	public HashMap<String, String> getCategoriesCheckBox() {
+		return categoriesCheckBox;
+	}
+
+	public void setCategoriesCheckBox(HashMap<String, String> categoriesCheckBox) {
+		this.categoriesCheckBox = categoriesCheckBox;
+	}
+	
+	public HashMap<String, String> getDefaultCategories() {
+		return defaultCategories;
+	} 
 	
 }

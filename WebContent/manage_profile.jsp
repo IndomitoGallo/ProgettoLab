@@ -22,7 +22,7 @@
 		<s:textfield class="form-control" type="text" id="username" name="username" label="Username" placeholder="username" size="30" value="%{username}"/>
         <s:textfield class="form-control" type="email" id="email" name="email" label="E-mail" placeholder="example@lab.it" size="30" value="%{email}"/>
         <s:password class="form-control" id="password" name="password" label="Password" placeholder="*****" maxlength="10" size="30" value="%{password}"/>
-		<s:property escapeHtml="false" value="output"/>
+		<s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" value="defaultCategories" list="categoriesCheckBox"/>
 		<s:submit class="btn" value="Aggiorna"/>
 	</s:form>
 	<br><br>

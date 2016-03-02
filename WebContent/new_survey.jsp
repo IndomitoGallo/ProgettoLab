@@ -22,7 +22,7 @@
 		<s:textfield class="form-control" type="text" id="answer2" name="answers[1]" label="Risposta2" size="30"/>
 		<s:textfield class="form-control" type="text" id="answer3" name="answers[2]" label="Risposta3" size="30"/>
         <s:textfield class="form-control" type="text" id="answer4" name="answers[3]" label="Risposta4" size="30"/>
-        <s:property escapeHtml="false" value="output"/>
+        <s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" value="defaultCategories" list="categories"/>
 		<s:submit class="btn" value="Crea"/>
 	</s:form>
 	<br><br>

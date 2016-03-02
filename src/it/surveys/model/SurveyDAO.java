@@ -31,10 +31,10 @@ public class SurveyDAO {
             String[] answers=s.getAnswers();
             String ins;
             if(answers.length==2){
-                ins="insert into Survey(id,question,answer1,answer2) values(null,"+
-                                                 "'"+s.getQuestion()+"',"+
-                                                 "'"+answers[0]+"',"+
-                                                 "'"+answers[1]+"')";
+                ins="insert into Survey(id,question,answer1,answer2) values(null," +
+                                                 "'" + s.getQuestion() + "'," +
+                                                 "'" + answers[0] + "'," +
+                                                 "'" + answers[1] + "')";
             } else
             if(answers.length==3){
                 ins="insert into Survey(id,question,answer1,answer2,answer3) values(null,"+
@@ -217,6 +217,7 @@ public class SurveyDAO {
         }
         return "success";
     }
+    
     /**
      * Effettua l'operazione di cancellazione nel database del Survey passato come argomento.
      * Restituisce "success" se e' stata effettuata ed e' andata a buon fine la cancellazione, fail altrimenti.

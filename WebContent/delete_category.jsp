@@ -17,7 +17,7 @@
 	<div id="message"><s:property escapeHtml="false" value="message"/></div>
 	
 	<s:form id="category_form" name="deleteCategory" action="deleteCategory" method="POST">
-		<s:property escapeHtml="false" value="output"/>
+		<s:radio class="form-control" id="categories" name="id" label="Categorie" value="defaultCategories" list="categories"/>
 		<s:submit class="btn" value="Elimina"/>
 	</s:form>
 	<br><br>

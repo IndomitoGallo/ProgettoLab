@@ -1,7 +1,7 @@
 package it.surveys.model;
 
 import java.sql.*;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 import it.surveys.util.UtilDB;
 
@@ -86,11 +86,12 @@ public class UserDCS {
 			String sql2 = "SELECT * FROM user WHERE email='" + mail + "'";
 			//memorizzazione del risultato delle query in un ResultSet
 			ResultSet rs1 = utl.query(stmt, sql1);
+			if(rs1.next())
+				return "false";	//username passato in ingresso al metodo già presente nel database
 			ResultSet rs2 = utl.query(stmt, sql2);
-			if(rs1.next() || rs2.next())
-				return "false"; //username o mail passati in ingresso al metodo sono già presenti nel database
-			else
-				return "true"; //username e mail passati in ingresso al metodo non sono presenti nel database
+			if(rs2.next())
+				return "false";	//mail passata in ingresso al metodo già presente nel database
+			return "true"; //username e mail passati in ingresso al metodo non sono presenti nel database
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
@@ -137,11 +138,12 @@ public class UserDCS {
 			String sql2 = "SELECT * FROM user WHERE email='" + mail + "' AND id<>" + idUser;
 			//memorizzazione del risultato delle query in un ResultSet
 			ResultSet rs1 = utl.query(stmt, sql1);
+			if(rs1.next())
+				return "false";	//username passato in ingresso al metodo già presente nel database
 			ResultSet rs2 = utl.query(stmt, sql2);
-			if(rs1.next() || rs2.next())
-				return "false"; //username o mail passati in ingresso al metodo sono già presenti nel database
-			else
-				return "true"; //username e mail passati in ingresso al metodo non sono presenti nel database
+			if(rs2.next())
+				return "false";	//mail passata in ingresso al metodo già presente nel database
+			return "true"; //username e mail passati in ingresso al metodo non sono presenti nel database
 	     } catch (SQLException e) { //il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");
 	    	e.printStackTrace();
@@ -264,19 +266,19 @@ public class UserDCS {
 	 * @return ArrayList<Integer> collezione contenente gli id delle categorie
 	 * @author Lorenzo Bernabei
 	 */
-	public static ArrayList<Integer> retrieveCategoriesAssociation(int idUser) {
+	public static HashMap<String, String> retrieveCategoriesAssociation(int idUser) {
 		UtilDB utl = null;
 		Connection conn = null;	
 		Statement stmt = null;
-		ArrayList<Integer> categories = new ArrayList<>();
+		HashMap<String, String> categories = new HashMap<>();
 		try {
 			utl = UtilDB.getUtilDB();	//istanza della classe factory UtilDB
 			conn= utl.createConnection();	//connection to DB
 			stmt=conn.createStatement();	//creazione dello Statement
-			String sql = "SELECT idCategory FROM categoriesUser WHERE idUser=" + idUser;
+			String sql = "SELECT c1.idCategory, c2.name FROM categoriesUser c1, category c2 WHERE c1.idCategory=c2.id AND c1.idUser=" + idUser;
 			ResultSet rs = utl.query(stmt, sql); //selezione di tutte le categorie associate all'utente
 			while(rs.next()){
-				categories.add(Integer.parseInt(rs.getString(1))); //add delle categorie in un array list
+				categories.put(rs.getString(1), rs.getString(2)); 
 			}
 	     } catch (SQLException e) {	//il metodo intercetta un'eccezione proveniente dal DB	    	 
 	    	System.err.println("Database Error!");

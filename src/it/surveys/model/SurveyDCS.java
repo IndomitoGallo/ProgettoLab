@@ -177,9 +177,9 @@ public class SurveyDCS {
         try{
             conn=utl.createConnection();
             stm=utl.createStatement(conn);
-            String query="select s.question,s.id from categoriesUser c, categoriesSurvey c1,survey s"+
-                         "where c.idUser="+idUser+"c.idCategory=c1.idCategory and c1.idSurvey=s.id and (s.id,c.idUser) not in"+
-                         "(select a.idSurvey,a.idUser from answer a)";
+            String query="SELECT s.question, s.id FROM categoriesUser c, categoriesSurvey c1, survey s "+
+                         "WHERE c.idUser="+idUser+" AND c.idCategory=c1.idCategory AND c1.idSurvey=s.id AND (s.id,c.idUser) "+
+                         "NOT IN (select a.idSurvey,a.idUser from answer a)";
             ResultSet res=utl.query(stm, query);
             if(!res.next()){
                 return "<p>Attenzione: o non sono presenti sondaggi per le categorie scelte oppure sono state "+
