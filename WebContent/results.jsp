@@ -14,10 +14,8 @@
 	<h1>Benvenuto nella tua pagina personale!</h1>
 	<p>	Ecco i risultati del sondaggio selezionato: </p>
 	
-	<br>
-	
 	<div id="message"><s:property escapeHtml="false" value="message"/></div>
-	
+	<br>
 	<s:property escapeHtml="false" value="output"/>
 	
     <br><br>

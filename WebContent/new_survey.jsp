@@ -12,14 +12,18 @@
 <body>
 
 	<h1>Benvenuto nella tua pagina personale!</h1>
-	<p>Qui di seguito puoi creare un nuovo sondaggio.</p>
+	<p>Qui di seguito puoi creare un nuovo sondaggio.<br>
+	   Ricorda che i campi con * sono obbligatori (se inserisci 4 risposte anche la terza
+	   diventa obbligatoria), devi selezionare almeno una categoria e se inserisci solo due
+	   risposte devono essere del tipo Si/No.
+	</p>
 	
 	<div id="message"><s:property escapeHtml="false" value="message"/></div>
-	
+	<br>
 	<s:form id="survey_form" name="createSurvey" action="createSurvey" method="POST">
-		<s:textfield class="form-control" type="text" id="question" name="question" label="Domanda" size="30"/>
-		<s:textfield class="form-control" type="text" id="answer1" name="answers[0]" label="Risposta1" size="30"/>
-		<s:textfield class="form-control" type="text" id="answer2" name="answers[1]" label="Risposta2" size="30"/>
+		<s:textfield class="form-control" type="text" id="question" name="question" label="Domanda*" size="30"/>
+		<s:textfield class="form-control" type="text" id="answer1" name="answers[0]" label="Risposta1*" size="30"/>
+		<s:textfield class="form-control" type="text" id="answer2" name="answers[1]" label="Risposta2*" size="30"/>
 		<s:textfield class="form-control" type="text" id="answer3" name="answers[2]" label="Risposta3" size="30"/>
         <s:textfield class="form-control" type="text" id="answer4" name="answers[3]" label="Risposta4" size="30"/>
         <s:checkboxlist class="form-control" id="categories" name="categories" label="Categorie" value="defaultCategories" list="categories"/>

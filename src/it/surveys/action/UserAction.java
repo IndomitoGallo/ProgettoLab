@@ -48,7 +48,7 @@ public class UserAction extends ActionSupport{
 	 */
 	public String register() {
 		if(validateRegister() == false) {
-			setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori.<br>" + 
+			setMessage("Non sono stati inseriti tutti i campi.<br>" + 
 						"Oppure non e' stata selezionata alcuna categoria.");
 			return "fail";
 		}
@@ -58,7 +58,7 @@ public class UserAction extends ActionSupport{
 			String outcome;
 			outcome = usm.register(u, getCategories());
 			if(outcome.equals("verification_fail")) {
-				setMessage("Username o Email già presenti!");
+				setMessage("Username o Email gia' presenti!");
 				return "fail";
 			}
 			if(outcome.equals("db_fail")) {
@@ -78,7 +78,7 @@ public class UserAction extends ActionSupport{
 	 */
 	public String login() {
 		if(validateLogin() == false) {
-			setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori!");
+			setMessage("Devi inserire username e password!");
 			return "fail";
 		}
 		else {
@@ -133,7 +133,7 @@ public class UserAction extends ActionSupport{
 		}
 		//vengono settati tutti i dati da mostrare all'utente
 		setCategoriesCheckBox(outcome.get(0));
-		defaultCategories = outcome.get(1);
+		setDefaultCategories(outcome.get(1));
 		setUsername(u.getUsername());
 		setPassword(u.getPassword());
 		setEmail(u.getEmail());
@@ -242,7 +242,7 @@ public class UserAction extends ActionSupport{
         	return false;
 		return true;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -325,6 +325,10 @@ public class UserAction extends ActionSupport{
 	
 	public HashMap<String, String> getDefaultCategories() {
 		return defaultCategories;
+	}
+
+	public void setDefaultCategories(HashMap<String, String> defaultCategories) {
+		this.defaultCategories = defaultCategories;
 	} 
 	
 }

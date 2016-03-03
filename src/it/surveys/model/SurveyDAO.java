@@ -30,29 +30,25 @@ public class SurveyDAO {
             stm=utl.createStatement(conn);
             String[] answers=s.getAnswers();
             String ins;
-            if(answers.length==2){
+            if(answers[2].isEmpty()){
                 ins="insert into Survey(id,question,answer1,answer2) values(null," +
                                                  "'" + s.getQuestion() + "'," +
                                                  "'" + answers[0] + "'," +
                                                  "'" + answers[1] + "')";
             } else
-            if(answers.length==3){
+            if(answers[3].isEmpty()){
                 ins="insert into Survey(id,question,answer1,answer2,answer3) values(null,"+
                                                  "'"+s.getQuestion()+"',"+
                                                  "'"+answers[0]+"',"+
                                                  "'"+answers[1]+"',"+
                                                  "'"+answers[2]+"')";           
-            } else
-            if(answers.length==4){
+            } else {
                 ins="insert into Survey(id,question,answer1,answer2,answer3,answer4) values(null,"+
                                                  "'"+s.getQuestion()+"',"+
                                                  "'"+answers[0]+"',"+
                                                  "'"+answers[1]+"',"+
                                                  "'"+answers[2]+"',"+
                                                  "'"+answers[3]+"')";       
-            } else {
-                System.err.println("Survey answer error!");
-                return "fail";
             }
             int rows=utl.manipulate(stm, ins);
             if(rows!=1){

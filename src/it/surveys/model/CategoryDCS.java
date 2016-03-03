@@ -89,7 +89,7 @@ public class CategoryDCS {
                 return "<p>Non sono presenti categorie.</p>";
             }
             
-            categories = "<ul>";
+            categories = "<ul style=\"list-style-type:circle;\">";
 
             rs.beforeFirst();
             while (rs.next()) {

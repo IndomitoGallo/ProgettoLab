@@ -56,6 +56,7 @@ public class CategoryManager {
 	/**
 	 * Il metodo delete(Category c) gestisce la cancellazione di un oggetto di tipo
 	 * Category dal database usufruendo dei servizi offerti dalla classe CategoryDAO.
+	 * Inoltre vengono anche cancellati gli eventuali sondaggi rimasti senza categorie.
 	 * Se viene restituito fail, si ritorna un fallimento, altrimenti un successo.
 	 * @param c Category
 	 * @return String esito della cancellazione
@@ -64,6 +65,9 @@ public class CategoryManager {
 	public String delete(Category c) {
 		String result;
 		result = CategoryDAO.delete(c);
+		if(result.equals("fail"))
+			return "fail";
+		result = SurveyDCS.deleteSurveysWithoutCategories();
 		if(result.equals("fail"))
 			return "fail";
 		return "success";

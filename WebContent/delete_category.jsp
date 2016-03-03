@@ -15,7 +15,7 @@
 	<p>Qui di seguito puoi cancellare una categoria esistente.</p>
 	
 	<div id="message"><s:property escapeHtml="false" value="message"/></div>
-	
+	<br>
 	<s:form id="category_form" name="deleteCategory" action="deleteCategory" method="POST">
 		<s:radio class="form-control" id="categories" name="id" label="Categorie" value="defaultCategories" list="categories"/>
 		<s:submit class="btn" value="Elimina"/>

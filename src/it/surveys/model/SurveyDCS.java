@@ -34,7 +34,7 @@ public class SurveyDCS {
             stm2=utl.createStatement(conn);
             String query1="select answer1,answer2,answer3,answer4 from survey "+ 
                           "where id="+idSurvey;
-            String query2="select answer,count(answer) numAnswer"+
+            String query2="select answer,count(answer) numAnswer "+
                            "from answer where idSurvey="+idSurvey+" group by answer";
             ResultSet result1=utl.query(stm, query1);
             ResultSet result2=utl.query(stm2, query2);
@@ -42,15 +42,7 @@ public class SurveyDCS {
             results="<table><tr>"+ 
                         "<th>Risposta</th>"+
                         "<th>Risultato</th>"+
-                    "</tr>";                        
-            if(!result2.next()){
-                results=results+"<tr><td>"+result1.getString(1)+"</td><td>0%</td></tr>"+
-                        "<tr><td>"+result1.getString(2)+"</td><td>0%</td></tr>"+
-                        "<tr><td>"+result1.getString(3)+"</td><td>0%</td></tr>"+
-                        "<tr><td>"+result1.getString(4)+"</td><td>0%</td></tr>";
-                return results+"</table>";
-            }
-            result2.beforeFirst();
+                    "</tr>";
             while(result2.next()){
                 numAnswer=numAnswer+result2.getInt(2);
             }
@@ -187,13 +179,13 @@ public class SurveyDCS {
             }
             surveys="<table><tr>"+
                         "<th>Sondaggio</th>"+
-                        "<th>Rispondi</th>"+
+                        "<th>Risposta</th>"+
                     "</tr>";
             res.beforeFirst();
             while(res.next()){
                 surveys=surveys+"<tr>";
                 surveys=surveys+"<td>"+res.getString(1)+"</td>"+
-                        "<td><a href=\"displaySurvey.action?id="+res.getString(2)+"\">Visualizza</a></td>";
+                        "<td><a href=\"displaySurvey.action?id="+res.getString(2)+"\">Rispondi</a></td>";
                 surveys=surveys+"</tr>";
             }
             surveys=surveys+"</table>";                   

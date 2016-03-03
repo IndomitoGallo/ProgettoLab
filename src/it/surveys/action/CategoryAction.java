@@ -45,7 +45,7 @@ public class CategoryAction extends ActionSupport{
      */
     public String createCategory(){
         if(validateCategory() == false){
-            setMessage("Non sono stati inseriti correttamente tutti i campi obligatori.");
+            setMessage("E' obbligatorio inserire la categoria.");
             return "fail";
         }
         CategoryManager cm = CategoryManager.getCategoryManager();
@@ -108,17 +108,21 @@ public class CategoryAction extends ActionSupport{
         HashMap<String, String> result = cm.displayRadioCategories();
         if(result == null){
             setMessage("Non e' stato possibile caricare le categorie esistenti.");
-            return "fail";     
+            setCategories(new HashMap<>());
+            setDefaultCategories(new HashMap<>());
+            return "fail";    
         }
         
 		setCategories(result);
 		
-		//Per default viene checkato il primo elemento dell'HashMap categories
-		defaultCategories = new HashMap<>();
-		Set<String> keySet = result.keySet();
-		Iterator<String> it = keySet.iterator();
-		String key = it.next();
-		defaultCategories.put(key, result.get(key));
+		if(!result.isEmpty()) {
+			//Per default viene checkato il primo elemento dell'HashMap categories (solo se non è vuoto)
+			setDefaultCategories(new HashMap<>());
+			Set<String> keySet = result.keySet();
+			Iterator<String> it = keySet.iterator();
+			String key = it.next();
+			getDefaultCategories().put(key, result.get(key));
+		}
 		
         return "success";
     }
@@ -135,11 +139,13 @@ public class CategoryAction extends ActionSupport{
         CategoryManager cm = CategoryManager.getCategoryManager();
         HashMap<String, String> result = cm.displayCheckBoxCategories();
         if(result == null){
-            setMessage("Non e' stato possibile caricare le categorie.");
+            setMessage("Non e' stato possibile caricare le categorie esistenti.");
+            setCategories(new HashMap<>());
+            setDefaultCategories(new HashMap<>());
             return getFlag() + "_fail";
         }
 		setCategories(result);
-		defaultCategories = new HashMap<>();
+		setDefaultCategories(new HashMap<>());
         return getFlag() + "_success";
     }
     

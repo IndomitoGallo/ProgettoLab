@@ -15,7 +15,7 @@
 	<p>Qui di seguito puoi aggiungere una nuova categoria diversa da quelle esistenti.</p>
 	
 	<div id="message"><s:property escapeHtml="false" value="message"/></div>
-	
+	<br>
 	<table class="withform">
         <tr>
         	<td><s:property escapeHtml="false" value="output"/></td>

@@ -22,8 +22,6 @@ Prova Funzionamento:
 
 (5) ERRORI:
 
-		- Cancellazione del sondaggio
-		- displayResults
 		- answerSurvey
 		- perché il displaySurvey di un sondaggio con meno di 4 risposte viene male?
 		- Non funziona l'escape delle stringhe nella creazione sondaggi

@@ -50,8 +50,8 @@ public class SurveyAction extends ActionSupport{
     public String createSurvey(){
         if(validateSurvey()==false){
             setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori.<br>" + 
-            			"Oppure non è stata selezionata alcuna categoria.<br>" +
-            			"Oppure ricorda che se le risposte sono due, devono essere Si/No.");
+            			"Oppure non e' stata selezionata alcuna categoria.<br>" +
+            			"Oppure, se hai inserito due risposte, sono diverse da Si/No.");
             return "fail";
         }
         SurveyManager sm = SurveyManager.getSurveyManager();
@@ -140,7 +140,7 @@ public class SurveyAction extends ActionSupport{
     
     /**
      * Il metodo displaySurvey() viene attivato dopo che il cliente ha effettuato l'accesso nella sua pagina
-     * personale ed ha effettuato un click sul pulsante "Visualizza" di un determinato sondaggio.
+     * personale ed ha effettuato un click sul pulsante "Rispondi" di un determinato sondaggio.
      * Viene chiamato il metodo retrieve del SurveyManager.
      * Infine effettua i set degli attributi con i dati da mostrare all'utente.
      * @return String esito del prelevamento dei dati di un determinato sondaggio. 
@@ -160,11 +160,11 @@ public class SurveyAction extends ActionSupport{
         setAnswersRadio(result);
         
 		//Per default viene checkato il primo elemento dell'HashMap answersRadio
-		defaultAnswers = new HashMap<>();
+		setDefaultAnswers(new HashMap<>());
 		Set<String> keySet = result.keySet();
 		Iterator<String> it = keySet.iterator();
 		String key = it.next();
-		defaultAnswers.put(key, result.get(key));
+		getDefaultAnswers().put(key, result.get(key));
         
         return "success";
     }
@@ -178,9 +178,7 @@ public class SurveyAction extends ActionSupport{
     public String answerSurvey(){
         SurveyManager sm = SurveyManager.getSurveyManager();
         Map<String, Object> session = ActionContext.getContext().getSession();
-        System.out.println("Action1");
         String result = sm.insertAnswer(id,(int)session.get("idUser"), answer);
-        System.out.println("Action2");
         if(result.equals("db_fail")){
             setMessage("Non e' stato possibile inserire la risposta.");
             return "fail";
@@ -201,8 +199,12 @@ public class SurveyAction extends ActionSupport{
         if(question.isEmpty() || answers[0].isEmpty() || answers[1].isEmpty())
             return false;
         //se le risposte sono solo due, devono essere Si o No
-        if(answers.length == 2) 
-        	if((answers[0] != "Si" && answers[1] != "No") || (answers[0] != "No" && answers[1] != "Si"))
+        if(answers[2].isEmpty()) 
+        	if((!(answers[0].equals("Si")) && !(answers[1].equals("Si"))) || (!(answers[0].equals("No")) && !(answers[1].equals("No"))))
+        		return false;
+        //se le risposte sono quattro, la terza non deve essere vuota
+        if(!answers[3].isEmpty())
+        	if(answers[2].isEmpty())
         		return false;
         //controllo che almeno una categoria è associata al sondaggio inserito
         if(categories.length < 1)
