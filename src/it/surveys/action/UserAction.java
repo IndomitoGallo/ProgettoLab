@@ -25,6 +25,7 @@ public class UserAction extends ActionSupport{
 	private int id;
 	private String username;
 	private String password;
+	/** le categorie scelte dall'utente. */
 	private int[] categories;
 	private String email;
 	private String name;
@@ -33,8 +34,9 @@ public class UserAction extends ActionSupport{
 	private String message;
 	/** eventuale output da visualizzare nella view. */
 	private String output;
-	
+	/** le categorie da visualizzare nei form. */
 	private HashMap<String, String> categoriesCheckBox;
+	/** le categorie preselezionate da visualizzare nei form. */
 	private HashMap<String, String> defaultCategories;
 	
 	/**

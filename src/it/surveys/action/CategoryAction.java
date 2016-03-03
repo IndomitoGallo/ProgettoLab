@@ -26,9 +26,10 @@ public class CategoryAction extends ActionSupport{
 	private String message;
 	/** eventuale output da visualizzare nella view. */
 	private String output;
+	/** le categorie da visualizzare nei form. */
 	private HashMap<String, String> categories;
-	private HashMap<String, String> defaultCategories;
-	
+	/** le categorie preselezionate da visualizzare nei form. */
+	private HashMap<String, String> defaultCategories;	
 	/** 
 	 * viene utilizzato in displayCheckBoxCategories() per differenziare
 	 * successo e fallimento, in base a chi ha richiesto la action. In pratica
@@ -109,6 +110,7 @@ public class CategoryAction extends ActionSupport{
             setMessage("Non e' stato possibile caricare le categorie esistenti.");
             return "fail";     
         }
+        
 		setCategories(result);
 		
 		//Per default viene checkato il primo elemento dell'HashMap categories
@@ -122,9 +124,11 @@ public class CategoryAction extends ActionSupport{
     }
     
     /**
-     * Il metodo displayCheckBoxCategories() viene attivato dopo che il cliente ha effettuato l'accesso nella
-     * pagina personale ed ha cliccato su "ModificaProfilo". Viene chiamato il corrispondente metodo del
-     * CategoryManager. Infine effettua i set degli attributi con i dati da mostrare all'utente.
+     * Il metodo displayCheckBoxCategories() viene attivato in due casi: dopo che il cliente ha effettuato
+     * l'accesso nella pagina personale ed ha cliccato su "ModificaProfilo" e nel momento in cui un utente
+     * publico clicca su "Registrati".
+     * Viene chiamato il corrispondente metodo del CategoryManager. Infine effettua i set degli attributi
+     * con i dati da mostrare all'utente.
      * @return esito del prelevamento delle categorie. 
      */
     public String displayCheckBoxCategories(){

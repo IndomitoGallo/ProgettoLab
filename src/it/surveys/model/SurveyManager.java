@@ -26,8 +26,8 @@ public class SurveyManager {
      * @return sm l'oggetto singleton SurveyManager 
      */
     public static SurveyManager getSurveyManager(){
-        if(sm==null)
-            sm=new SurveyManager();
+        if(sm == null)
+            sm = new SurveyManager();
         return sm;      
     }
     
@@ -61,36 +61,40 @@ public class SurveyManager {
     
     /**
      * Questo metodo utilizza il corrispondente del livello inferiore in SurveyDAO per recuperare
-     * i dati del sondaggio e restituisce una HashMap<String, String> in cui la chiave corrisponde
-     * a........stringa formattata in HTML con una tabella contenente la
-     * domanda del sondaggio e tutte le possibili risposte selezionabili dal cliente per rispondere
-     * ad un determinato sondaggio. Le risposte vengono visualizzate sotto forma di radio button
-     * (tag "s:radio" di Struts2). Se viene restituito fail, si ritorna un fallimento.
+     * i dati del sondaggio e restituisce una HashMap<String, String> in cui chiave e valore sono
+     * identici e corrispondono alle possibili risposte del sondaggio. Ovviamente hanno due significati
+     * diversi, la chiave corrisponde al contenuto vero e proprio che poi andrà nel DB, il valore
+     * corrisponde al label da visualizzare nella pagine jsp.
+     * La collezione cosi' costruita costituira' il contenuto dell'attributo "list" del tag
+     * <s:radio> secondo la sintassi di Struts2.
+     * Infine, solo come valore di appoggio da passare alla action, viene inserita nella HashMap anche
+     * la domanda del sondaggio.
+     * In caso di errore viene restituito null.
      * @param s Survey
      * @return HashMap<String, String> collezione di coppie (key, value)
      */
     public HashMap<String, String> retrieve(Survey s){
         String result = SurveyDAO.retrieve(s);
-        String[] answers = s.getAnswers();
         if(result.equals("fail")){
             return null;
         } 
+        String[] answers = s.getAnswers();
         
         HashMap<String, String> survey = new HashMap<>();
         survey.put("question", s.getQuestion());
         
         if(answers.length==2){
-        	survey.put("answer1", answers[0]);
-        	survey.put("answer2", answers[1]);
+        	survey.put(answers[0], answers[0]);
+        	survey.put(answers[1], answers[1]);
         }else if(answers.length==3){
-        	survey.put("answer1", answers[0]);
-        	survey.put("answer2", answers[1]);
-        	survey.put("answer3", answers[2]);
+        	survey.put(answers[0], answers[0]);
+        	survey.put(answers[1], answers[1]);
+        	survey.put(answers[2], answers[2]);
         }else{
-        	survey.put("answer1", answers[0]);
-        	survey.put("answer2", answers[1]);
-        	survey.put("answer3", answers[2]);
-        	survey.put("answer4", answers[3]);
+        	survey.put(answers[0], answers[0]);
+        	survey.put(answers[1], answers[1]);
+        	survey.put(answers[2], answers[2]);
+        	survey.put(answers[3], answers[3]);
         }
         
         return survey;
@@ -166,9 +170,7 @@ public class SurveyManager {
      * @return String esito dell'inserimento della risposta
      */
     public String insertAnswer(int idSurvey, int idUser, String answer){
-    	System.out.println("Manager1");
         String result = SurveyDCS.insertAnswer(idSurvey, idUser, answer);
-        System.out.println("Manager2");
         if(result.equals("fail")){
             return "db_fail";
         }

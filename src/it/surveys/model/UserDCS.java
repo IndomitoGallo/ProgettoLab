@@ -262,6 +262,7 @@ public class UserDCS {
 	 * Il metodo retrieveCategoriesAssociation(int idUser) sfrutta i servizi
 	 * forniti dalla classe UtilDB per leggere dal Database le associazioni di un utente con
 	 * le categorie e le memorizza in una HashMap.
+	 * In caso di errore viene restituito null.
 	 * @param idUser int
 	 * @return HashMap<String, String> collezione contenente coppie (key, value)=(idCategory, nameCategory)
 	 * @author Lorenzo Bernabei

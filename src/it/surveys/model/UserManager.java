@@ -6,7 +6,7 @@ import java.util.HashMap;
 import it.surveys.domain.User;
 
 /**
- * La classe UserManager è il cuore del model e gestisce tutte le azioni che riguardano l'utente,
+ * La classe UserManager e' il cuore del model e gestisce tutte le azioni che riguardano l'utente,
  * difatti offre i suoi servizi alla UserAction.
  * Il manager, poi, utilizza i servizi del secondo livello del model: le classi DAO e DCS.
  * Saranno queste ultime a dialogare con il Database.
@@ -84,19 +84,19 @@ public class UserManager {
 	 */
 	public ArrayList<HashMap<String, String>> displayProfile(User u) {
 		HashMap<String, String> listCategories;
-		HashMap<String, String> defaultCategories;
+		HashMap<String, String> userCategories;
 		String result = UserDAO.retrieve(u);
 		if(result.equals("fail"))
 			return null;
-		defaultCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
-		if(defaultCategories == null)
+		userCategories = UserDCS.retrieveCategoriesAssociation(u.getId());
+		if(userCategories == null)
 			return null;
 		listCategories = CategoryDCS.displayCheckBoxCategories();
 		if(listCategories == null)
 			return null;
 		ArrayList<HashMap<String, String>> categories = new ArrayList<HashMap<String, String>>();
 		categories.add(listCategories);
-		categories.add(defaultCategories);
+		categories.add(userCategories);
 		return categories;
 	}
 

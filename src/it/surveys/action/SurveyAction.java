@@ -7,7 +7,9 @@ import it.surveys.domain.Survey;
 import it.surveys.model.SurveyManager;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -24,15 +26,20 @@ public class SurveyAction extends ActionSupport{
     private static final long serialVersionUID = 1L;
     private int id;
     private String question;
+    /** le risposte inserite in fase di creazione del sondaggio. */
     private String[] answers = new String[4];
+	/** le categorie associate al sondaggio. */
     private int[] categories;
+    /** la risposta al sondaggio da parte dell'utente. */
     private String answer;
 	/** eventuale messaggio di errore da visualizzare nella view. */
 	private String message;
 	/** eventuale output da visualizzare nella view. */
 	private String output;
-	private HashMap<String, String> answersList;
-	private HashMap<String, String> defaultAnswer;
+	/** le risposte da visualizzare nel form di risposta al sondaggio. */
+	private HashMap<String, String> answersRadio;
+	/** le risposte preselezionate da visualizzare nel form di risposta al sondaggio. */
+	private HashMap<String, String> defaultAnswers;
     
 	/**
      * Il metodo createSurvey() viene attivato dopo che il responsabile ha effettuato l'accesso nella
@@ -147,12 +154,18 @@ public class SurveyAction extends ActionSupport{
             setMessage("Non e' stato possibile visualizzare il sondaggio selezionato.");
             return "fail";
         }
+        //Set degli attributi con i dati da mostrare
         setQuestion(result.get("question"));
-        result.remove("question");
-        setAnswersList(result);
-        HashMap<String, String> answ = new HashMap<>();
-        answ.put("answer1", result.get("answer1"));
-        setDefaultAnswer(answ);
+        result.remove("question"); //viene rimossa la domanda, che era solo di appoggio nella HashMap
+        setAnswersRadio(result);
+        
+		//Per default viene checkato il primo elemento dell'HashMap answersRadio
+		defaultAnswers = new HashMap<>();
+		Set<String> keySet = result.keySet();
+		Iterator<String> it = keySet.iterator();
+		String key = it.next();
+		defaultAnswers.put(key, result.get(key));
+        
         return "success";
     }
     
@@ -254,21 +267,16 @@ public class SurveyAction extends ActionSupport{
     }
         
         
-    public HashMap<String, String> getAnswersList() {
-		return answersList;
+    public HashMap<String, String> getAnswersRadio() {
+		return answersRadio;
 	}
 
-	public void setAnswersList(HashMap<String, String> answersList) {
-		this.answersList = answersList;
+	public void setAnswersRadio(HashMap<String, String> answersRadio) {
+		this.answersRadio = answersRadio;
 	}
 
-	public HashMap<String, String> getDefaultAnswer() {
-		return defaultAnswer;
-	}
-
-	public void setDefaultAnswer(HashMap<String, String> defaultAnswer) {
-		this.defaultAnswer = defaultAnswer;
-	}
-    
+	public HashMap<String, String> getDefaultAnswers() {
+		return defaultAnswers;
+	}    
 	
 }

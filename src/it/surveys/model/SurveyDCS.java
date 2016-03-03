@@ -18,7 +18,7 @@ public class SurveyDCS {
      * la tabella contiene per ogni riga una determinata risposta tra le possibili e una percentuale che esprime 
      * la porzione di utenti che l'hanno scelta;
      * se una risposta non e' mai stata selezionata da un utente la sua percentuale e' 0%.
-     * Restituisce una tabella sotto forma di stringa contenente i risultati di un determinato sondaggio.
+     * Restituisce una stringa formattata in HTML contenente una tabella con i risultati di un determinato sondaggio.
      * @param idSurvey int
      * @return String risultati di un determinato sondaggio
      */
@@ -102,7 +102,7 @@ public class SurveyDCS {
      * la tabella contiene per ogni riga la domanda del sondaggio, un pulsante "Visualizza" che permette al
      * responsabile di visionare l'andamento delle risposte e un pulsante cancella che consente di cancellare
      * il sondaggio dal database.
-     * Restituisce una tabella sotto forma di stringa contenente i sondaggi presenti nel database, altrimenti
+     * Restituisce una stringa formattata in HTML contenente una tabella con i sondaggi presenti nel database, altrimenti
      * se non e' presente alcun sondaggio nel database viene restiuito un messaggio sotto forma di stringa.
      * @return String sondaggi presenti nel database.
      */
@@ -162,7 +162,7 @@ public class SurveyDCS {
      * per l'utente passato in ingresso a cui ancora non ha risposto;
      * la tabella contiene per ogni riga la domanda del sondaggio e un pulsante visualizza che permette all'utente di
      * visualizzare per intero il sondaggio e di poter rispondere.
-     * Restituisce una tabella sotto forma di stringa contenente i sondaggi appartenenti alle 
+     * Restituisce una stringa formattata in HTML contenente una tabella con i sondaggi appartenenti alle 
      * categoire di interesse per l'utente presenti nel database, altrimenti se non e' presente
      * alcun sondaggio associato alle categorie di interesse dell'utente restituisce un
      * messaggio sotto forma di stringa.
@@ -177,7 +177,7 @@ public class SurveyDCS {
         try{
             conn=utl.createConnection();
             stm=utl.createStatement(conn);
-            String query="SELECT s.question, s.id FROM categoriesUser c, categoriesSurvey c1, survey s "+
+            String query="SELECT DISTINCT s.question, s.id FROM categoriesUser c, categoriesSurvey c1, survey s "+
                          "WHERE c.idUser="+idUser+" AND c.idCategory=c1.idCategory AND c1.idSurvey=s.id AND (s.id,c.idUser) "+
                          "NOT IN (select a.idSurvey,a.idUser from answer a)";
             ResultSet res=utl.query(stm, query);
@@ -277,7 +277,7 @@ public class SurveyDCS {
             stm=utl.createStatement(conn);
             stm2=utl.createStatement(conn);
             String query="select s.id from survey s where (s.id) not in "+
-                         "(select cs.idSurvey from categoriessurvey cs)";
+                         "(select cs.idSurvey from categoriesSurvey cs)";
             String delete;
             ResultSet result=utl.query(stm, query);
             while(result.next()){

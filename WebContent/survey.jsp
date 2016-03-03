@@ -34,9 +34,6 @@
         	</td>
         </tr>
     </table>
-    
-	
-	<s:property escapeHtml="false" value="output"/>
 
 	<br><br>
 	<a href="displayAllowedSurveys.action">Indietro</a>

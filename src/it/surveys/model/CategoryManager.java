@@ -5,7 +5,7 @@ import java.util.HashMap;
 import it.surveys.domain.Category;
 
 /**
- * La classe CategoryManager è il cuore del model e gestisce tutte le azioni che riguardano le categorie,
+ * La classe CategoryManager e' il cuore del model e gestisce tutte le azioni che riguardano le categorie,
  * difatti offre i suoi servizi alla CategoryAction.
  * Il manager, poi, utilizza i servizi del secondo livello del model: le classi DAO e DCS.
  * Saranno queste ultime a dialogare con il Database.

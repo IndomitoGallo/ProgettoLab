@@ -126,8 +126,9 @@ public class CategoryDCS {
     /**
      * Il metodo displayRadioCategories() restituisce una collezione di coppie (key, value) in cui
      * il campo key corrisponde all'id della categoria e il campo value corrisponde al nome della categoria.
-     * La collezione cosi costruita costituirà il contenuto dell'attributo "list" del tag
+     * La collezione cosi' costruita costituira' il contenuto dell'attributo "list" del tag
      * <s:radio> secondo la sintassi di Struts2.
+     * In caso di errore viene restituito null.
      * @return HashMap<String, String> collezione di coppie (key, value)=(idCategory, nameCategory)
      */
     public static HashMap<String, String> displayRadioCategories() {
@@ -179,8 +180,9 @@ public class CategoryDCS {
     /**
      * Il metodo displayCheckBoxCategories() restituisce una collezione di coppie (key, value) in cui
      * il campo key corrisponde all'id della categoria e il campo value corrisponde al nome della categoria.
-     * La collezione cosi costruita costituirà il contenuto dell'attributo "list" del tag
-     * <s:checkboxlist> secondo la sintassi di Struts2. 
+     * La collezione cosi' costruita costituira' il contenuto dell'attributo "list" del tag
+     * <s:checkboxlist> secondo la sintassi di Struts2.
+     * In caso di errore viene restituito null.
      * @return HashMap<String, String> collezione di coppie (key, value)=(idCategory, nameCategory)
      */    
     public static HashMap<String, String> displayCheckBoxCategories() {
