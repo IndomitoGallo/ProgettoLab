@@ -266,7 +266,6 @@ public class SurveyAction extends ActionSupport{
         this.output = output;
     }
         
-        
     public HashMap<String, String> getAnswersRadio() {
 		return answersRadio;
 	}
@@ -278,5 +277,9 @@ public class SurveyAction extends ActionSupport{
 	public HashMap<String, String> getDefaultAnswers() {
 		return defaultAnswers;
 	}    
+	
+	public void setDefaultAnswers(HashMap<String, String> defaultAnswers) {
+		this.defaultAnswers = defaultAnswers;
+	}
 	
 }

@@ -209,4 +209,8 @@ public class CategoryAction extends ActionSupport{
 		return defaultCategories;
 	} 
 	
+	public void setDefaultCategories(HashMap<String, String> defaultCategories) {
+		this.defaultCategories = defaultCategories;
+	}
+	
 }
