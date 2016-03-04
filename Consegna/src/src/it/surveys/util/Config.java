@@ -7,6 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
 * La classe Config legge i dati di configurazione del database da un file "db.conf"
 * che si trova nella root del progetto.
@@ -22,7 +25,7 @@ public class Config {
 	protected static Properties newData;
 	
 	/** Configuration file */
-	protected static File configfile;
+	protected static InputStream configfile;
 	
 	/** 
  	 * Il metodo load(String filename) ha il compito principale di aprire il file di configuazione
@@ -32,18 +35,18 @@ public class Config {
  	 * @throws IOException
 	 */
 	@SuppressWarnings("resource")
-	public static void load(String filename) throws IOException{
+	public static void load(String filename) throws IOException, ClassNotFoundException{
 		
 		BufferedReader r = null;
 		boolean comment=false;
 		boolean singlecomm=false;
 		String line;
 			
-		configfile = new File(filename);
+		configfile = Config.class.getResourceAsStream("db.conf");
 		data = new Properties();
 		newData = new Properties();
 		
-		r = new BufferedReader(new FileReader(configfile));
+		r = new BufferedReader(new InputStreamReader(configfile,"UTF-8"));
 		while((line=r.readLine()) != null) {
 			if(line.startsWith("//") || line.startsWith("#") || line.length()==0) {
 				singlecomm=true;
