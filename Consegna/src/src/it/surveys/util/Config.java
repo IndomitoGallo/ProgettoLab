@@ -28,14 +28,14 @@ public class Config {
 	protected static InputStream configfile;
 	
 	/** 
- 	 * Il metodo load(String filename) ha il compito principale di aprire il file di configuazione
+ 	 * Il metodo load() ha il compito principale di aprire il file di configuazione
  	 * e di leggerne i campi costituiti da key e value.
  	 * @param String nome del file di configurazione
  	 * @return boolean esito della lettura
  	 * @throws IOException
 	 */
 	@SuppressWarnings("resource")
-	public static void load(String filename) throws IOException, ClassNotFoundException{
+	public static void load() throws IOException, ClassNotFoundException{
 		
 		BufferedReader r = null;
 		boolean comment=false;
