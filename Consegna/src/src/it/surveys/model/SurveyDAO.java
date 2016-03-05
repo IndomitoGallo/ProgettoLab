@@ -2,8 +2,6 @@ package it.surveys.model;
 
 import it.surveys.domain.Survey;
 import it.surveys.util.UtilDB;
-
-import java.io.IOException;
 import java.sql.*;
 
 /**
@@ -69,10 +67,6 @@ public class SurveyDAO {
             System.err.println("Database Error!");
             e.printStackTrace();
             return "fail";
-       } catch(IOException e){
-            System.err.println("Reading Configuration File Error!");
-            e.printStackTrace();
-            return "fail";
        } finally{
             try{
 	            if(stm!=null)
@@ -135,10 +129,6 @@ public class SurveyDAO {
             return "fail";
        } catch(SQLException e){
             System.err.println("Database Error!");
-            e.printStackTrace();
-            return "fail";
-       } catch(IOException e){
-            System.err.println("Reading Configuration File Error!");
             e.printStackTrace();
             return "fail";
        } finally{
@@ -209,10 +199,6 @@ public class SurveyDAO {
             System.err.println("Database Error!");
             e.printStackTrace();
             return "fail";
-       } catch(IOException e){
-            System.err.println("Reading Configuration File Error!");
-            e.printStackTrace();
-            return "fail";
        } finally{
             try{
 	            if(stm!=null)
@@ -254,10 +240,6 @@ public class SurveyDAO {
             return "fail";
        } catch(SQLException e){
             System.err.println("Database Error!");
-            e.printStackTrace();
-            return "fail";
-       }catch(IOException e){
-            System.err.println("Reading Configuration File Error!");
             e.printStackTrace();
             return "fail";
        } finally{

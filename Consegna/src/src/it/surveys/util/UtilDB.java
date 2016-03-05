@@ -1,6 +1,5 @@
 package it.surveys.util;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -30,21 +29,23 @@ public class UtilDB {
 	}
 	
 	/**
-	 * Il metodo crea una connessione ad un DB 
-	 * caricando innanzitutto il Driver e poi sfruttando il metodo privato
-	 * {@link #createConnection(java.lang.String, java.lang.String, java.lang.String)}
-     * L'esistenza di questo metodo permette di cambiare il database a cui si accede in modo semplice
-     * sfruttando la classe Config per leggere da file le credenziali.
+	 * Il metodo crea una connessione ad un DB: 
+	 * caricando innanzitutto il Driver, caricando poi la classe Config per eseguire
+	 * (solo la prima volta) il suo blocco statico e leggere da file i dati di configurazione,
+	 * mettendoli in un oggetto Properties, ed infine chiamando il metodo privato
+	 * {@link #createConnection(java.lang.String, java.lang.String, java.lang.String)}, al quale
+	 * verranno passati tutti i dati di configurazione prelevati dall'insieme di proprietà.
 	 * @return conn Connection to DB
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
-	 * @throws IOException
      * @see com.mysql.jdbc.Driver
+     * @see Config
 	 */
-    public Connection createConnection() throws ClassNotFoundException, SQLException, IOException {
+    public Connection createConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Config.load();
         Connection conn = null;
+        //carico la classe Config per l'esecuzione del blocco statico
+        Class.forName("it.surveys.util.Config");
         conn = createConnection(Config.getProperty("url") + Config.getProperty("database"), 
         						Config.getProperty("username"), 
         						Config.getProperty("password"));

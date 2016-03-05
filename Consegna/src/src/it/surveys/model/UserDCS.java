@@ -1,9 +1,7 @@
 package it.surveys.model;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
-
 import it.surveys.util.UtilDB;
 
 /**
@@ -50,11 +48,7 @@ public class UserDCS {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return -1;
-		} catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return -1;
-        } finally {
+		} finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -105,11 +99,7 @@ public class UserDCS {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-		} catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+		} finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -161,11 +151,7 @@ public class UserDCS {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-		} catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+		} finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -209,11 +195,7 @@ public class UserDCS {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-	    } catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+	    } finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -260,11 +242,7 @@ public class UserDCS {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-	    } catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+	    } finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -310,11 +288,7 @@ public class UserDCS {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return null;
-	    } catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return null;
-        } finally {
+	    } finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);

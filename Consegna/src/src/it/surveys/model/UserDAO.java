@@ -1,8 +1,6 @@
 package it.surveys.model;
 
-import java.io.IOException;
 import java.sql.*;
-
 import it.surveys.domain.User;
 import it.surveys.util.UtilDB;
 
@@ -50,11 +48,7 @@ public class UserDAO {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-	    } catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+	    } finally {
              try {
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -105,11 +99,7 @@ public class UserDAO {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-	    } catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+	    } finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -155,11 +145,7 @@ public class UserDAO {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-	    } catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+	    } finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);
@@ -204,11 +190,7 @@ public class UserDAO {
 		    System.err.println("Driver Not Found!");
 		    e.printStackTrace();
 		    return "fail";
-	    } catch(IOException e){
-             System.err.println("Reading Configuration File Error!");
-             e.printStackTrace();
-             return "fail";
-        } finally {
+	    } finally {
             try{
 	            if(stmt!=null)
 	                utl.closeStatement(stmt);

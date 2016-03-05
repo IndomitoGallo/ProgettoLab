@@ -78,7 +78,7 @@ public class UserManager {
 	 * all'oggetto User u, la seconda contenente tutte le categorie esistenti.  
 	 * Se non è stato possibile reperire i dati dell'utente o creare le due HashMap il metodo restituisce null.
 	 * @param u User
-	 * @return ArrayList<HashMap<String, String>> collezione di HashMap in cui il campo key rappresenta l'id della 
+	 * @return ArrayList collezione di HashMap in cui il campo key rappresenta l'id della 
 	 * categoria e il campo value rappresenta il nome della categoria
 	 * @author Luca Talocci
 	 */
