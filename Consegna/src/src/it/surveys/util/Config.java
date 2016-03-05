@@ -35,7 +35,7 @@ public class Config {
  	 * @throws IOException
 	 */
 	@SuppressWarnings("resource")
-	public static void load(String filename) throws IOException, ClassNotFoundException{
+	public static void load() throws IOException, ClassNotFoundException{
 		
 		BufferedReader r = null;
 		boolean comment=false;
