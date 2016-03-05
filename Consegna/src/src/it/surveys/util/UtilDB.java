@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * La classe UtilDB ï¿½ un'utility di accesso al DataBase implementata come una factory con il pattern
+ * La classe UtilDB è un'utility di accesso al DataBase implementata come una factory con il pattern
  * singleton. Questa utility viene istanziata ed utilizzata dal model.
  * Nell'architettura dell'applicazione si pone tra il model e il JDBC.
  * @author Luca Talocci, Lorenzo Bernabei, Luca Camerlengo, Davide Vitiello
@@ -43,14 +43,13 @@ public class UtilDB {
 	 */
     public Connection createConnection() throws ClassNotFoundException, SQLException, IOException {
         Class.forName("com.mysql.jdbc.Driver");
-        Config.load();
+        Config.load("C:/db.conf");
         Connection conn = null;
         conn = createConnection(Config.getProperty("url") + Config.getProperty("database"), 
         						Config.getProperty("username"), 
         						Config.getProperty("password"));
         return conn;
     }
-    
 
 	/**
 	 * Il metodo crea una connessione con il DataBase
