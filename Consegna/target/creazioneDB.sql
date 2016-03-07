@@ -61,5 +61,3 @@ CREATE TABLE answer (
 		ON DELETE CASCADE
     	ON UPDATE CASCADE
 ) Engine=InnoDB;
-
-INSERT INTO user VALUES(NULL, 'admin', 'Marco', 'Bernacchi', 'admin', 'ingsoftwarelab@gmail.com');

@@ -1,66 +1,27 @@
-REPLACE INTO `surveys`.`user`
-VALUES
-(1,
-'admin',
-'Marco',
-'Bernacchi',
-'admin',
-'ingsoftwarelab@gmail.com'),
-(2,
-'IndomitoGallo',
-'Luca',
-'Talocci',
-'labjava',
-'lucatalocci@gmail.com');
+/*User*/
+INSERT INTO user VALUES(NULL, 'admin', 'Marco', 'Bernacchi', 'admin', 'ingsoftwarelab@gmail.com');
 
-REPLACE INTO `surveys`.`category`
-(`id`,
-`name`)
-VALUES
-(1,'Informatica'),
-(2,'Elettronica'),
-(3,'Giardinaggio');
+INSERT INTO user VALUES(NULL, 'IndomitoGallo', 'Luca', 'Talocci', 'labjava', 'lucatalocci@gmail.com');
+/*Category*/
+INSERT INTO category VALUES(NULL, 'Informatica');
 
-REPLACE INTO `surveys`.`categoriesuser`
-(`idUser`,
-`idCategory`)
-VALUES
-(2,1),
-(2,2);
+INSERT INTO category VALUES(NULL, 'Elettronica');
 
+INSERT INTO category VALUES(NULL, 'Giardinaggio');
+/*Survey*/
+INSERT INTO survey VALUES(NULL, 'Qual é la marca di Computer che preferisci?', 'Apple', 'Lenovo', 'Asus', 'Msi');
 
-REPLACE INTO `surveys`.`survey`
-(`id`,
-`question`,
-`answer1`,
-`answer2`,
-`answer3`,
-`answer4`)
-VALUES 
-(1, 
-'Qual é la marca di Computer che preferisci?',
-'Apple',
-'Lenovo',
-'Asus',
-'Msi'),
-(2,
-'Secondo te sarebbe utile avere uno smartwatch?',
-'Si',
-'No',
-NULL,
-NULL),
-(3,
-'Quale tipo di tagliaerba preferisci?',
-'Elettrico',
-'A Benzina',
-'A Gas',
-NULL);
+INSERT INTO survey VALUES(NULL, 'Secondo te sarebbe utile avere uno smartwatch?', 'Si', 'No', NULL, NULL);
 
-REPLACE INTO `surveys`.`categoriessurvey`
-(`idSurvey`,
-`idCategory`)
-VALUES
-(1,1),
-(2,2),
-(3,3);
+INSERT INTO survey VALUES(NULL, 'Quale tipo di tagliaerba preferisci?', 'Elettrico', 'A Benzina', 'A Gas', NULL);
+/*CategoriesUser*/
+INSERT INTO categoriesUser(2, 1);
+
+INSERT INTO categoriesUser(2, 2);
+/*CategoriesSurvey*/
+INSERT INTO categoriesSurvey(1, 1);
+
+INSERT INTO categoriesSurvey(2, 2);
+
+INSERT INTO categoriesSurvey(3, 3);
 
