@@ -6,9 +6,9 @@ Prova Funzionamento:
 
 (2) CATEGORIES:
 	
-		- Informatica
-		- Elettronica
-		- Giardinaggio
+		- Informatica ID:1
+		- Elettronica ID:2
+		- Giardinaggio ID:3
 
 (3) USERS:
 
@@ -16,9 +16,9 @@ Prova Funzionamento:
 
 (4) SURVEYS: 
 
-		- Qual e' la marca di computer che preferisci? Apple/Lenovo/Asus/Msi -- Informatica
-		- Secondo te sarebbe utile avere uno smartwatch? Si/No -- Elettronica
-		- Quale tipo di tagliaerba preferisci? Elettrico/A benzina/A gas -- Giardinaggio
+		- ID: 1 Qual e' la marca di computer che preferisci? Apple/Lenovo/Asus/Msi -- Informatica
+		- ID: 2 Secondo te sarebbe utile avere uno smartwatch? Si/No -- Elettronica
+		- ID: 3 Quale tipo di tagliaerba preferisci? Elettrico/A benzina/A gas -- Giardinaggio
 
 (5) ERRORI:
 
