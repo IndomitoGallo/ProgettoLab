@@ -49,7 +49,7 @@ public class UserAction extends ActionSupport{
 	public String register() {
 		if(validateRegister() == false) {
 			setMessage("Non sono stati inseriti tutti i campi.<br>" + 
-						"Oppure non e' stata selezionata alcuna categoria.");
+					   "Oppure non e' stata selezionata alcuna categoria.");
 			return "fail";
 		}
 		else {
@@ -155,7 +155,8 @@ public class UserAction extends ActionSupport{
 	 */
 	public String updateProfile() {
 		if(validateUpdateProfile() == false) {
-			setMessage("Non sono stati inseriti correttamente tutti i campi obbligatori!");
+			setMessage("Non sono stati inseriti tutti i campi.<br>" + 
+					   "Oppure non e' stata selezionata alcuna categoria.");
 			return "fail";
 		}
 		else {

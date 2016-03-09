@@ -15,6 +15,7 @@
 	<p>Qui di seguito puoi vedere i tuoi dati personali e puoi modificarli.</p>
 	
 	<div id="message"><s:property escapeHtml="false" value="message"/></div>
+	<br>
 	
 	<s:form id="profile_form" name="updateProfile" action="updateProfile" method="POST">
 		<s:textfield class="form-control" type="text" id="name" name="name" label="Nome" placeholder="nome" size="30" value="%{name}"/>
